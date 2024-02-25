@@ -1,3 +1,10 @@
+/*
+Class Description: This class is used to setup our board for testing. 
+Authors: Tanner Bearden and Brayden Clark
+Date: 2/24/2024
+Collaborators: n/a
+Sources: n/a
+ */
 package experiment;
 
 import java.util.Set;

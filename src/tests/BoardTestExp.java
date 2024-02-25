@@ -1,3 +1,12 @@
+/*
+Class Description: This class is used to test the functionality of the TestBoard class. 
+It tests the adjacency of cells, the targets of cells, and the targets of cells with different conditions.
+Authors: Tanner Bearden and Brayden Clark
+Date: 2/24/2024
+Collaborators: n/a
+Sources: n/a
+ */
+
 package tests;
 
 import experiment.TestBoard;

@@ -1,3 +1,11 @@
+/*
+Class Description: This class is used to setup and test board cells
+Authors: Tanner Bearden and Brayden Clark
+Date: 2/24/2024
+Collaborators: n/a
+Sources: n/a
+ */
+
 package experiment;
 
 import java.util.Set;
