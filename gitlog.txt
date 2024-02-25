@@ -1,0 +1,59 @@
+* commit 33ab5a02e4b09778f08ca287677c27494d5a6dde
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Sun Feb 25 16:35:57 2024 -0700
+| 
+|     Finished up tests and added method header
+| 
+* commit a9b6614ac8ff37d00f64f7043eda8ab5277d284b
+| Author: Brad Clark <Bjclark@mines.edu>
+| Date:   Sun Feb 25 16:00:38 2024 -0700
+| 
+|     Created adjacency tests and two target tests
+| 
+* commit 21678cd47674146ab3325ed64ac44cfcd25d3122
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Sun Feb 25 15:53:21 2024 -0700
+| 
+|     Updated TestBoard and TestBoardCell. -Brayden his git was acting funky
+| 
+* commit f416feec9ec3192cefe231853f7c49af30b2b812
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Thu Feb 22 18:34:25 2024 -0700
+| 
+|     Small changes for C13A
+| 
+* commit 033984c0f42654ed608006bd34c2eca738532f00
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Thu Feb 22 17:17:37 2024 -0700
+| 
+|     Setup TestBoard and TestBoardCell classes C13A
+| 
+* commit 5d2665f4285a3e4a42d90b01e4f4c50cfce7fa5b
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Thu Feb 22 16:43:49 2024 -0700
+| 
+|     Removed test.txt for testing
+| 
+* commit 811fddc22b6ba66cb7bf494c765e7cb31fd933c4
+| Author: Brad Clark <Bjclark@mines.edu>
+| Date:   Thu Feb 22 16:44:02 2024 -0700
+| 
+|     Test
+| 
+* commit 76c20b8418d567429ec7b1a0c43972b0058cd42f
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Thu Feb 22 16:36:02 2024 -0700
+| 
+|     Added ClueLayout files. '.xlsx' and '.csv' files
+| 
+* commit f36a11a89e117a0952b2ad23c90625bf0bbd27fd
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Wed Feb 21 14:57:39 2024 -0700
+| 
+|     Created some files for C13A-2 Assignment
+| 
+* commit ec52e670ad5d4032182138ce22667396ca3a6c6f
+  Author: Tanner Bearden <tannerbeardens@gmail.com>
+  Date:   Tue Feb 20 23:34:20 2024 -0700
+  
+      Initial Commit
