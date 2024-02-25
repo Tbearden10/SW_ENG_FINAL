@@ -25,7 +25,7 @@ public class TestBoardCell {
         return adjList;
     }
 
-    public void setOccipied(boolean isOccupied) {
+    public void setIsOccupied(boolean isOccupied) {
         // nothin
     }
 
