@@ -2,11 +2,12 @@ package experiment;
 
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.HashSet;
 public class TestBoardCell {
 
     private int row;
     private int col;
-    private Set<TestBoardCell> adjList;
+    private Set<TestBoardCell> adjList = new HashSet<TestBoardCell>();
     private boolean isRoom;
     private boolean isOccupied;
 
@@ -14,12 +15,22 @@ public class TestBoardCell {
     public TestBoardCell(int row, int col) {
         this.row = row;
         this.col = col;
-        adjList = new TreeSet<TestBoardCell>();
     }
 
+    public void addAdj(TestBoardCell cell) {
+        adjList.add(cell);
+    }
 
     public Set<TestBoardCell> getAdjList() {
-        return null;
+        return adjList;
+    }
+
+    public void setOccipied(boolean isOccupied) {
+        // nothin
+    }
+
+    public void setIsRoom(boolean isRoom) {
+        // nothin
     }
 
     
