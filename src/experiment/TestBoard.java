@@ -56,25 +56,35 @@ public class TestBoard {
         visited = new HashSet<TestBoardCell>();
         targets = new HashSet<TestBoardCell>();
         visited.add(startCell);
-        findTargets(visited, pathLength);
+        findTargets(startCell, pathLength);
+        for(TestBoardCell cells: targets) {
+        	System.out.println(cells);
+        }
     }
 
     /*
      * private helper function to find the targets
      */
-    private void findTargets(Set<TestBoardCell> visited, int pathLength) {
-        for (TestBoardCell cell : visited) {
-            for (TestBoardCell adjCell : cell.getAdjList()) {
-                if (!visited.contains(adjCell)) {
-                    visited.add(adjCell);
-                    if (adjCell.getIsRoom()) {
-                        targets.add(adjCell);
-                    } else {
-                        findTargets(visited, pathLength - 1);
-                    }
-                    visited.remove(adjCell);
-                }
-            }
+    private void findTargets(TestBoardCell startCell, int pathLength) {
+        if(pathLength == 0) {
+        	targets.add(startCell);
+        }
+        else {
+        	for(TestBoardCell adjCell: startCell.getAdjList()) {
+        		if(adjCell.getIsOccupied()) {
+        			visited.add(adjCell);
+        		}
+        		if(!visited.contains(adjCell)) {
+        			visited.add(adjCell);
+        			if(adjCell.getIsRoom()) {
+        				targets.add(adjCell);
+        			}
+        			else {
+        				findTargets(adjCell, pathLength - 1);
+        			}
+        			visited.remove(adjCell);
+        		}
+        	}
         }
     }
 

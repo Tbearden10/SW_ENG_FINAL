@@ -48,6 +48,12 @@ public class TestBoardCell {
         return isRoom;
     }
 
+	@Override
+	public String toString() {
+		return "TestBoardCell [row=" + row + ", col=" + col + "]";
+	}
+    
+
     
 
 
