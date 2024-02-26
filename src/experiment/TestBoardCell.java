@@ -9,20 +9,19 @@ Sources: n/a
 package experiment;
 
 import java.util.Set;
-import java.util.TreeSet;
 import java.util.HashSet;
+
 public class TestBoardCell {
 
-    private int row;
-    private int col;
-    private Set<TestBoardCell> adjList = new HashSet<TestBoardCell>();
-    private boolean isRoom;
-    private boolean isOccupied;
+    private int row, col;
+    private boolean isRoom, isOccupied;
 
+    Set<TestBoardCell> adjList;
 
     public TestBoardCell(int row, int col) {
         this.row = row;
         this.col = col;
+        adjList = new HashSet<TestBoardCell>();
     }
 
     public void addAdj(TestBoardCell cell) {
@@ -34,11 +33,19 @@ public class TestBoardCell {
     }
 
     public void setIsOccupied(boolean isOccupied) {
-        // nothin
+        this.isOccupied = isOccupied;
     }
 
     public void setIsRoom(boolean isRoom) {
-        // nothin
+        this.isRoom = isRoom;
+    }
+
+    public boolean getIsOccupied() {
+        return isOccupied;
+    }
+
+    public boolean getIsRoom() {
+        return isRoom;
     }
 
     

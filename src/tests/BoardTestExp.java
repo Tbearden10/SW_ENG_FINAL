@@ -36,6 +36,9 @@ public class BoardTestExp {
    public void testAdjacencyTopLeft() {
       TestBoardCell cell = this.board.getCell(0, 0);
       Set<TestBoardCell> testList = cell.getAdjList();
+      
+      System.out.println(testList);
+      
       Assert.assertTrue(testList.contains(this.board.getCell(1, 0)));
       Assert.assertTrue(testList.contains(this.board.getCell(0, 1)));
       Assert.assertEquals(2L, (long)testList.size());
