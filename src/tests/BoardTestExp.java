@@ -19,8 +19,10 @@ import org.junit.jupiter.api.Test;
 public class BoardTestExp {
    TestBoard board;
 
-   public BoardTestExp() {
-   }
+   /**
+    * Constructor for BoardTestExp
+    */
+   public BoardTestExp() {}
 
    @BeforeEach
    public void setUp() {
@@ -29,7 +31,7 @@ public class BoardTestExp {
 
   
 
-   /*
+   /**
     * Tests adjacency for top left
     */
    @Test

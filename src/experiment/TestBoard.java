@@ -21,9 +21,13 @@ public class TestBoard {
     final static int COLS = 4;
     final static int ROWS = 4;
 
+    /**
+     * Constructor for TestBoard
+     */
     public TestBoard() {
         board = new TestBoardCell[ROWS][COLS];
 
+        // loop through the board and create new cells
         for (int i = 0; i < ROWS; i++) {
             for (int j = 0; j < COLS; j++) {
             	board[i][j] = new TestBoardCell(i, j);   
@@ -49,21 +53,22 @@ public class TestBoard {
         }
     }
 
-    /*
-     * public function to calculate the targets
+    /**
+     * Calculates the targets based on the start cell and path length
+     * @param startCell
+     * @param pathLength
      */
     public void calcTargets(TestBoardCell startCell, int pathLength) {
         visited = new HashSet<TestBoardCell>();
         targets = new HashSet<TestBoardCell>();
         visited.add(startCell);
         findTargets(startCell, pathLength);
-        for(TestBoardCell cells: targets) {
-        	System.out.println(cells);
-        }
     }
 
-    /*
-     * private helper function to find the targets
+    /**
+     * Recursive helper function to find the targets
+     * @param startCell
+     * @param pathLength
      */
     private void findTargets(TestBoardCell startCell, int pathLength) {
         if(pathLength == 0) {
@@ -88,15 +93,19 @@ public class TestBoard {
         }
     }
 
-    /*
-     * returns cell at [row][col]
+    /**
+     * Returns the cell at the given row and column
+     * @param row
+     * @param col
+     * @return
      */
     public TestBoardCell getCell(int row, int col) {
         return board[row][col];
     }
 
-    /*
-     * returns the targets
+    /**
+     * Returns the targets list
+     * @return
      */
     public Set<TestBoardCell> getTargets() {
         return targets;
