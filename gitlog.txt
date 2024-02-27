@@ -1,3 +1,33 @@
+* commit d35a656e16f4adc42faaf3648085bfe367ab174e
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Tue Feb 27 15:38:35 2024 -0700
+| 
+|     Added function comments/headers
+| 
+* commit 0f32ad90f7c80c78156fbf63aff35cf069ebd080
+| Author: Brad Clark <Bjclark@mines.edu>
+| Date:   Sun Feb 25 18:36:19 2024 -0700
+| 
+|     Created findTargets method so that tests pass
+| 
+* commit a0172d08fe4f0088ec8a1e07981e63733be8ccfc
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Sun Feb 25 17:52:13 2024 -0700
+| 
+|     Added code to pass adjacency tests. Tanner and Brayden
+| 
+* commit 9657a6e3cc0f8406672d92c36f2f8b0aea51d0d3
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Sun Feb 25 16:42:47 2024 -0700
+| 
+|     Added header comments
+| 
+* commit 1659bf7d003503321ff0cb84c375525a467dd157
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Sun Feb 25 16:39:36 2024 -0700
+| 
+|     Sent gitlog to gitlog.txt
+| 
 * commit 33ab5a02e4b09778f08ca287677c27494d5a6dde
 | Author: Tanner Bearden <tannerbeardens@gmail.com>
 | Date:   Sun Feb 25 16:35:57 2024 -0700
