@@ -1,3 +1,10 @@
+/*
+Class Description: Board class to handle the game board and its properties 
+Authors: Tanner Bearden and Brayden Clark
+Date: 2/27/2024
+Collaborators: n/a
+Sources: n/a
+ */
 package clueGame;
 
 import java.util.Map;

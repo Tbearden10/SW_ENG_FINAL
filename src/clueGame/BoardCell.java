@@ -1,3 +1,10 @@
+/*
+Class Description: This class is used to handle the board cells and their properties
+Authors: Tanner Bearden and Brayden Clark
+Date: 2/27/2024
+Collaborators: n/a
+Sources: n/a
+ */
 package clueGame;
 
 import java.util.Set;
@@ -21,20 +28,37 @@ public class BoardCell {
 
     private Set<BoardCell> adjList;
 
+    /**
+     * 
+     * @param row
+     * @param col
+     */
     public BoardCell(int row, int col) {
         this.row = row;
         this.col = col;
         adjList = new HashSet<BoardCell>();
     }
 
+    /**
+     * Adds a cell to the adjacency list
+     * @param cell
+     */
     public void addAdj(BoardCell cell) {
         adjList.add(cell);
     }
 
+    /**
+     * Returns whether or not the cell is a doorway
+     * @return
+     */
     public boolean isDoorway() {
         return false;
     }
 
+    /**
+     * Returns whether or not the cell is a walkway
+     * @return
+     */
     public boolean isWalkway() {
         return false;
     }
@@ -43,14 +67,26 @@ public class BoardCell {
         return doorDirection;
     }
 
+    /**
+     * Returns whether or not the cell is a room label
+     * @return
+     */
     public boolean isLabel() {
         return roomLabel;
     }
 
+    /**
+     * Returns whether or not the cell is a room center
+     * @return
+     */
     public boolean isRoomCenter() {
         return roomCenter;
     }
 
+    /**
+     * Returns the secret passage character
+     * @return
+     */
     public char getSecretPassage() {
         return secretPassage;
     }
