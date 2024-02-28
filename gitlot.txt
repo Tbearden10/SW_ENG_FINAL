@@ -1,0 +1,132 @@
+*   commit 81dcbd0037ab8f3efae645097bc12f9e5c85f515
+|\  Merge: ebc0fef e156eb0
+| | Author: Brad Clark <Bjclark@mines.edu>
+| | Date:   Tue Feb 27 17:57:40 2024 -0700
+| | 
+| |     Merge branch 'main' of https://github.com/Tbearden10/ClueGameSW
+| | 
+| * commit e156eb05c9e14c4c4aa377094b411b0c1c6d2ecb
+| | Author: Tanner Bearden <tannerbeardens@gmail.com>
+| | Date:   Tue Feb 27 17:54:33 2024 -0700
+| | 
+| |     Tossed in some comments
+| | 
+* | commit ebc0fefc6cd33935759c102e3709a6457b136d39
+|/  Author: Brad Clark <Bjclark@mines.edu>
+|   Date:   Tue Feb 27 17:57:17 2024 -0700
+|   
+|       Added comments to exception class and board class
+| 
+* commit c3d6c5f8082f87e035c9f9ddfe0192bff469551e
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Tue Feb 27 17:45:47 2024 -0700
+| 
+|     Wrote all of the tests -Tanner and Brayden
+| 
+* commit 408122b71c3da26d0978f114890b5e7d04359b8b
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Tue Feb 27 17:01:20 2024 -0700
+| 
+|     Added function stubs and began writing our FileInitTests -Tanner and Brayden
+| 
+* commit 42921af6829e22dfcbe7d51916dc121814ba3b24
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Tue Feb 27 16:00:55 2024 -0700
+| 
+|     Added new files to setup C14A-2
+| 
+* commit 9cb1c7842bf52cad9135061430baed4b310ce30f
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Tue Feb 27 15:44:38 2024 -0700
+| 
+|     Removed readme.txt and updated gitlog.txt
+| 
+* commit d35a656e16f4adc42faaf3648085bfe367ab174e
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Tue Feb 27 15:38:35 2024 -0700
+| 
+|     Added function comments/headers
+| 
+* commit 0f32ad90f7c80c78156fbf63aff35cf069ebd080
+| Author: Brad Clark <Bjclark@mines.edu>
+| Date:   Sun Feb 25 18:36:19 2024 -0700
+| 
+|     Created findTargets method so that tests pass
+| 
+* commit a0172d08fe4f0088ec8a1e07981e63733be8ccfc
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Sun Feb 25 17:52:13 2024 -0700
+| 
+|     Added code to pass adjacency tests. Tanner and Brayden
+| 
+* commit 9657a6e3cc0f8406672d92c36f2f8b0aea51d0d3
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Sun Feb 25 16:42:47 2024 -0700
+| 
+|     Added header comments
+| 
+* commit 1659bf7d003503321ff0cb84c375525a467dd157
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Sun Feb 25 16:39:36 2024 -0700
+| 
+|     Sent gitlog to gitlog.txt
+| 
+* commit 33ab5a02e4b09778f08ca287677c27494d5a6dde
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Sun Feb 25 16:35:57 2024 -0700
+| 
+|     Finished up tests and added method header
+| 
+* commit a9b6614ac8ff37d00f64f7043eda8ab5277d284b
+| Author: Brad Clark <Bjclark@mines.edu>
+| Date:   Sun Feb 25 16:00:38 2024 -0700
+| 
+|     Created adjacency tests and two target tests
+| 
+* commit 21678cd47674146ab3325ed64ac44cfcd25d3122
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Sun Feb 25 15:53:21 2024 -0700
+| 
+|     Updated TestBoard and TestBoardCell. -Brayden his git was acting funky
+| 
+* commit f416feec9ec3192cefe231853f7c49af30b2b812
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Thu Feb 22 18:34:25 2024 -0700
+| 
+|     Small changes for C13A
+| 
+* commit 033984c0f42654ed608006bd34c2eca738532f00
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Thu Feb 22 17:17:37 2024 -0700
+| 
+|     Setup TestBoard and TestBoardCell classes C13A
+| 
+* commit 5d2665f4285a3e4a42d90b01e4f4c50cfce7fa5b
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Thu Feb 22 16:43:49 2024 -0700
+| 
+|     Removed test.txt for testing
+| 
+* commit 811fddc22b6ba66cb7bf494c765e7cb31fd933c4
+| Author: Brad Clark <Bjclark@mines.edu>
+| Date:   Thu Feb 22 16:44:02 2024 -0700
+| 
+|     Test
+| 
+* commit 76c20b8418d567429ec7b1a0c43972b0058cd42f
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Thu Feb 22 16:36:02 2024 -0700
+| 
+|     Added ClueLayout files. '.xlsx' and '.csv' files
+| 
+* commit f36a11a89e117a0952b2ad23c90625bf0bbd27fd
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Wed Feb 21 14:57:39 2024 -0700
+| 
+|     Created some files for C13A-2 Assignment
+| 
+* commit ec52e670ad5d4032182138ce22667396ca3a6c6f
+  Author: Tanner Bearden <tannerbeardens@gmail.com>
+  Date:   Tue Feb 20 23:34:20 2024 -0700
+  
+      Initial Commit
