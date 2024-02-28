@@ -1,3 +1,10 @@
+/*
+Class Description: This class is used for exception testing 
+Authors: Tanner Bearden and Brayden Clark
+Date: 2/27/2024
+Collaborators: n/a
+Sources: n/a
+ */
 package tests;
 
 /*

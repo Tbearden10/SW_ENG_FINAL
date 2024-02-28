@@ -1,3 +1,10 @@
+/*
+Class Description: This class is used to test our board cells to ensure they are handled properly 
+Authors: Tanner Bearden and Brayden Clark
+Date: 2/27/2024
+Collaborators: n/a
+Sources: n/a
+ */
 package tests;
 
 import static org.junit.Assert.*;
@@ -19,6 +26,9 @@ public class FileInitTests {
 
     private static Board board;
 
+    /**
+     * Set up the board
+     */
     @BeforeAll
     public static void setUp() {
         board = Board.getInstance();
@@ -26,6 +36,9 @@ public class FileInitTests {
         board.initialize();
     }
 
+    /**
+     * Test each room labels
+     */
     @Test
     public void testRoomLabels() {
         assertEquals("Kitchen", board.getRoom('K').getName());
@@ -39,12 +52,18 @@ public class FileInitTests {
         assertEquals("Shed", board.getRoom('S').getName());
     }
 
+    /**
+     * Test the number of rows and columns
+     */
     @Test
     public void testBoardDimensions() {
         assertEquals(NUM_ROWS, board.getNumRows());
         assertEquals(NUM_COLUMNS, board.getNumColumns());
     }
 
+    /**
+     * Tests each doorway direction to ensure it is handled properly
+     */
     @Test
     public void FourDoorDirections() {
         // Test a doorway for each direction (RIGHT/LEFT/UP/DOWN)
@@ -83,6 +102,9 @@ public class FileInitTests {
 
     }
 
+    /**
+     * Test the number of doorways
+     */
     @Test
     public void testNumberOfDoorways() {
         int numDoors = 0;
@@ -97,6 +119,9 @@ public class FileInitTests {
         assertEquals(NUM_DOORS, numDoors);
     }
 
+    /**
+     * Test different cells for room locations and other special cells
+     */
     @Test
     public void testRooms() {
         // Room location tests
