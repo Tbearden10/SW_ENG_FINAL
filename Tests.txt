@@ -1,0 +1,12 @@
+We first tested cell (14,5) as it had a direction of 'DOWN'.
+We repeated this process for cells (4,15), (6,3), and (15,19) for our other directions. 
+These cells were chosen at random to spread the cell choices around the board.
+
+We then tested cell (3,10) (which was a room) as it was not a doorway such its direction would be 'NONE'
+
+We then tested cell (17,16) (which was a walkway) as it was not a doorway such its direction would be 'NONE'
+
+Following these tests, we chose a group of cells in which we tested a standard room location,
+room labal location, room center location, secrete passage, walkway, and an unused space.
+
+All together, these test cases allowed us to ensure any type of space/cell in our board is correctly handled.
