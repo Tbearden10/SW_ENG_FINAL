@@ -23,6 +23,10 @@ public class BoardCell {
     private boolean roomLabel;
 
     private boolean roomCenter;
+    
+    private boolean isWalkway;
+    
+    private boolean isDoorway;
 
     private char secretPassage;
 
@@ -47,12 +51,20 @@ public class BoardCell {
         adjList.add(cell);
     }
 
+    public void setIsDoorway(boolean doorway) {
+        this.isDoorway = doorway;
+    }
+    
     /**
      * Returns whether or not the cell is a doorway
      * @return
      */
     public boolean isDoorway() {
-        return false;
+        return isDoorway;
+    }
+
+    public void setIsWalkway(boolean walkway) {
+        this.isWalkway = walkway;
     }
 
     /**
@@ -60,11 +72,20 @@ public class BoardCell {
      * @return
      */
     public boolean isWalkway() {
-        return false;
+        return isWalkway;
+    }
+
+    public void setDoorDirection(DoorDirection doorDirection) {
+        this.doorDirection = doorDirection;
     }
 
     public DoorDirection getDoorDirection() {
         return doorDirection;
+    }
+
+
+    public void setIsLabel(boolean roomLabel) {
+        this.roomLabel = roomLabel;
     }
 
     /**
@@ -75,12 +96,21 @@ public class BoardCell {
         return roomLabel;
     }
 
+    public void setRoomCenter(boolean roomCenter) {
+        this.roomCenter = roomCenter;
+    }
+
     /**
      * Returns whether or not the cell is a room center
      * @return
      */
     public boolean isRoomCenter() {
         return roomCenter;
+    }
+
+
+    public void setSecretPassage(char secretPassage) {
+        this.secretPassage = secretPassage;
     }
 
     /**

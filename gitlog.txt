@@ -1,3 +1,9 @@
+* commit b05f9c09ca69abe00e657cdbef07eec480b22f9c
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Tue Feb 27 17:59:45 2024 -0700
+| 
+|     removed gitlot
+| 
 * commit ef0970d4c68a8f4bd83dd3698022c7e5b562f537
 | Author: Tanner Bearden <tannerbeardens@gmail.com>
 | Date:   Tue Feb 27 17:59:22 2024 -0700

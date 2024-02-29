@@ -48,6 +48,7 @@ public class Board {
     public void initialize() {
         
     }
+    
     /**
      * Return the cell given column and row
      * @param row
@@ -57,6 +58,7 @@ public class Board {
     public BoardCell getCell(int row, int col) {
         return new BoardCell(row, col);
     }
+
     /**
      * Return the room give symbol
      * @param c
@@ -65,6 +67,7 @@ public class Board {
     public Room getRoom(char c) {
         return new Room("");
     }
+
     /**
      * return room given the cell
      * @param cell
@@ -73,6 +76,7 @@ public class Board {
     public Room getRoom(BoardCell cell) {
         return new Room("");
     }
+
     /**
      * Read the setup file
      */
