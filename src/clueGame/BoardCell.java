@@ -79,6 +79,10 @@ public class BoardCell {
         this.doorDirection = doorDirection;
     }
 
+    public void setIsWalkway(boolean walkway) {
+        this.isWalkway = walkway;
+    }
+
     public DoorDirection getDoorDirection() {
         return doorDirection;
     }
