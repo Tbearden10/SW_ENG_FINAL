@@ -18,7 +18,7 @@ public class BoardCell {
 
     private char initial;
 
-    private DoorDirection doorDirection;
+    private DoorDirection doorDirection = DoorDirection.NONE;
 
     private boolean roomLabel;
 
@@ -26,7 +26,7 @@ public class BoardCell {
     
     private boolean isWalkway;
     
-    private boolean isDoorway;
+    private boolean isDoorway = false;
 
     private char secretPassage;
 

@@ -58,8 +58,8 @@ public class Board {
         numColumns = 0;
         
         try {
-            loadLayoutConfig();
             loadSetupConfig();
+            loadLayoutConfig();
         } catch (FileNotFoundException | BadConfigFormatException e) {
             e.printStackTrace();
         }
@@ -148,16 +148,9 @@ public class Board {
                      switch(line[j].charAt(0)) {
                          case 'W': {
                              grid[i][j].setIsWalkway(true);
-                             grid[i][j].setIsDoorway(false);
-                             grid[i][j].setRoomLabel(false);
-                             grid[i][j].setRoomCenter(false);
                              break;
                          }
                          default: {
-                             grid[i][j].setIsWalkway(false);
-                             grid[i][j].setIsDoorway(false);
-                             grid[i][j].setRoomLabel(false);
-                             grid[i][j].setRoomCenter(false);
                              break;
                          }
                      }
@@ -166,47 +159,37 @@ public class Board {
                      switch (line[j].charAt(1)) {
                          case '#': {
                              grid[i][j].setRoomLabel(true);
-                             grid[i][j].setRoomCenter(false);
-                             grid[i][j].setIsWalkway(false);
-                             grid[i][j].setIsDoorway(false);
+                             roomMap.get(line[j].charAt(0)).setLabelCell(grid[i][j]);
+                             break;
                          }
                          case '*': {
                              grid[i][j].setRoomCenter(true);
-                             grid[i][j].setRoomLabel(false);
-                             grid[i][j].setIsWalkway(false);
-                             grid[i][j].setIsDoorway(false);
+                             roomMap.get(line[j].charAt(0)).setCenterCell(grid[i][j]);
+                             break;
                          }
-                         case '^':
+                         case '^':{
                              grid[i][j].setIsDoorway(true);
-                             grid[i][j].setIsWalkway(false);
-                             grid[i][j].setRoomLabel(false);
-                             grid[i][j].setRoomCenter(false);
                              grid[i][j].setDoorDirection(DoorDirection.UP);
-                         case 'v':
+                             break;
+                         }
+                         case 'v':{
                              grid[i][j].setIsDoorway(true);
-                             grid[i][j].setIsWalkway(false);
-                             grid[i][j].setRoomLabel(false);
-                             grid[i][j].setRoomCenter(false);
                              grid[i][j].setDoorDirection(DoorDirection.DOWN);
-                         case '<':
+                             break;
+                         }
+                         case '<':{
                              grid[i][j].setIsDoorway(true);
-                             grid[i][j].setIsWalkway(false);
-                             grid[i][j].setRoomLabel(false);
-                             grid[i][j].setRoomCenter(false);
                              grid[i][j].setDoorDirection(DoorDirection.LEFT);
+                             break;
+                         }
                          case '>': {
                              grid[i][j].setIsDoorway(true);
-                             grid[i][j].setIsWalkway(false);
-                             grid[i][j].setRoomLabel(false);
-                             grid[i][j].setRoomCenter(false);
                              grid[i][j].setDoorDirection(DoorDirection.RIGHT);
+                             break;
                          }
                          default:
-                             grid[i][j].setIsWalkway(false);
-                             grid[i][j].setIsDoorway(false);
-                             grid[i][j].setRoomLabel(false);
-                             grid[i][j].setRoomCenter(false);
                              grid[i][j].setSecretPassage(line[j].charAt(1));
+                             break;
                      }
                  }
              }
@@ -231,7 +214,7 @@ public class Board {
      * @return
      */
     public Room getRoom(char c) {
-        return new Room("");
+        return roomMap.get(c);
     }
 
     /**
@@ -240,7 +223,8 @@ public class Board {
      * @return
      */
     public Room getRoom(BoardCell cell) {
-        return new Room("");
+    	char initial = cell.getInitial();
+    	return roomMap.get(initial);
     }
 
   
@@ -251,14 +235,14 @@ public class Board {
      * @return
      */
     public int getNumRows() {
-        return 0;
+        return numRows;
     }
     /**
      * get the number of columns in the board
      * @return
      */
     public int getNumColumns() {
-        return 0;
+        return numColumns;
     }
     /**
      * set the configuration files from given files. 
