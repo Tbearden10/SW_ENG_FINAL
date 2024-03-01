@@ -37,9 +37,10 @@ public class BoardCell {
      * @param row
      * @param col
      */
-    public BoardCell(int row, int col) {
+    public BoardCell(int row, int col, char initial) {
         this.row = row;
         this.col = col;
+        this.initial = initial;
         adjList = new HashSet<BoardCell>();
     }
 
@@ -49,6 +50,10 @@ public class BoardCell {
      */
     public void addAdj(BoardCell cell) {
         adjList.add(cell);
+    }
+
+    public char getInitial() {
+        return initial;
     }
 
     public void setIsDoorway(boolean doorway) {
@@ -79,16 +84,12 @@ public class BoardCell {
         this.doorDirection = doorDirection;
     }
 
-    public void setIsWalkway(boolean walkway) {
-        this.isWalkway = walkway;
-    }
-
     public DoorDirection getDoorDirection() {
         return doorDirection;
     }
 
 
-    public void setIsLabel(boolean roomLabel) {
+    public void setRoomLabel(boolean roomLabel) {
         this.roomLabel = roomLabel;
     }
 
