@@ -36,6 +36,7 @@ public class BoardCell {
      * 
      * @param row
      * @param col
+     * @param initial
      */
     public BoardCell(int row, int col, char initial) {
         this.row = row;
@@ -52,10 +53,19 @@ public class BoardCell {
         adjList.add(cell);
     }
 
+
+    /**
+     * Returns the cell initial
+     * @return
+     */
     public char getInitial() {
         return initial;
     }
 
+    /**
+     * Sets isDoorway member
+     * @param doorway
+     */
     public void setIsDoorway(boolean doorway) {
         this.isDoorway = doorway;
     }
@@ -68,6 +78,10 @@ public class BoardCell {
         return isDoorway;
     }
 
+    /**
+     * Sets the isWalkway member
+     * @param walkway
+     */
     public void setIsWalkway(boolean walkway) {
         this.isWalkway = walkway;
     }
@@ -80,15 +94,27 @@ public class BoardCell {
         return isWalkway;
     }
 
+    /**
+     * Sets the door direction
+     * @param doorDirection
+     */
     public void setDoorDirection(DoorDirection doorDirection) {
         this.doorDirection = doorDirection;
     }
 
+    /**
+     * Returns the door direction
+     * @return
+     */
     public DoorDirection getDoorDirection() {
         return doorDirection;
     }
 
 
+    /**
+     * Sets the isRoomLabel member
+     * @param roomLabel
+     */
     public void setRoomLabel(boolean roomLabel) {
         this.roomLabel = roomLabel;
     }
@@ -101,6 +127,10 @@ public class BoardCell {
         return roomLabel;
     }
 
+    /**
+     * Sets the isRoomCenter member
+     * @param roomCenter
+     */
     public void setRoomCenter(boolean roomCenter) {
         this.roomCenter = roomCenter;
     }
@@ -113,7 +143,10 @@ public class BoardCell {
         return roomCenter;
     }
 
-
+    /**
+     * Sets the secret passage character
+     * @param secretPassage
+     */
     public void setSecretPassage(char secretPassage) {
         this.secretPassage = secretPassage;
     }

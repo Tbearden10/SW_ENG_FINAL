@@ -106,6 +106,7 @@ public class Board {
 
          boardList = new ArrayList<String[]>();
          
+         
          Scanner fileScanner;
          fileScanner = new Scanner(new File(layoutConfigFile));
         
@@ -138,14 +139,19 @@ public class Board {
          grid = new BoardCell[numRows][numColumns];
 
          for (int i = 0; i < numRows; i++) {
-             String[] line = boardList.get(i);
-             
+            cells = boardList.get(i);
+
+            
              
              for (int j = 0; j < numColumns; j++) {
-                 grid[i][j] = new BoardCell(i, j, line[j].charAt(0));
+            	 
+            	 
+            	 char roomInitial = cells[j].charAt(0);
+                  
+                 grid[i][j] = new BoardCell(i, j, roomInitial);
 
-                 if (line[j].length() == 1) {
-                     switch(line[j].charAt(0)) {
+                 if (cells[j].length() == 1) {
+                     switch(roomInitial) {
                          case 'W': {
                              grid[i][j].setIsWalkway(true);
                              break;
@@ -155,42 +161,42 @@ public class Board {
                          }
                      }
                  } 
-                 else if (line[j].length() == 2) {
-                     switch (line[j].charAt(1)) {
-                         case '#': {
-                             grid[i][j].setRoomLabel(true);
-                             roomMap.get(line[j].charAt(0)).setLabelCell(grid[i][j]);
-                             break;
-                         }
-                         case '*': {
-                             grid[i][j].setRoomCenter(true);
-                             roomMap.get(line[j].charAt(0)).setCenterCell(grid[i][j]);
-                             break;
-                         }
-                         case '^':{
-                             grid[i][j].setIsDoorway(true);
-                             grid[i][j].setDoorDirection(DoorDirection.UP);
-                             break;
-                         }
-                         case 'v':{
-                             grid[i][j].setIsDoorway(true);
-                             grid[i][j].setDoorDirection(DoorDirection.DOWN);
-                             break;
-                         }
-                         case '<':{
-                             grid[i][j].setIsDoorway(true);
-                             grid[i][j].setDoorDirection(DoorDirection.LEFT);
-                             break;
-                         }
-                         case '>': {
-                             grid[i][j].setIsDoorway(true);
-                             grid[i][j].setDoorDirection(DoorDirection.RIGHT);
-                             break;
-                         }
-                         default:
-                             grid[i][j].setSecretPassage(line[j].charAt(1));
-                             break;
-                     }
+                 else if (cells[j].length() == 2) {
+                	 
+                	char roomSymbol = cells[j].charAt(1);
+                    
+                    switch (roomSymbol) {
+                        case '#':
+                            grid[i][j].setRoomLabel(true);
+                            roomMap.get(roomInitial).setLabelCell(grid[i][j]);
+                            break;
+                        case '*':
+                            grid[i][j].setRoomCenter(true);
+                            roomMap.get(roomInitial).setCenterCell(grid[i][j]);
+                            break;
+                        case '^':
+                        case 'v':
+                        case '<':
+                        case '>':
+                            grid[i][j].setIsDoorway(true);
+                            if (roomSymbol == '^') {
+                                grid[i][j].setDoorDirection(DoorDirection.UP);
+                            }
+                            else if (roomSymbol == 'v') {
+                                grid[i][j].setDoorDirection(DoorDirection.DOWN);
+                            }
+                            else if (roomSymbol == '<') {
+                                grid[i][j].setDoorDirection(DoorDirection.LEFT);
+                            }
+                            else if (roomSymbol == '>') {
+                                grid[i][j].setDoorDirection(DoorDirection.RIGHT);
+                            }
+                            break;
+                        default:
+                            grid[i][j].setSecretPassage(roomSymbol);
+                            break;
+                    }
+                     
                  }
              }
          }
@@ -223,8 +229,7 @@ public class Board {
      * @return
      */
     public Room getRoom(BoardCell cell) {
-    	char initial = cell.getInitial();
-    	return roomMap.get(initial);
+    	return roomMap.get(cell.getInitial());
     }
 
   

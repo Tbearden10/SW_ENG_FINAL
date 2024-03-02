@@ -40,6 +40,10 @@ public class Room {
         return centerCell;
     }
     
+    /**
+     * Set the center cell of the room
+     * @param cell
+     */
     public void setCenterCell(BoardCell cell) {
     	centerCell = cell;
     }
@@ -51,7 +55,11 @@ public class Room {
     public BoardCell getLabelCell() {
         return labelCell;
     }
-    
+
+    /**
+     * Set the label cell of the room
+     * @param cell
+     */
     public void setLabelCell(BoardCell cell) {
     	labelCell = cell;
     }
