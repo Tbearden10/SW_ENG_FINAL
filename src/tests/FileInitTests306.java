@@ -85,8 +85,9 @@ public class FileInitTests306 {
 		for (int row = 0; row < board.getNumRows(); row++)
 			for (int col = 0; col < board.getNumColumns(); col++) {
 				BoardCell cell = board.getCell(row, col);
-				if (cell.isDoorway())
+				if (cell.isDoorway()) {
 					numDoors++;
+				}
 			}
 		Assert.assertEquals(17, numDoors);
 	}
@@ -95,7 +96,7 @@ public class FileInitTests306 {
 	@Test
 	public void testRooms() {
 		// just test a standard room location
-		BoardCell cell = board.getCell(23, 23);
+		BoardCell cell = board.getCell(23,23);
 		Room room = board.getRoom( cell ) ;
 		assertTrue( room != null );
 		assertEquals( room.getName(), "Kitchen" ) ;

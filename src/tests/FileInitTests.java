@@ -22,7 +22,7 @@ public class FileInitTests {
     // Constants to test if file was loaded correctly
     public static final int NUM_DOORS = 17;
     public static final int NUM_ROWS = 26;
-    public static final int NUM_COLUMNS = 23;
+    public static final int NUM_COLUMNS = 24;
 
     private static Board board;
 
@@ -135,7 +135,7 @@ public class FileInitTests {
         assertFalse(cell.isDoorway());
 
         // 1 test for room label
-        cell = board.getCell(6, 8);
+        cell = board.getCell(4, 8);
         room = board.getRoom(cell);
         assertTrue(room != null);
         assertEquals(room.getName(), "Living Room");

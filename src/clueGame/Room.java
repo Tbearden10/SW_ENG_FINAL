@@ -17,7 +17,7 @@ public class Room {
 
 
     /**
-     * Contructor for the Room class
+     * Constructor for the Room class
      * @param name
      */
     public Room(String name) {
@@ -39,6 +39,10 @@ public class Room {
     public BoardCell getCenterCell() {
         return centerCell;
     }
+    
+    public void setCenterCell(BoardCell cell) {
+    	centerCell = cell;
+    }
 
     /**
      * Get the label cell of the room
@@ -46,6 +50,10 @@ public class Room {
      */
     public BoardCell getLabelCell() {
         return labelCell;
+    }
+    
+    public void setLabelCell(BoardCell cell) {
+    	labelCell = cell;
     }
     
 }
