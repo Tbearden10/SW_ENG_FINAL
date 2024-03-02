@@ -58,8 +58,8 @@ public class Board {
         numColumns = 0;
         
         try {
+        	loadSetupConfig();
             loadLayoutConfig();
-            loadSetupConfig();
         } catch (FileNotFoundException | BadConfigFormatException e) {
             e.printStackTrace();
         }
@@ -195,17 +195,10 @@ public class Board {
                              grid[i][j].setRoomCenter(false);
                              grid[i][j].setDoorDirection(DoorDirection.LEFT);
                          case '>': {
-                             grid[i][j].setIsDoorway(true);
-                             grid[i][j].setIsWalkway(false);
-                             grid[i][j].setRoomLabel(false);
-                             grid[i][j].setRoomCenter(false);
+                      
                              grid[i][j].setDoorDirection(DoorDirection.RIGHT);
                          }
                          default:
-                             grid[i][j].setIsWalkway(false);
-                             grid[i][j].setIsDoorway(false);
-                             grid[i][j].setRoomLabel(false);
-                             grid[i][j].setRoomCenter(false);
                              grid[i][j].setSecretPassage(line[j].charAt(1));
                      }
                  }
@@ -222,7 +215,7 @@ public class Board {
      * @return
      */
     public BoardCell getCell(int row, int col) {
-        return grid[row][col];
+    	return grid[row][col];
     }
 
     /**
