@@ -88,7 +88,7 @@ public class Board {
                     }
                     default: {
                         if (line[0].length() != 0 && line[0].charAt(0) == '/') {
-                            continue;
+                            // do nothing
                         }
                         else if (fullString.length() != 0) {
                             throw new BadConfigFormatException("Invalid Setup format");
@@ -102,104 +102,78 @@ public class Board {
 
     public void loadLayoutConfig() throws FileNotFoundException, BadConfigFormatException {
 
-         boardList = new ArrayList<String[]>();
+        boardList = new ArrayList<String[]>();
          
          
-         Scanner fileScanner;
-         fileScanner = new Scanner(new File(layoutConfigFile));
+        Scanner fileScanner;
+        fileScanner = new Scanner(new File(layoutConfigFile));
         
-         String[] cells;
-         
-         while (fileScanner.hasNextLine()) {
-             String line = fileScanner.nextLine();
-             cells = line.split(",");
+        String[] cells;
+
+
+        // handles exceptions and calculates proper rows and columns 
+        while (fileScanner.hasNextLine()) {
+            String line = fileScanner.nextLine();
+            cells = line.split(",");
              
-             if (numColumns == 0) {
-             	numColumns = cells.length;
-             }
-             if (numColumns != cells.length) {
-             	throw new BadConfigFormatException("Missing Elements in Layout Config File");
-             }
-             if (cells.length != 0) {
-             	numRows++;
-             }
-             for (int i = 0; i < cells.length; i++) {
-            	 if (!roomMap.containsKey(cells[i].charAt(0))) {
-            		 throw new BadConfigFormatException("Bad Room Detected");
-            	 }
-             }
+            if (numColumns == 0) {
+                numColumns = cells.length;
+            }
+            if (numColumns != cells.length) {
+                throw new BadConfigFormatException("Missing Elements in Layout Config File");
+            }
+            if (cells.length != 0) {
+                numRows++;
+            }
+            for (int i = 0; i < cells.length; i++) {
+            	if (!roomMap.containsKey(cells[i].charAt(0))) {
+            		throw new BadConfigFormatException("Bad Room Detected");
+            	}
+            }
              
-             boardList.add(cells);
-         }
+            boardList.add(cells);
+        }
 
          
          
-         grid = new BoardCell[numRows][numColumns];
+        grid = new BoardCell[numRows][numColumns];
 
-         for (int i = 0; i < numRows; i++) {
+        // loop to add cells to grid
+        for (int i=0; i < numRows; i++) {
             cells = boardList.get(i);
+            for (int j=0; j < numColumns; j++) {
 
-            
-             
-             for (int j = 0; j < numColumns; j++) {
-            	 
-            	 
-            	 char roomInitial = cells[j].charAt(0);
-                  
-                 grid[i][j] = new BoardCell(i, j, roomInitial);
+                if (cells[j].length() > 1) {
+                    grid[i][j] = new BoardCell(i, j, cells[j].charAt(0), cells[j].charAt(1));
+                }
+                else {
+                    grid[i][j] = new BoardCell(i, j, cells[j].charAt(0), ' ');
+                }
+            }
+        }
 
-                 if (cells[j].length() == 1) {
-                     switch(roomInitial) {
-                         case 'W': {
-                             grid[i][j].setIsWalkway(true);
-                             break;
-                         }
-                         default: {
-                             break;
-                         }
-                     }
-                 } 
-                 else if (cells[j].length() == 2) {
-                	 
-                	char roomSymbol = cells[j].charAt(1);
-                    
-                    switch (roomSymbol) {
-                        case '#':
-                            grid[i][j].setRoomLabel(true);
-                            roomMap.get(roomInitial).setLabelCell(grid[i][j]);
-                            break;
-                        case '*':
-                            grid[i][j].setRoomCenter(true);
-                            roomMap.get(roomInitial).setCenterCell(grid[i][j]);
-                            break;
-                        case '^':
-                        case 'v':
-                        case '<':
-                        case '>':
-                            grid[i][j].setIsDoorway(true);
-                            if (roomSymbol == '^') {
-                                grid[i][j].setDoorDirection(DoorDirection.UP);
-                            }
-                            else if (roomSymbol == 'v') {
-                                grid[i][j].setDoorDirection(DoorDirection.DOWN);
-                            }
-                            else if (roomSymbol == '<') {
-                                grid[i][j].setDoorDirection(DoorDirection.LEFT);
-                            }
-                            else if (roomSymbol == '>') {
-                                grid[i][j].setDoorDirection(DoorDirection.RIGHT);
-                            }
-                            break;
-                        default:
-                            grid[i][j].setSecretPassage(roomSymbol);
-                            break;
-                    }
-                     
-                 }
-             }
-         }
-          
-         fileScanner.close();
+
+        // loop to set room label and room center
+        for (int i=0; i < numRows; i++) {
+            for (int j=0; j < numColumns; j++) {
+                char initial = grid[i][j].getInitial();
+                char symbol = grid[i][j].getSecretPassage();
+                
+                switch (symbol) {
+                    case '#':
+                        roomMap.get(initial).setLabelCell(grid[i][j]);
+                        break;
+                    case '*':
+                        roomMap.get(initial).setCenterCell(grid[i][j]);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+
+        fileScanner.close();
     }
     
     /**

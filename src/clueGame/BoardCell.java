@@ -24,9 +24,7 @@ public class BoardCell {
 
     private boolean roomCenter;
     
-    private boolean isWalkway;
-    
-    private boolean isDoorway = false;
+    private boolean isDoorway;
 
     private char secretPassage;
 
@@ -38,11 +36,36 @@ public class BoardCell {
      * @param col
      * @param initial
      */
-    public BoardCell(int row, int col, char initial) {
+    public BoardCell(int row, int col, char initial, char secondInitial) {
         this.row = row;
         this.col = col;
         this.initial = initial;
+        secretPassage = secondInitial;
         adjList = new HashSet<BoardCell>();
+
+        // handle second char for direction and room label/center
+        handleSecondChar(secondInitial);
+    }
+
+    private void handleSecondChar(char secondInitial) {
+        // switch to handle second char
+        switch (secondInitial) {
+            case '#':
+                roomLabel = true;
+                break;
+            case '*':
+                roomCenter = true;
+                break;
+            case '^':
+            case 'v':
+            case '<':
+            case '>':
+                isDoorway = true;
+                setDoorDirection(secondInitial);
+                break;
+            default:
+                break;
+        }
     }
 
     /**
@@ -79,27 +102,36 @@ public class BoardCell {
     }
 
     /**
-     * Sets the isWalkway member
-     * @param walkway
-     */
-    public void setIsWalkway(boolean walkway) {
-        this.isWalkway = walkway;
-    }
-
-    /**
-     * Returns whether or not the cell is a walkway
-     * @return
-     */
-    public boolean isWalkway() {
-        return isWalkway;
-    }
-
-    /**
      * Sets the door direction
      * @param doorDirection
      */
     public void setDoorDirection(DoorDirection doorDirection) {
         this.doorDirection = doorDirection;
+    }
+
+    /**
+     * Sets door direction based on char input
+     * @param doorDirection
+     */
+    private void setDoorDirection(char doorDirectionChar) {
+
+        // handles char input
+        switch (doorDirectionChar) {
+            case '^':
+                doorDirection = DoorDirection.UP;
+                break;
+            case 'v':
+                doorDirection = DoorDirection.DOWN;
+                break;
+            case '>':
+                doorDirection = DoorDirection.RIGHT;
+                break;
+            case '<':
+                doorDirection = DoorDirection.LEFT;
+                break;
+            default:
+                doorDirection = DoorDirection.NONE;
+        }
     }
 
     /**
