@@ -71,8 +71,8 @@ public class Board {
         roomMap = new HashMap<Character, Room>();
         File setupFile = new File(setupConfigFile);
         
-        try {
-            Scanner fileScanner = new Scanner(setupFile);
+       
+        Scanner fileScanner = new Scanner(setupFile);
 
             while (fileScanner.hasNextLine()) {
                 String fullString = fileScanner.nextLine();
@@ -97,9 +97,7 @@ public class Board {
                 }
             }
             fileScanner.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+       
     }
 
     public void loadLayoutConfig() throws FileNotFoundException, BadConfigFormatException {
