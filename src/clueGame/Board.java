@@ -49,6 +49,7 @@ public class Board {
     public static Board getInstance() {
         return theInstance;
     }
+
     /**
      * Initializes the board
      */
@@ -105,8 +106,7 @@ public class Board {
         boardList = new ArrayList<String[]>();
          
          
-        Scanner fileScanner;
-        fileScanner = new Scanner(new File(layoutConfigFile));
+        Scanner fileScanner = new Scanner(new File(layoutConfigFile));
         
         String[] cells;
 
@@ -143,19 +143,15 @@ public class Board {
             cells = boardList.get(i);
             for (int j=0; j < numColumns; j++) {
 
+                // adds cells to grid
                 if (cells[j].length() > 1) {
                     grid[i][j] = new BoardCell(i, j, cells[j].charAt(0), cells[j].charAt(1));
                 }
                 else {
                     grid[i][j] = new BoardCell(i, j, cells[j].charAt(0), ' ');
                 }
-            }
-        }
 
-
-        // loop to set room label and room center
-        for (int i=0; i < numRows; i++) {
-            for (int j=0; j < numColumns; j++) {
+                // sets label cells and center cells
                 char initial = grid[i][j].getInitial();
                 char symbol = grid[i][j].getSecretPassage();
                 
