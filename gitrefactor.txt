@@ -1,0 +1,248 @@
+diff --git a/src/clueGame/Board.java b/src/clueGame/Board.java
+index 6ad7cfa..28e91e3 100644
+--- a/src/clueGame/Board.java
++++ b/src/clueGame/Board.java
+@@ -106,6 +106,7 @@ public class Board {
+ 
+          boardList = new ArrayList<String[]>();
+          
++         
+          Scanner fileScanner;
+          fileScanner = new Scanner(new File(layoutConfigFile));
+         
+@@ -138,14 +139,19 @@ public class Board {
+          grid = new BoardCell[numRows][numColumns];
+ 
+          for (int i = 0; i < numRows; i++) {
+-             String[] line = boardList.get(i);
+-             
++            cells = boardList.get(i);
++
++            
+              
+              for (int j = 0; j < numColumns; j++) {
+-                 grid[i][j] = new BoardCell(i, j, line[j].charAt(0));
++            	 
++            	 
++            	 char roomInitial = cells[j].charAt(0);
++                  
++                 grid[i][j] = new BoardCell(i, j, roomInitial);
+ 
+-                 if (line[j].length() == 1) {
+-                     switch(line[j].charAt(0)) {
++                 if (cells[j].length() == 1) {
++                     switch(roomInitial) {
+                          case 'W': {
+                              grid[i][j].setIsWalkway(true);
+                              break;
+@@ -155,42 +161,42 @@ public class Board {
+                          }
+                      }
+                  } 
+-                 else if (line[j].length() == 2) {
+-                     switch (line[j].charAt(1)) {
+-                         case '#': {
+-                             grid[i][j].setRoomLabel(true);
+-                             roomMap.get(line[j].charAt(0)).setLabelCell(grid[i][j]);
+-                             break;
+-                         }
+-                         case '*': {
+-                             grid[i][j].setRoomCenter(true);
+-                             roomMap.get(line[j].charAt(0)).setCenterCell(grid[i][j]);
+-                             break;
+-                         }
+-                         case '^':{
+-                             grid[i][j].setIsDoorway(true);
+-                             grid[i][j].setDoorDirection(DoorDirection.UP);
+-                             break;
+-                         }
+-                         case 'v':{
+-                             grid[i][j].setIsDoorway(true);
+-                             grid[i][j].setDoorDirection(DoorDirection.DOWN);
+-                             break;
+-                         }
+-                         case '<':{
+-                             grid[i][j].setIsDoorway(true);
+-                             grid[i][j].setDoorDirection(DoorDirection.LEFT);
+-                             break;
+-                         }
+-                         case '>': {
+-                             grid[i][j].setIsDoorway(true);
+-                             grid[i][j].setDoorDirection(DoorDirection.RIGHT);
+-                             break;
+-                         }
+-                         default:
+-                             grid[i][j].setSecretPassage(line[j].charAt(1));
+-                             break;
+-                     }
++                 else if (cells[j].length() == 2) {
++                	 
++                	char roomSymbol = cells[j].charAt(1);
++                    
++                    switch (roomSymbol) {
++                        case '#':
++                            grid[i][j].setRoomLabel(true);
++                            roomMap.get(roomInitial).setLabelCell(grid[i][j]);
++                            break;
++                        case '*':
++                            grid[i][j].setRoomCenter(true);
++                            roomMap.get(roomInitial).setCenterCell(grid[i][j]);
++                            break;
++                        case '^':
++                        case 'v':
++                        case '<':
++                        case '>':
++                            grid[i][j].setIsDoorway(true);
++                            if (roomSymbol == '^') {
++                                grid[i][j].setDoorDirection(DoorDirection.UP);
++                            }
++                            else if (roomSymbol == 'v') {
++                                grid[i][j].setDoorDirection(DoorDirection.DOWN);
++                            }
++                            else if (roomSymbol == '<') {
++                                grid[i][j].setDoorDirection(DoorDirection.LEFT);
++                            }
++                            else if (roomSymbol == '>') {
++                                grid[i][j].setDoorDirection(DoorDirection.RIGHT);
++                            }
++                            break;
++                        default:
++                            grid[i][j].setSecretPassage(roomSymbol);
++                            break;
++                    }
++                     
+                  }
+              }
+          }
+@@ -223,8 +229,7 @@ public class Board {
+      * @return
+      */
+     public Room getRoom(BoardCell cell) {
+-    	char initial = cell.getInitial();
+-    	return roomMap.get(initial);
++    	return roomMap.get(cell.getInitial());
+     }
+ 
+   
+diff --git a/src/clueGame/BoardCell.java b/src/clueGame/BoardCell.java
+index b107082..18bae29 100644
+--- a/src/clueGame/BoardCell.java
++++ b/src/clueGame/BoardCell.java
+@@ -36,6 +36,7 @@ public class BoardCell {
+      * 
+      * @param row
+      * @param col
++     * @param initial
+      */
+     public BoardCell(int row, int col, char initial) {
+         this.row = row;
+@@ -52,10 +53,19 @@ public class BoardCell {
+         adjList.add(cell);
+     }
+ 
++
++    /**
++     * Returns the cell initial
++     * @return
++     */
+     public char getInitial() {
+         return initial;
+     }
+ 
++    /**
++     * Sets isDoorway member
++     * @param doorway
++     */
+     public void setIsDoorway(boolean doorway) {
+         this.isDoorway = doorway;
+     }
+@@ -68,6 +78,10 @@ public class BoardCell {
+         return isDoorway;
+     }
+ 
++    /**
++     * Sets the isWalkway member
++     * @param walkway
++     */
+     public void setIsWalkway(boolean walkway) {
+         this.isWalkway = walkway;
+     }
+@@ -80,15 +94,27 @@ public class BoardCell {
+         return isWalkway;
+     }
+ 
++    /**
++     * Sets the door direction
++     * @param doorDirection
++     */
+     public void setDoorDirection(DoorDirection doorDirection) {
+         this.doorDirection = doorDirection;
+     }
+ 
++    /**
++     * Returns the door direction
++     * @return
++     */
+     public DoorDirection getDoorDirection() {
+         return doorDirection;
+     }
+ 
+ 
++    /**
++     * Sets the isRoomLabel member
++     * @param roomLabel
++     */
+     public void setRoomLabel(boolean roomLabel) {
+         this.roomLabel = roomLabel;
+     }
+@@ -101,6 +127,10 @@ public class BoardCell {
+         return roomLabel;
+     }
+ 
++    /**
++     * Sets the isRoomCenter member
++     * @param roomCenter
++     */
+     public void setRoomCenter(boolean roomCenter) {
+         this.roomCenter = roomCenter;
+     }
+@@ -113,7 +143,10 @@ public class BoardCell {
+         return roomCenter;
+     }
+ 
+-
++    /**
++     * Sets the secret passage character
++     * @param secretPassage
++     */
+     public void setSecretPassage(char secretPassage) {
+         this.secretPassage = secretPassage;
+     }
+diff --git a/src/clueGame/Room.java b/src/clueGame/Room.java
+index 1ed0d9d..5b52f4a 100644
+--- a/src/clueGame/Room.java
++++ b/src/clueGame/Room.java
+@@ -40,6 +40,10 @@ public class Room {
+         return centerCell;
+     }
+     
++    /**
++     * Set the center cell of the room
++     * @param cell
++     */
+     public void setCenterCell(BoardCell cell) {
+     	centerCell = cell;
+     }
+@@ -51,7 +55,11 @@ public class Room {
+     public BoardCell getLabelCell() {
+         return labelCell;
+     }
+-    
++
++    /**
++     * Set the label cell of the room
++     * @param cell
++     */
+     public void setLabelCell(BoardCell cell) {
+     	labelCell = cell;
+     }
