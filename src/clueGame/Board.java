@@ -149,13 +149,7 @@ public class Board {
                 else {
                     grid[i][j] = new BoardCell(i, j, cells[j].charAt(0), ' ');
                 }
-            }
-        }
-
-
-        // loop to set room label and room center
-        for (int i=0; i < numRows; i++) {
-            for (int j=0; j < numColumns; j++) {
+                
                 char initial = grid[i][j].getInitial();
                 char symbol = grid[i][j].getSecretPassage();
                 
@@ -171,6 +165,9 @@ public class Board {
                 }
             }
         }
+
+
+     
 
 
         fileScanner.close();
