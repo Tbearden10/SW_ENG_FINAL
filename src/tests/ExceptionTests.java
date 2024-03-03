@@ -44,7 +44,7 @@ public class ExceptionTests {
 	public void testBadRoom() throws BadConfigFormatException, FileNotFoundException {
 		assertThrows(BadConfigFormatException.class, () -> {
 			Board board = Board.getInstance();
-			board.setConfigFiles("data/ClueLayoutBadRoom.csv", "data/ClueSetup.txt");
+			board.setConfigFiles("ClueLayoutBadRoom.csv", "ClueSetup.txt");
 			board.loadSetupConfig();
 			board.loadLayoutConfig();
 		});
@@ -55,7 +55,7 @@ public class ExceptionTests {
 	public void testBadRoomFormat() throws BadConfigFormatException, FileNotFoundException {
 		assertThrows(BadConfigFormatException.class, () -> {
 			Board board = Board.getInstance();
-			board.setConfigFiles("data/ClueLayout.csv", "data/ClueSetupBadFormat.txt");
+			board.setConfigFiles("ClueLayout.csv", "ClueSetupBadFormat.txt");
 			board.loadSetupConfig();
 			board.loadLayoutConfig();
 		});
