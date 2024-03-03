@@ -12,8 +12,10 @@ import java.util.HashSet;
 
 public class BoardCell {
 
+    @SuppressWarnings("unused")
     private int row;
     
+    @SuppressWarnings("unused")
     private int col;
 
     private char initial;

@@ -106,6 +106,7 @@ public class Board {
         boardList = new ArrayList<String[]>();
          
          
+        @SuppressWarnings("resource")
         Scanner fileScanner = new Scanner(new File(layoutConfigFile));
         
         String[] cells;
