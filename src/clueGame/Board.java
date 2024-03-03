@@ -255,8 +255,8 @@ public class Board {
      * @param setup
      */
 	public void setConfigFiles(String layout, String setup) {
-		this.layoutConfigFile = layout;
-        this.setupConfigFile = setup;
+		this.layoutConfigFile = "data/" + layout;
+        this.setupConfigFile = "data/" + setup;
 	}
 
 }
