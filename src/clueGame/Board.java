@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.io.File;
+import java.util.Set;
 
 public class Board {
     
@@ -26,9 +27,12 @@ public class Board {
 
     private String setupConfigFile;
 
-    private Map<Character, Room> roomMap;
+    private Map<Character, Room> roomMap; // holds room cells
 
-    ArrayList<String[]> boardList;
+    ArrayList<String[]> boardList; // assists when layout setup
+
+    private Set<BoardCell> targets; // holds target cells
+
 
     /**
      * Variables and methods used for Singleton Pattern
@@ -172,6 +176,15 @@ public class Board {
 
         fileScanner.close();
     }
+
+
+    public void calcTargets(BoardCell cell, int pathLength) {
+        // calc the targets
+    }
+
+    public Set<BoardCell> getTargets() {
+        return targets;
+    }
     
     /**
      * Return the cell given column and row
@@ -201,7 +214,14 @@ public class Board {
     	return roomMap.get(cell.getInitial());
     }
 
-  
+    /**
+     * Return the adjacency list from the given cell
+     * @param name
+     * @return
+     */
+    public Set<BoardCell> getAdjList(int row, int col) {
+        return grid[row][col].getAdjList();
+    }
 
 
     /**

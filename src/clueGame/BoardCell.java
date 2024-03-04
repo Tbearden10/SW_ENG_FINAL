@@ -192,4 +192,11 @@ public class BoardCell {
     public char getSecretPassage() {
         return secretPassage;
     }
+
+    /**
+     * Returns the adjacency list
+     * @return
+     */
+    public Set<BoardCell> getAdjList() {
+        return adjList;
 }
