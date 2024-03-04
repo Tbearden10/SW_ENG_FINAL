@@ -28,6 +28,8 @@ public class BoardCell {
     
     private boolean isDoorway;
 
+    private boolean isOccupied;
+
     private char secretPassage;
 
     private Set<BoardCell> adjList;
@@ -199,4 +201,13 @@ public class BoardCell {
      */
     public Set<BoardCell> getAdjList() {
         return adjList;
+    }
+
+    public void setOccupied(boolean occupied) {
+        this.isOccupied = occupied;
+    }
+
+    public boolean getIsOccupied() {
+        return isOccupied;
+    }
 }
