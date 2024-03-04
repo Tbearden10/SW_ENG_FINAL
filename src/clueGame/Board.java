@@ -72,7 +72,12 @@ public class Board {
      
     }
 
-    
+    /**
+     * Reads in the setup file to handle the room types 
+     * Handles any errors that may be found in the setup file
+     * @throws FileNotFoundException
+     * @throws BadConfigFormatException
+     */
     public void loadSetupConfig() throws FileNotFoundException, BadConfigFormatException {
         roomMap = new HashMap<Character, Room>();
         File setupFile = new File(setupConfigFile);
@@ -109,6 +114,12 @@ public class Board {
        
     }
 
+    /**
+     * Handles any errors within the setup config file
+     * Also calculates the correct number of rows and columns
+     * @throws FileNotFoundException
+     * @throws BadConfigFormatException
+     */
     public void loadLayoutConfig() throws FileNotFoundException, BadConfigFormatException {
 
         boardList = new ArrayList<String[]>();
@@ -147,6 +158,9 @@ public class Board {
         fileScanner.close();
     }
 
+    /**
+     * Private helper function to populate the grid with the proper BoardCell
+     */
     private void populateGrid() {
         grid = new BoardCell[numRows][numColumns];
 
@@ -191,12 +205,30 @@ public class Board {
     	return grid[row][col];
     }
 
-
+    /**
+     * Calculate the targets based on a starting cell and path length
+     * @param cell
+     * @param pathLength
+     */
     public void calcTargets(BoardCell cell, int pathLength) {
         // calculate the available targets targets
     	targets = new HashSet<BoardCell>();
+
+
+        findTargets();
     }
 
+    /**
+     * helper function to handle finding the targets
+     */
+    private void findTargets() {
+        // base case
+    }
+
+    /**
+     * Returns the list of targets
+     * @return
+     */
     public Set<BoardCell> getTargets() {
         return targets;
     }

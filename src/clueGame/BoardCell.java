@@ -51,6 +51,10 @@ public class BoardCell {
         handleSecondChar(secondInitial);
     }
 
+    /**
+     * Helper function to handle a second character for a cell
+     * @param secondInitial
+     */
     private void handleSecondChar(char secondInitial) {
         // switch to handle second char
         switch (secondInitial) {
@@ -204,10 +208,18 @@ public class BoardCell {
         return secretPassage;
     }
 
+    /**
+     * Sets isOccupied member
+     * @param occupied
+     */
     public void setOccupied(boolean occupied) {
         this.isOccupied = occupied;
     }
 
+    /**
+     * Returns isOccupied
+     * @return
+     */
     public boolean getIsOccupied() {
         return isOccupied;
     }

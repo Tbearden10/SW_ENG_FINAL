@@ -18,8 +18,8 @@ public class TestBoard {
 
     private Set<TestBoardCell> visited;
 
-    final static int COLS = 4;
-    final static int ROWS = 4;
+    static final int COLS = 4;
+    static final int ROWS = 4;
 
     /**
      * Constructor for TestBoard
@@ -34,6 +34,14 @@ public class TestBoard {
             }
         }
 
+        // call helper function
+        calcAdj(board);
+    }
+
+    /**
+     * helper function to calculate the adjacencies
+     */
+    private void calcAdj(TestBoardCell[][] board) {
         // calculate adjacencies
         for (int i = 0; i < ROWS; i++) {
             for (int j = 0; j < COLS; j++) {
