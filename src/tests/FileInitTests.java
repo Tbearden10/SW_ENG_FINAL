@@ -65,7 +65,7 @@ public class FileInitTests {
      * Tests each doorway direction to ensure it is handled properly
      */
     @Test
-    public void FourDoorDirections() {
+    public void fourDoorDirections() {
         // Test a doorway for each direction (RIGHT/LEFT/UP/DOWN)
         // tests two cells that are not doorways (1 room and 1 walkway)
         // 6 total test cases

@@ -29,7 +29,7 @@ public class Board {
 
     private Map<Character, Room> roomMap; // holds room cells
 
-    ArrayList<String[]> boardList; // assists when layout setup
+    private ArrayList<String[]> boardList; // assists when layout setup
 
     private Set<BoardCell> targets; // holds target cells
 
@@ -79,29 +79,32 @@ public class Board {
        
         Scanner fileScanner = new Scanner(setupFile);
 
-            while (fileScanner.hasNextLine()) {
-                String fullString = fileScanner.nextLine();
-                String[] line = fullString.split(", ");
-                switch (line[0]) {
-                    case "Room": {
-                        roomMap.put(line[2].charAt(0), new Room(line[1]));
-                        break;
+        while (fileScanner.hasNextLine()) {
+            String fullString = fileScanner.nextLine();
+            String[] line = fullString.split(", ");
+            switch (line[0]) {
+                case "Room": {
+                    roomMap.put(line[2].charAt(0), new Room(line[1]));
+                    break;
+                }
+                case "Space": {
+                    roomMap.put(line[2].charAt(0), new Room(line[1]));
+                    break;
+                }
+                default: {
+                    if (line[0].length() != 0 && line[0].charAt(0) == '/') {
+                        // do nothing
                     }
-                    case "Space": {
-                        roomMap.put(line[2].charAt(0), new Room(line[1]));
-                        break;
-                    }
-                    default: {
-                        if (line[0].length() != 0 && line[0].charAt(0) == '/') {
-                            // do nothing
-                        }
-                        else if (fullString.length() != 0) {
-                            throw new BadConfigFormatException("Invalid Setup format");
-                        }
+                    else if (fullString.length() != 0) {
+                        throw new BadConfigFormatException("Invalid Setup format");
                     }
                 }
             }
-            fileScanner.close();
+        }
+        
+
+        // close file scanner
+        fileScanner.close();
        
     }
 
@@ -139,13 +142,21 @@ public class Board {
             boardList.add(cells);
         }
 
+        // private helper function that populate the grid with boardCells
+        populateGrid();
          
-         
+        
+
+
+        fileScanner.close();
+    }
+
+    private void populateGrid() {
         grid = new BoardCell[numRows][numColumns];
 
         // loop to add cells to grid
         for (int i=0; i < numRows; i++) {
-            cells = boardList.get(i);
+            String[] cells = boardList.get(i);
             for (int j=0; j < numColumns; j++) {
 
                 // adds cells to grid
@@ -172,9 +183,6 @@ public class Board {
                 }
             }
         }
-
-
-        fileScanner.close();
     }
 
 
