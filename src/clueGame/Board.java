@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 import java.io.File;
 import java.util.Set;
+import java.util.HashSet;
 
 public class Board {
     
@@ -111,18 +112,13 @@ public class Board {
     public void loadLayoutConfig() throws FileNotFoundException, BadConfigFormatException {
 
         boardList = new ArrayList<String[]>();
-         
-         
-        @SuppressWarnings("resource")
+        
         Scanner fileScanner = new Scanner(new File(layoutConfigFile));
         
-        String[] cells;
-
-
         // handles exceptions and calculates proper rows and columns 
         while (fileScanner.hasNextLine()) {
             String line = fileScanner.nextLine();
-            cells = line.split(",");
+            String[] cells = line.split(",");
              
             if (numColumns == 0) {
                 numColumns = cells.length;
@@ -185,15 +181,6 @@ public class Board {
         }
     }
 
-
-    public void calcTargets(BoardCell cell, int pathLength) {
-        // calc the targets
-    }
-
-    public Set<BoardCell> getTargets() {
-        return targets;
-    }
-    
     /**
      * Return the cell given column and row
      * @param row
@@ -203,6 +190,18 @@ public class Board {
     public BoardCell getCell(int row, int col) {
     	return grid[row][col];
     }
+
+
+    public void calcTargets(BoardCell cell, int pathLength) {
+        // calculate the available targets targets
+    	targets = new HashSet<BoardCell>();
+    }
+
+    public Set<BoardCell> getTargets() {
+        return targets;
+    }
+    
+    
 
     /**
      * Return the room give symbol
@@ -239,6 +238,7 @@ public class Board {
     public int getNumRows() {
         return numRows;
     }
+    
     /**
      * get the number of columns in the board
      * @return
@@ -246,6 +246,8 @@ public class Board {
     public int getNumColumns() {
         return numColumns;
     }
+
+
     /**
      * set the configuration files from given files. 
      * @param layout

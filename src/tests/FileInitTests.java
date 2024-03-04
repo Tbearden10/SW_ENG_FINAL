@@ -116,7 +116,7 @@ public class FileInitTests {
                 }
             }
         }
-        assertEquals(NUM_DOORS, numDoors);
+        Assert.assertEquals(NUM_DOORS, numDoors);
     }
 
     /**

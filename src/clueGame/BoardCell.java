@@ -80,6 +80,15 @@ public class BoardCell {
         adjList.add(cell);
     }
 
+    
+    /**
+     * Returns the adjacency list
+     * @return
+     */
+    public Set<BoardCell> getAdjList() {
+        return adjList;
+    }
+
 
     /**
      * Returns the cell initial
@@ -193,14 +202,6 @@ public class BoardCell {
      */
     public char getSecretPassage() {
         return secretPassage;
-    }
-
-    /**
-     * Returns the adjacency list
-     * @return
-     */
-    public Set<BoardCell> getAdjList() {
-        return adjList;
     }
 
     public void setOccupied(boolean occupied) {
