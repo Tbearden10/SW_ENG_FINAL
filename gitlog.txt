@@ -1,3 +1,212 @@
+*   commit ceb16867457860c0b109cd51da7e43be3e9e822f
+|\  Merge: aed1ca4 ee2c89a
+| | Author: Brad Clark <Bjclark@mines.edu>
+| | Date:   Mon Mar 4 17:58:23 2024 -0700
+| | 
+| |     Merge branch 'main' of https://github.com/Tbearden10/ClueGameSW
+| | 
+| * commit ee2c89a44d2baba02507c50f842651c1bea4ee43
+| | Author: Tanner Bearden <tannerbeardens@gmail.com>
+| | Date:   Mon Mar 4 17:53:52 2024 -0700
+| | 
+| |     Changed comments to reflect cell colors on spreadsheet
+| | 
+* | commit aed1ca486da720f1dc74d4c3695c4d88a7eaf929
+| | Author: Brad Clark <Bjclark@mines.edu>
+| | Date:   Mon Mar 4 17:57:56 2024 -0700
+| | 
+| |     Added spreadsheet file with color identifiers.
+| | 
+* | commit 266cd8383b1ae66c537f3b76ce82cd746f509481
+|/  Author: Brad Clark <Bjclark@mines.edu>
+|   Date:   Mon Mar 4 17:56:24 2024 -0700
+|   
+|       Added color identifiers for tests on spreadsheet
+| 
+* commit 942c7fb5dd81ae7118e479c1ac1625ae00d5d41e
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Mon Mar 4 17:36:33 2024 -0700
+| 
+|     Wrote all of the BoardAdjTargetTest. Brayden was here with me
+| 
+* commit f500bb102f5a90f8a89fddafd5b25d8db3f88853
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Sun Mar 3 21:59:36 2024 -0700
+| 
+|     Late night code changes, very minor, added comments, and improved logic flow in a few files
+| 
+* commit 54558787b278ba0aa38e6c5b7e3f8d1d068c92eb
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Sun Mar 3 21:37:12 2024 -0700
+| 
+|     Moved functions around to be closer to similar ones
+| 
+* commit d616a21f05a90eab4bbec847ad515b3857d3c498
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Sun Mar 3 21:15:05 2024 -0700
+| 
+|     Moved a loop into private helper function to reduce complexity
+| 
+* commit da425d637e7798d2f4511852204b6551fc85d5f8
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Sun Mar 3 18:15:39 2024 -0700
+| 
+|     Began writting calcTargets and calcAdj
+|   
+*   commit 96238d60290f3edfb72c9722db77e6bf1f2e480b
+|\  Merge: cf9d8b6 f7fd1a1
+| | Author: Tanner Bearden <tannerbeardens@gmail.com>
+| | Date:   Sun Mar 3 18:04:10 2024 -0700
+| | 
+| |     Merge branch 'main' of https://github.com/Tbearden10/ClueGameSW
+| | 
+| * commit f7fd1a18769f2135eb1de689863feb6045713952
+| | Author: Tanner Bearden <tannerbeardens@gmail.com>
+| | Date:   Sun Mar 3 18:02:13 2024 -0700
+| | 
+| |     Added new tests
+| | 
+* | commit cf9d8b6c1ea4e57dbec037b30e214fbaf9cea115
+|/  Author: Tanner Bearden <tannerbeardens@gmail.com>
+|   Date:   Sun Mar 3 18:04:05 2024 -0700
+|   
+|       fixed gitignore
+| 
+* commit dfb61bfb17915e0f48530ff0524eedd247d7df44
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Sun Mar 3 16:47:39 2024 -0700
+| 
+|     Merged Refactor-Testing. Branch was used to test refactored code. All tests passed
+| 
+* commit 1e332917e05fbae80ee53e9552380dd2ed668137
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Sun Mar 3 16:46:05 2024 -0700
+| 
+|     Major changes to loadLayoutConfig logic. Added private helper functions in boardCell to add to the logic in loadLayoutConfig
+| 
+* commit 5182911b6d9d02d77c11a80f4994a0e6d1da8333
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Sun Mar 3 16:35:36 2024 -0700
+| 
+|     C17A. Re-wrote a large chunk of code within Board so each loop has its own job. The board cell now handles some logic for initials
+| 
+* commit 817b2fbccfabd24235d9afc1d8833f787b5909ba
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Sat Mar 2 23:11:32 2024 -0700
+| 
+|     Removed try catch from loadsetupconfig
+|   
+*   commit 0676c5cc4de1d9578004dbb8ece1c270423e4f00
+|\  Merge: 72c95cd 590c2b8
+| | Author: Tanner Bearden <tannerbeardens@gmail.com>
+| | Date:   Sat Mar 2 23:08:51 2024 -0700
+| | 
+| |     Merge branch 'main' of https://github.com/Tbearden10/ClueGameSW
+| | 
+| * commit 590c2b84ccf2574145ccf9928f92e60bee2d9ef2
+| | Author: Tanner Bearden <92796188+Tbearden10@users.noreply.github.com>
+| | Date:   Sat Mar 2 23:08:48 2024 -0700
+| | 
+| |     Update Board.java
+| |     
+| |     fixed file path
+| | 
+| * commit ea6c6e12252a348833e71188e09f411ead152376
+| | Author: Tanner Bearden <92796188+Tbearden10@users.noreply.github.com>
+| | Date:   Sat Mar 2 23:08:06 2024 -0700
+| | 
+| |     Update FileInitTests306.java
+| |     
+| |     fixed file path
+| | 
+| * commit 09df176af046d55680c812937764a503912b0fc2
+| | Author: Tanner Bearden <92796188+Tbearden10@users.noreply.github.com>
+| | Date:   Sat Mar 2 23:07:51 2024 -0700
+| | 
+| |     Update FileInitTests.java
+| |     
+| |     fixed file pth
+| | 
+| * commit 1d55c08201415ef325f0e72d681c62bf7e806028
+| | Author: Tanner Bearden <92796188+Tbearden10@users.noreply.github.com>
+| | Date:   Sat Mar 2 23:07:36 2024 -0700
+| | 
+| |     Update ExceptionTests306.java
+| |     
+| |     fixed file path
+| | 
+| * commit 56899e4d4ff179d30c2a16f5c0c8f40ad7022428
+| | Author: Tanner Bearden <92796188+Tbearden10@users.noreply.github.com>
+| | Date:   Sat Mar 2 23:07:10 2024 -0700
+| | 
+| |     Update ExceptionTests.java
+| |     
+| |     fixed file path
+| | 
+| * commit 61c2d68962a6d3daf230d863fad124970a2641e6
+| | Author: Tanner Bearden <92796188+Tbearden10@users.noreply.github.com>
+| | Date:   Sat Mar 2 23:06:45 2024 -0700
+| | 
+| |     Update ExceptionTests.java
+| | 
+* | commit 72c95cde1913283380d35b51a40ebcd9271d273c
+| | Author: Tanner Bearden <tannerbeardens@gmail.com>
+| | Date:   Sat Mar 2 23:08:30 2024 -0700
+| | 
+| |     added gitrefactor
+| | 
+* | commit 38309f643ea12aa96e142d85f9c872f7547a313a
+|/  Author: Tanner Bearden <tannerbeardens@gmail.com>
+|   Date:   Fri Mar 1 18:49:01 2024 -0700
+|   
+|       Refactored main layout config logic loop to be cleaner
+|   
+*   commit 60c44c00cb61fdd4552715355ec29621e1c10780
+|\  Merge: 1e8de84 9873c5e
+| | Author: Tanner Bearden <tannerbeardens@gmail.com>
+| | Date:   Fri Mar 1 18:14:25 2024 -0700
+| | 
+| |     fixed conflicts
+| | 
+| * commit 9873c5e565bc135738ed0454188668e3604422e3
+| | Author: Brad Clark <Bjclark@mines.edu>
+| | Date:   Fri Mar 1 15:37:55 2024 -0700
+| | 
+| |     Wrote Board, BoardCell, and Room classes to pass tests
+| | 
+* | commit 1e8de84dacad71ba6c11ab6a441ed40e7367f335
+|/  Author: Tanner Bearden <tannerbeardens@gmail.com>
+|   Date:   Fri Mar 1 18:12:18 2024 -0700
+|   
+|       commit
+| 
+* commit 4b94a2447d5d660ef6281da2a08925fca8edb46b
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Thu Feb 29 18:01:57 2024 -0700
+| 
+|     Added a lot of code. Passed all of the exception tests
+|   
+*   commit e9a3e56b13114700d18b8cb54cc7cac30e04caa7
+|\  Merge: 21d20c6 3e364f4
+| | Author: Tanner Bearden <tannerbeardens@gmail.com>
+| | Date:   Thu Feb 29 15:37:14 2024 -0700
+| | 
+| |     Merge branch 'main' of https://github.com/Tbearden10/ClueGameSW
+| | 
+| * commit 3e364f4e0a988ff669468cdd75bb3dd7010e4bfc
+| | Author: Tanner Bearden <92796188+Tbearden10@users.noreply.github.com>
+| | Date:   Wed Feb 28 12:14:50 2024 -0700
+| | 
+| |     Update BoardCell.java
+| |     
+| |     test commit
+| | 
+* | commit 21d20c61dfbe11247d344cd8f6257c70281322b5
+|/  Author: Tanner Bearden <tannerbeardens@gmail.com>
+|   Date:   Thu Feb 29 15:37:07 2024 -0700
+|   
+|       test commit
+| 
 * commit b05f9c09ca69abe00e657cdbef07eec480b22f9c
 | Author: Tanner Bearden <tannerbeardens@gmail.com>
 | Date:   Tue Feb 27 17:59:45 2024 -0700
