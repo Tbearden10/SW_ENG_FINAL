@@ -24,7 +24,7 @@ public class BoardAdjTargetTest {
     }
 
     // Ensure that player does not move around within room
-    // LIGHT ORANGE on the planning spreadsheet
+    // LIGHT BLUE on the planning spreadsheet
     @Test
     public void testAdjacenciesRooms() {
 
@@ -48,7 +48,7 @@ public class BoardAdjTargetTest {
     }
 
     // Ensure door locations include their room and additional walkways
-    // LIGHT ORANGE on the planning spreadsheet
+    // LIGHT BLUE on the planning spreadsheet
     @Test
     public void testAdjacenciesDoor() {
 
@@ -75,7 +75,7 @@ public class BoardAdjTargetTest {
     }
 
     // Test a varierity of walkway scenarios
-    // DARK ORANGE on the planning spreadsheet
+    // DARK GREEN on the planning spreadsheet
     @Test
     public void testAdjacenciesWalkway() {
 
@@ -110,7 +110,7 @@ public class BoardAdjTargetTest {
     }
 
     // Tests out of room center, 1 step, 2 steps, 4 steps
-    // LIGHT BLUE
+    // BLACK
     @Test
     public void testTargetsInShed() {
 
@@ -139,7 +139,7 @@ public class BoardAdjTargetTest {
     }
 
     // Tests out of room center, 1 step, 2 steps, 4 steps
-    // LIGHT BLUE
+    // BLACK
     @Test
     public void testTargetsInOffice() {
 
@@ -170,6 +170,7 @@ public class BoardAdjTargetTest {
     }
 
     // Tests out of room center, 1 step, 2 steps, 4 steps
+    // BLACK
     @Test
     public void testTargetsInDoor() {
 
@@ -205,6 +206,7 @@ public class BoardAdjTargetTest {
     }
 
     // Tests out of room center, 1 step, 2 steps, 4 steps
+    // BLACK
     @Test
     public void testTargetsInWalkway1() {
 
@@ -237,6 +239,7 @@ public class BoardAdjTargetTest {
     }
     
     // Tests out of room center, 1 step, 2 steps, 4 steps
+    // BLACK
     @Test
     public void testTargetsInWalkway2() {
 
@@ -264,6 +267,7 @@ public class BoardAdjTargetTest {
     }
 
     // Tests to ensure occupied locations do not cause problems
+    // RED
     @Test
     public void testTargetsOccupied() {
 
