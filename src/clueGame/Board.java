@@ -221,9 +221,13 @@ public class Board {
         }
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numColumns; j++) {
+            	// Check for secret passage
             	char passage = grid[i][j].getSecretPassage();
             	char initial = grid[i][j].getInitial();
+            	// Ensure that other spaces are not identified as secret passages
                 if(Character.isLetter(passage) && passage != 'v') {
+                	
+                	// Add secret passage cells to each others adjacencies 
                 	roomMap.get(passage).getCenterCell().addAdj(roomMap.get(initial).getCenterCell());
                     roomMap.get(initial).getCenterCell().addAdj(roomMap.get(passage).getCenterCell());
                 }
@@ -237,7 +241,7 @@ public class Board {
      * @param pathLength
      */
     public void calcTargets(BoardCell startCell, int pathLength) {
-        // calculate the available targets targets
+        // calculate the available targets
     	targets = new HashSet<BoardCell>();
         visited = new HashSet<BoardCell>();
         visited.add(startCell);
@@ -254,6 +258,7 @@ public class Board {
         	targets.add(startCell);
         }
         else {
+        	// Checks every adjacency possible for all eligible cells recursively 
         	for(BoardCell adjCell: startCell.getAdjList()) {
         		if(adjCell.getIsOccupied()) {
         			visited.add(adjCell);   
