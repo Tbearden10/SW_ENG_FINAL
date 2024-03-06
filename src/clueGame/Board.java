@@ -14,6 +14,9 @@ import java.util.HashMap;
 import java.util.Scanner;
 import java.io.File;
 import java.util.Set;
+
+import experiment.TestBoardCell;
+
 import java.util.HashSet;
 
 public class Board {
@@ -34,6 +37,7 @@ public class Board {
 
     private Set<BoardCell> targets; // holds target cells
 
+    private Set<BoardCell> visited; // holds visited cells
 
     /**
      * Variables and methods used for Singleton Pattern
@@ -151,11 +155,138 @@ public class Board {
 
         // private helper function that populate the grid with boardCells
         populateGrid();
-         
         
-
+        calcAdjacencies(grid);
 
         fileScanner.close();
+
+    }
+
+    /**
+     * Private helper function to calculate the adjacencies of the board
+     */
+    private void calcAdjacencies(BoardCell[][] grid) {
+
+
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numColumns; j++) {
+                if (grid[i][j].getInitial() == 'W') {
+                    // check each direction
+                    if (i > 0 && grid[i-1][j].getInitial() == 'W') {
+                        grid[i][j].addAdj(grid[i-1][j]);
+                    }
+                    if (i < numRows - 1 && grid[i+1][j].getInitial() == 'W') {
+                        grid[i][j].addAdj(grid[i+1][j]);
+                    }
+                    if (j > 0 && grid[i][j-1].getInitial() == 'W') {
+                        grid[i][j].addAdj(grid[i][j-1]);
+                    }
+                    if (j < numColumns - 1 && grid[i][j+1].getInitial() == 'W') {
+                        grid[i][j].addAdj(grid[i][j+1]);
+                    }
+
+
+                    // doorways
+                    if (grid[i][j].isDoorway()) {
+                        switch (grid[i][j].getDoorDirection()) {
+                            case UP:
+                                grid[i][j].addAdj(roomMap.get(grid[i-1][j].getInitial()).getCenterCell());
+                                    
+                                roomMap.get(grid[i-1][j].getInitial()).getCenterCell().addAdj(grid[i][j]);
+                                
+                                break;
+                            case DOWN:
+                                grid[i][j].addAdj(roomMap.get(grid[i+1][j].getInitial()).getCenterCell());
+
+                                roomMap.get(grid[i+1][j].getInitial()).getCenterCell().addAdj(grid[i][j]);
+                                
+                                break;
+                            case LEFT:
+                                grid[i][j].addAdj(roomMap.get(grid[i][j-1].getInitial()).getCenterCell());
+
+                                roomMap.get(grid[i][j-1].getInitial()).getCenterCell().addAdj(grid[i][j]);
+                                
+                                break;
+                            case RIGHT:
+                                grid[i][j].addAdj(roomMap.get(grid[i][j+1].getInitial()).getCenterCell());
+                                roomMap.get(grid[i][j+1].getInitial()).getCenterCell().addAdj(grid[i][j]);
+
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numColumns; j++) {
+                switch (grid[i][j].getSecretPassage()) {
+                    case '#':
+                    case '*':
+                    case ' ':
+                    case '<':
+                    case '>':
+                    case '^':
+                    case 'v':
+                        break;
+                    default:
+                        char initial = grid[i][j].getInitial();
+                        char passage = grid[i][j].getSecretPassage();
+
+                        roomMap.get(passage).getCenterCell().addAdj(roomMap.get(initial).getCenterCell());
+                        roomMap.get(initial).getCenterCell().addAdj(roomMap.get(passage).getCenterCell());
+                       
+                        break;
+                }
+                
+            }
+        }
+    }
+
+    /**
+     * Calculate the targets based on a starting cell and path length
+     * @param cell
+     * @param pathLength
+     */
+    public void calcTargets(BoardCell startCell, int pathLength) {
+        // calculate the available targets targets
+    	targets = new HashSet<BoardCell>();
+        visited = new HashSet<BoardCell>();
+        visited.add(startCell);
+        findTargets(startCell, pathLength);
+    }
+
+    /**
+     * Recursive helper function to find the targets
+     * @param startCell
+     * @param pathLength
+     */
+    private void findTargets(BoardCell startCell, int pathLength) {
+        if(pathLength == 0) {
+        	targets.add(startCell);
+        }
+        else {
+        	for(BoardCell adjCell: startCell.getAdjList()) {
+        		if(adjCell.getIsOccupied()) {
+        			visited.add(adjCell);   
+                    if(adjCell.isRoomCenter()) {
+                        targets.add(adjCell);
+                    }
+        		}
+                
+        		if(!visited.contains(adjCell)) {
+        			visited.add(adjCell);
+        			if(adjCell.isRoomCenter()) {
+        				targets.add(adjCell);
+        			}
+        			else {
+        				findTargets(adjCell, pathLength - 1);
+        			}
+        			visited.remove(adjCell);
+        		}
+        	}
+        }
     }
 
     /**
@@ -205,25 +336,6 @@ public class Board {
     	return grid[row][col];
     }
 
-    /**
-     * Calculate the targets based on a starting cell and path length
-     * @param cell
-     * @param pathLength
-     */
-    public void calcTargets(BoardCell cell, int pathLength) {
-        // calculate the available targets targets
-    	targets = new HashSet<BoardCell>();
-
-
-        findTargets();
-    }
-
-    /**
-     * helper function to handle finding the targets
-     */
-    private void findTargets() {
-        // base case
-    }
 
     /**
      * Returns the list of targets
