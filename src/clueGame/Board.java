@@ -221,25 +221,12 @@ public class Board {
         }
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numColumns; j++) {
-                switch (grid[i][j].getSecretPassage()) {
-                    case '#':
-                    case '*':
-                    case ' ':
-                    case '<':
-                    case '>':
-                    case '^':
-                    case 'v':
-                        break;
-                    default:
-                        char initial = grid[i][j].getInitial();
-                        char passage = grid[i][j].getSecretPassage();
-
-                        roomMap.get(passage).getCenterCell().addAdj(roomMap.get(initial).getCenterCell());
-                        roomMap.get(initial).getCenterCell().addAdj(roomMap.get(passage).getCenterCell());
-                       
-                        break;
+            	char passage = grid[i][j].getSecretPassage();
+            	char initial = grid[i][j].getInitial();
+                if(Character.isLetter(passage) && passage != 'v') {
+                	roomMap.get(passage).getCenterCell().addAdj(roomMap.get(initial).getCenterCell());
+                    roomMap.get(initial).getCenterCell().addAdj(roomMap.get(passage).getCenterCell());
                 }
-                
             }
         }
     }
