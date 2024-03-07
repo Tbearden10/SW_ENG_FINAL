@@ -15,8 +15,6 @@ import java.util.Scanner;
 import java.io.File;
 import java.util.Set;
 
-import experiment.TestBoardCell;
-
 import java.util.HashSet;
 
 public class Board {
@@ -63,7 +61,8 @@ public class Board {
      * Initializes the board
      */
     public void initialize() {
-
+        
+        // remove maybe
         numRows = 0;
         numColumns = 0;
         
@@ -135,6 +134,7 @@ public class Board {
             String line = fileScanner.nextLine();
             String[] cells = line.split(",");
              
+            // less than
             if (numColumns == 0) {
                 numColumns = cells.length;
             }
@@ -170,6 +170,7 @@ public class Board {
 
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numColumns; j++) {
+            	// walkways
                 if (grid[i][j].getInitial() == 'W') {
                     // check each direction
                     if (i > 0 && grid[i-1][j].getInitial() == 'W') {
@@ -186,10 +187,11 @@ public class Board {
                     }
 
 
-                    // doorways
+                    // doorways (maybe move into private method)
                     if (grid[i][j].isDoorway()) {
                         switch (grid[i][j].getDoorDirection()) {
                             case UP:
+                                // Move into its own function ?
                                 grid[i][j].addAdj(roomMap.get(grid[i-1][j].getInitial()).getCenterCell());
                                     
                                 roomMap.get(grid[i-1][j].getInitial()).getCenterCell().addAdj(grid[i][j]);
@@ -219,6 +221,8 @@ public class Board {
                 }
             }
         }
+        
+        // secret passsage (maybe move into private method
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numColumns; j++) {
             	// Check for secret passage
