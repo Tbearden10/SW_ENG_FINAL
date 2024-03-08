@@ -187,38 +187,12 @@ public class Board {
                     }
 
 
-                    // doorways (maybe move into private method)
+                    // handle doorways
                     if (grid[i][j].isDoorway()) {
-                        switch (grid[i][j].getDoorDirection()) {
-                            case UP:
-                                // Move into its own function ?
-                                grid[i][j].addAdj(roomMap.get(grid[i-1][j].getInitial()).getCenterCell());
-                                    
-                                roomMap.get(grid[i-1][j].getInitial()).getCenterCell().addAdj(grid[i][j]);
-                                
-                                break;
-                            case DOWN:
-                                grid[i][j].addAdj(roomMap.get(grid[i+1][j].getInitial()).getCenterCell());
-
-                                roomMap.get(grid[i+1][j].getInitial()).getCenterCell().addAdj(grid[i][j]);
-                                
-                                break;
-                            case LEFT:
-                                grid[i][j].addAdj(roomMap.get(grid[i][j-1].getInitial()).getCenterCell());
-
-                                roomMap.get(grid[i][j-1].getInitial()).getCenterCell().addAdj(grid[i][j]);
-                                
-                                break;
-                            case RIGHT:
-                                grid[i][j].addAdj(roomMap.get(grid[i][j+1].getInitial()).getCenterCell());
-                                roomMap.get(grid[i][j+1].getInitial()).getCenterCell().addAdj(grid[i][j]);
-
-                                break;
-                            default:
-                                break;
-                        }
+                        setDoorway(grid[i][j].getDoorDirection(), i, j);
                     }
                 }
+                
             }
         }
         
@@ -240,6 +214,48 @@ public class Board {
     }
 
     /**
+     * Set the doorway of the given cell
+     * @param row
+     * @param col
+     */
+    private void setDoorway(DoorDirection direction, int row, int col) {
+        int i = row;
+
+        int j = col;
+
+        switch (direction) {
+            case UP:
+                // Move into its own function ?
+                grid[i][j].addAdj(roomMap.get(grid[i-1][j].getInitial()).getCenterCell());
+                    
+                roomMap.get(grid[i-1][j].getInitial()).getCenterCell().addAdj(grid[i][j]);
+                
+                break;
+            case DOWN:
+                grid[i][j].addAdj(roomMap.get(grid[i+1][j].getInitial()).getCenterCell());
+
+                roomMap.get(grid[i+1][j].getInitial()).getCenterCell().addAdj(grid[i][j]);
+                
+                break;
+            case LEFT:
+                grid[i][j].addAdj(roomMap.get(grid[i][j-1].getInitial()).getCenterCell());
+
+                roomMap.get(grid[i][j-1].getInitial()).getCenterCell().addAdj(grid[i][j]);
+                
+                break;
+            case RIGHT:
+
+                grid[i][j].addAdj(roomMap.get(grid[i][j+1].getInitial()).getCenterCell());
+                roomMap.get(grid[i][j+1].getInitial()).getCenterCell().addAdj(grid[i][j]);
+
+                break;
+            default:
+                break;
+        }
+        
+    }
+
+    /**
      * Calculate the targets based on a starting cell and path length
      * @param cell
      * @param pathLength
@@ -258,12 +274,16 @@ public class Board {
      * @param pathLength
      */
     private void findTargets(BoardCell startCell, int pathLength) {
+
+        // base case
         if(pathLength == 0) {
         	targets.add(startCell);
         }
         else {
         	// Checks every adjacency possible for all eligible cells recursively 
         	for(BoardCell adjCell: startCell.getAdjList()) {
+
+                // 
         		if(adjCell.getIsOccupied()) {
         			visited.add(adjCell);   
                     if(adjCell.isRoomCenter()) {
@@ -324,7 +344,7 @@ public class Board {
 
     /**
      * Return the cell given column and row
-     * @param row
+     * @param row 
      * @param col
      * @return
      */
