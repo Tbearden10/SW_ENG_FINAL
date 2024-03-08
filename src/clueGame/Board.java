@@ -134,16 +134,22 @@ public class Board {
             String line = fileScanner.nextLine();
             String[] cells = line.split(",");
              
-            // less than
+            // base case
             if (numColumns == 0) {
                 numColumns = cells.length;
             }
+
+            // Error handling
             if (numColumns != cells.length) {
                 throw new BadConfigFormatException("Missing Elements in Layout Config File");
             }
+
+            // increment rows for each line (if line is not empty)
             if (cells.length != 0) {
                 numRows++;
             }
+            
+            // loop through cells and ensure the character is valid
             for (int i = 0; i < cells.length; i++) {
             	if (!roomMap.containsKey(cells[i].charAt(0))) {
             		throw new BadConfigFormatException("Bad Room Detected");
