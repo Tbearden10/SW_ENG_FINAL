@@ -221,29 +221,42 @@ public class Board {
         int j = col;
 
         switch (direction) {
+
+
             case UP:
-                // Move into its own function ?
-                grid[i][j].addAdj(roomMap.get(grid[i-1][j].getInitial()).getCenterCell());
+
+                BoardCell adjToAdd = roomMap.get(grid[i-1][j].getInitial()).getCenterCell();
+                
+                grid[i][j].addAdj(adjToAdd);
                     
-                roomMap.get(grid[i-1][j].getInitial()).getCenterCell().addAdj(grid[i][j]);
+                adjToAdd.addAdj(grid[i][j]);
                 
                 break;
             case DOWN:
-                grid[i][j].addAdj(roomMap.get(grid[i+1][j].getInitial()).getCenterCell());
 
-                roomMap.get(grid[i+1][j].getInitial()).getCenterCell().addAdj(grid[i][j]);
+                adjToAdd = roomMap.get(grid[i+1][j].getInitial()).getCenterCell();
+
+                grid[i][j].addAdj(adjToAdd);
+
+                adjToAdd.addAdj(grid[i][j]);
                 
                 break;
             case LEFT:
-                grid[i][j].addAdj(roomMap.get(grid[i][j-1].getInitial()).getCenterCell());
+                
+                adjToAdd = roomMap.get(grid[i][j-1].getInitial()).getCenterCell();
 
-                roomMap.get(grid[i][j-1].getInitial()).getCenterCell().addAdj(grid[i][j]);
+                grid[i][j].addAdj(adjToAdd);
+
+                adjToAdd.addAdj(grid[i][j]);
                 
                 break;
             case RIGHT:
 
-                grid[i][j].addAdj(roomMap.get(grid[i][j+1].getInitial()).getCenterCell());
-                roomMap.get(grid[i][j+1].getInitial()).getCenterCell().addAdj(grid[i][j]);
+                adjToAdd = roomMap.get(grid[i][j+1].getInitial()).getCenterCell();
+
+                grid[i][j].addAdj(adjToAdd);
+
+                adjToAdd.addAdj(grid[i][j]);
 
                 break;
             default:
