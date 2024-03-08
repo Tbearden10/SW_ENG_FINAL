@@ -193,13 +193,7 @@ public class Board {
                     }
                 }
                 
-            }
-        }
-        
-        // secret passsage (maybe move into private method
-        for (int i = 0; i < numRows; i++) {
-            for (int j = 0; j < numColumns; j++) {
-            	// Check for secret passage
+                // Check for secret passage
             	char passage = grid[i][j].getSecretPassage();
             	char initial = grid[i][j].getInitial();
             	// Ensure that other spaces are not identified as secret passages
@@ -209,8 +203,11 @@ public class Board {
                 	roomMap.get(passage).getCenterCell().addAdj(roomMap.get(initial).getCenterCell());
                     roomMap.get(initial).getCenterCell().addAdj(roomMap.get(passage).getCenterCell());
                 }
+
             }
         }
+        
+       
     }
 
     /**
