@@ -62,7 +62,6 @@ public class Board {
      */
     public void initialize() {
         
-        // remove maybe
         numRows = 0;
         numColumns = 0;
         
@@ -299,20 +298,22 @@ public class Board {
         	// Checks every adjacency possible for all eligible cells recursively 
         	for(BoardCell adjCell: startCell.getAdjList()) {
 
-                // 
+                // Handles occupied spaces so that they are not ever reached by targeting list
         		if(adjCell.getIsOccupied()) {
         			visited.add(adjCell);   
+        			// Ensures that occupied rooms are still accessible 
                     if(adjCell.isRoomCenter()) {
                         targets.add(adjCell);
                     }
         		}
-                
+                // Handles new spaces found in the adjacency list
         		if(!visited.contains(adjCell)) {
         			visited.add(adjCell);
         			if(adjCell.isRoomCenter()) {
         				targets.add(adjCell);
         			}
         			else {
+        				// Searches through each adjacency of possible places to move recursively
         				findTargets(adjCell, pathLength - 1);
         			}
         			visited.remove(adjCell);
