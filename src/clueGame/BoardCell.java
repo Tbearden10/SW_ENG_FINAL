@@ -35,10 +35,24 @@ public class BoardCell {
     private Set<BoardCell> adjList;
 
     /**
-     * 
+     * Constructor with default second character
      * @param row
      * @param col
      * @param initial
+     */
+    public BoardCell(int row, int col, char initial) {
+    	this.row = row;
+    	this.col = col;
+    	this.initial = initial;
+    	secretPassage = ' ';
+    	adjList = new HashSet<BoardCell>();
+    }
+    /**
+     * Constructor with special second character
+     * @param row
+     * @param col
+     * @param initial
+     * @param secondInitial
      */
     public BoardCell(int row, int col, char initial, char secondInitial) {
         this.row = row;

@@ -338,7 +338,7 @@ public class Board {
                     grid[i][j] = new BoardCell(i, j, cells[j].charAt(0), cells[j].charAt(1));
                 }
                 else {
-                    grid[i][j] = new BoardCell(i, j, cells[j].charAt(0), ' ');
+                    grid[i][j] = new BoardCell(i, j, cells[j].charAt(0));
                 }
 
                 // sets label cells and center cells
