@@ -230,7 +230,7 @@ public class Board {
 
 
             case UP:
-
+            	// Uses initial to find center boardcell of doorway based on direction
                 BoardCell adjToAdd = roomMap.get(grid[i-1][j].getInitial()).getCenterCell();
                 
                 grid[i][j].addAdj(adjToAdd);
@@ -239,7 +239,7 @@ public class Board {
                 
                 break;
             case DOWN:
-
+            	// Uses initial to find center boardcell of doorway based on direction
                 adjToAdd = roomMap.get(grid[i+1][j].getInitial()).getCenterCell();
 
                 grid[i][j].addAdj(adjToAdd);
@@ -248,7 +248,7 @@ public class Board {
                 
                 break;
             case LEFT:
-                
+            	// Uses initial to find center boardcell of doorway based on direction
                 adjToAdd = roomMap.get(grid[i][j-1].getInitial()).getCenterCell();
 
                 grid[i][j].addAdj(adjToAdd);
@@ -257,7 +257,7 @@ public class Board {
                 
                 break;
             case RIGHT:
-
+            	// Uses initial to find center boardcell of doorway based on direction
                 adjToAdd = roomMap.get(grid[i][j+1].getInitial()).getCenterCell();
 
                 grid[i][j].addAdj(adjToAdd);
