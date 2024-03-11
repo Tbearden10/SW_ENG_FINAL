@@ -100,10 +100,7 @@ public class Board {
                     break;
                 }
                 default: {
-                    if (line[0].length() != 0 && line[0].charAt(0) == '/') {
-                        // do nothing
-                    }
-                    else if (fullString.length() != 0) {
+                    if (fullString.length() != 0 && line[0].length() == 0 && line[0].charAt(0) != '/') {
                         throw new BadConfigFormatException("Invalid Setup format");
                     }
                 }
