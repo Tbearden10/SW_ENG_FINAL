@@ -112,9 +112,7 @@ public class Board {
                 }
             }
         }
-        for(int i = 0; i <= 21; i++) {
-        	cards.add(new Card(null));
-        }
+        
 
         // close file scanner
         fileScanner.close();
@@ -434,7 +432,7 @@ public class Board {
         return numColumns;
     }
     
-    public ArrayList<Player> getplayers(){
+    public ArrayList<Player> getPlayers(){
     	return players;
     }
     
@@ -442,7 +440,7 @@ public class Board {
     	return cards;
     }
     
-    public Solution getsolution() {
+    public Solution getSolution() {
     	return solution;
     }
 
