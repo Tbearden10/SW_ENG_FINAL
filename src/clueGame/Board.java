@@ -26,8 +26,14 @@ public class Board {
     private int numColumns;
 
     private String layoutConfigFile;
+    
+    public static Solution solution;
 
     private String setupConfigFile;
+    
+    private ArrayList<Card> cards = new ArrayList();
+    
+    private ArrayList<Player> players = new ArrayList();
 
     private Map<Character, Room> roomMap; // holds room cells
 
@@ -106,7 +112,9 @@ public class Board {
                 }
             }
         }
-        
+        for(int i = 0; i <= 21; i++) {
+        	cards.add(new Card(null));
+        }
 
         // close file scanner
         fileScanner.close();
@@ -355,7 +363,16 @@ public class Board {
             }
         }
     }
-
+    
+    public void deal() {
+    	solution = new Solution(null, null, null);
+    	players.add(new HumanPlayer(null,null,0,0));
+    	for(int i = 0; i<=5; i++) {
+    		players.add(new ComputerPlayer(null,null,0,0));
+    	}
+    	
+    }
+    
     /**
      * Return the cell given column and row
      * @param row 
@@ -419,6 +436,18 @@ public class Board {
      */
     public int getNumColumns() {
         return numColumns;
+    }
+    
+    public ArrayList<Player> getplayers(){
+    	return players;
+    }
+    
+    public ArrayList<Card> getCards(){
+    	return cards;
+    }
+    
+    public Solution getsolution() {
+    	return solution;
     }
 
 

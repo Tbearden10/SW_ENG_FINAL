@@ -10,4 +10,8 @@ public class Card {
     public boolean equals(Card target) {
         return cardName.equals(target.cardName);
     }
+    
+    public String getCardName() {
+    	return cardName;
+    }
 }
