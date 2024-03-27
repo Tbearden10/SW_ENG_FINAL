@@ -5,8 +5,15 @@ import java.util.Set;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.Computer;
+
 import clueGame.Board;
+import clueGame.CardType;
+import clueGame.HumanPlayer;
+import clueGame.ComputerPlayer;
 import clueGame.Solution;
+import clueGame.Player;
+import java.util.ArrayList;
 
 
 public class GameSetupTest {
@@ -43,11 +50,31 @@ public class GameSetupTest {
 	@Test
 	public void testDeckCreated() {
 		assertEquals(board.getCards().size(), 21);
-		assert(board.getCards().get(0).getCardName() != null);
-		assert(board.getCards().get(5).getCardName() != null);
-		assert(board.getCards().get(8).getCardName() != null);
-		assert(board.getCards().get(14).getCardName() != null);
-		assert(board.getCards().get(19).getCardName() != null);
+		assertEquals(board.getCards().get(0).getCardName(), "Kitchen");
+        assertEquals(board.getCards().get(11).getCardName(), "Eduard");
+        assertEquals(board.getCards().get(5).getCardName(), "Kitchen");
+        assertEquals(board.getCards().get(7).getCardType(), CardType.WEAPON);
+        assertEquals(board.getCards().get(13).getCardType(), CardType.ROOM);
+        assertEquals(board.getCards().get(19).getCardType(), CardType.PERSON);
 		
 	}
+
+    @Test
+    public void testHumanAndComputer() {
+        ArrayList<Player> players = board.getplayers();
+        int humanCount = 0, computerCount = 0;
+
+        for (Player player : players) {
+            if (player instanceof HumanPlayer) {
+                humanCount++;
+            } 
+            else if (player instanceof ComputerPlayer) {
+                computerCount++;
+            }
+        }
+
+        assertEquals(humanCount, 1);
+        assertEquals(computerCount, 5);
+
+    }
 }

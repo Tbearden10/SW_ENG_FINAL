@@ -365,11 +365,7 @@ public class Board {
     }
     
     public void deal() {
-    	solution = new Solution(null, null, null);
-    	players.add(new HumanPlayer(null,null,0,0));
-    	for(int i = 0; i<=5; i++) {
-    		players.add(new ComputerPlayer(null,null,0,0));
-    	}
+    	
     	
     }
     

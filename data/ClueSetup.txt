@@ -11,10 +11,17 @@ Room, Shed, S
 // other spaces on the board
 Space, Unused, X
 Space, Walkway, W
-// players and weapons
+// players
 Player, Human, Paul, Red, 8, 22
 Player, Computer, Lucia, Blue, 8, 0
 Player, Computer, Eduard, Orange, 0, 3
 Player, Computer, Eliza, Yellow, 13, 0
 Player, Computer, Phinees, Green, 20, 0
 Player, Computer, Matt, Purple, 20, 22
+// weapons 
+Weapon, Hamster
+Weapon, Frying Pan
+Weapon, Rock
+Weapon, Paper
+Weapon, Scissors
+Weapon, Bomb
