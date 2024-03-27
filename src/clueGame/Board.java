@@ -31,9 +31,9 @@ public class Board {
 
     private String setupConfigFile;
     
-    private ArrayList<Card> cards = new ArrayList();
+    private ArrayList<Card> cards;
     
-    private ArrayList<Player> players = new ArrayList();
+    private ArrayList<Player> players;
 
     private Map<Character, Room> roomMap; // holds room cells
 
@@ -88,6 +88,8 @@ public class Board {
      */
     public void loadSetupConfig() throws FileNotFoundException, BadConfigFormatException {
         roomMap = new HashMap<Character, Room>();
+        cards = new ArrayList<Card>();
+        players = new ArrayList<Player>();
         File setupFile = new File(setupConfigFile);
         
        
@@ -99,6 +101,21 @@ public class Board {
             switch (line[0]) {
                 case "Room": {
                     roomMap.put(line[2].charAt(0), new Room(line[1]));
+                    cards.add(new Card(line[1], CardType.ROOM));
+                    break;
+                }
+                case "Player": {
+                    if (line[2].equals("Human")) {
+                        players.add(new HumanPlayer(line[2], line[3], Integer.parseInt(line[4]), Integer.parseInt(line[5])));
+                    }
+                    else if (line[2].equals("Computer")){
+                        players.add(new ComputerPlayer(line[2], line[3], Integer.parseInt(line[4]), Integer.parseInt(line[5])));
+                    }
+                    cards.add(new Card(line[1], CardType.PERSON));
+                    break;
+                }
+                case "Weapon": {
+                    cards.add(new Card(line[1], CardType.WEAPON));
                     break;
                 }
                 case "Space": {

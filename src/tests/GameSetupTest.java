@@ -32,7 +32,8 @@ public class GameSetupTest {
 	
 	@Test
     public void testPlayersLoaded(){
-		assertEquals(board.getPlayers().size(), 6);
+        System.out.println(board.getPlayers().size());
+		assertEquals(6, board.getPlayers().size());
 		assertEquals(board.getPlayers().get(0).getName(), "Paul");
 		assertEquals(board.getPlayers().get(2).getName(), "Eduard");
 		assertEquals(board.getPlayers().get(5).getName(), "Matt");
