@@ -1,3 +1,87 @@
+* commit fc40bc98982355b9ea23070bbf5ecd591e77b094
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Sun Mar 10 20:44:48 2024 -0600
+| 
+|     C17A Removed an empty if statement. It did nothing so I moved it down to the statement below
+| 
+* commit 1f2b52c293c22b7673d7338972172b0c6a2fef31
+| Author: Brad Clark <Bjclark@mines.edu>
+| Date:   Fri Mar 8 21:33:40 2024 -0700
+| 
+|     Added second constructor for boardcell to default second character to '' instead of a parameterized constructor
+| 
+* commit 0e018356b49523cf34db7bd3c62c72ead063e1e9
+| Author: Brad Clark <Bjclark@mines.edu>
+| Date:   Fri Mar 8 21:24:27 2024 -0700
+| 
+|     Added comments for clarity in the targets method
+| 
+* commit 7f416650b15a03bd1fd479da9d386e57771e0c42
+| Author: Brad Clark <Bjclark@mines.edu>
+| Date:   Fri Mar 8 21:14:56 2024 -0700
+| 
+|     Added commments to add clarity to doorway adjacency method
+| 
+* commit 3cf38b7b456bc818b97ab4af20e5ff7e343d2116
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Thu Mar 7 17:15:59 2024 -0700
+| 
+|     C17A Cleaned up layout config to handle exceptions
+| 
+* commit 9fba9f3f808a6f257ec4309a5eacd1abb6e88a87
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Thu Mar 7 17:12:10 2024 -0700
+| 
+|     C17A made the private function for setDoorway that handles the doorway adj to be more readable
+| 
+* commit 54498536ac68f7748cb691b2a9a60b8c924e656d
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Thu Mar 7 17:04:14 2024 -0700
+| 
+|     C17A Moved secret passage adj logic into the main loop. This removed a nested for loop
+| 
+* commit 9b807e8b790c1ac2e77cbd639262f306610c068f
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Thu Mar 7 17:03:32 2024 -0700
+| 
+|     C17A Moved doorway logic into private method to handle adjacencies and make it more readable.
+| 
+* commit 9fcdb03c6799647b9cc1422826d10ce78b03efc6
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Thu Mar 7 16:38:05 2024 -0700
+| 
+|     Commit
+| 
+* commit 0b5888aa6575c05c3a665f7dc7a6a603e007b0d7
+| Author: Brad Clark <Bjclark@mines.edu>
+| Date:   Tue Mar 5 20:04:13 2024 -0700
+| 
+|     Commented new targets and adjacencies methods
+| 
+* commit 305cbccf3619b02ed5a5abf24c8972f1a31d545b
+| Author: Brad Clark <Bjclark@mines.edu>
+| Date:   Tue Mar 5 18:51:01 2024 -0700
+| 
+|     Refactored secret passageway adjacency
+| 
+* commit a6abe4d074aae8219b6923355fd9dcaf07cad11e
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Tue Mar 5 17:26:13 2024 -0700
+| 
+|     Fixed all of our tests to pass. We wrote a few tests wrong.
+| 
+* commit dc132a623114c818bc148fdb419b4c01fe6bb27e
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Tue Mar 5 17:10:15 2024 -0700
+| 
+|     All tests passed except our own adj/target tests
+| 
+* commit 73fd80a17b54aaf22bdf111cf476bcd11297b60a
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Tue Mar 5 15:21:00 2024 -0700
+| 
+|     Updated gitlog
+|   
 *   commit ceb16867457860c0b109cd51da7e43be3e9e822f
 |\  Merge: aed1ca4 ee2c89a
 | | Author: Brad Clark <Bjclark@mines.edu>
