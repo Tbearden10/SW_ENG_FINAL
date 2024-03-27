@@ -26,13 +26,11 @@ public class GameSetupTest {
 		board = Board.getInstance();
         board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
         board.initialize();
-        board.deal();
 	}
 	
 	
 	@Test
     public void testPlayersLoaded(){
-        System.out.println(board.getPlayers().size());
 		assertEquals(6, board.getPlayers().size());
 		assertEquals(board.getPlayers().get(0).getName(), "Paul");
 		assertEquals(board.getPlayers().get(2).getName(), "Eduard");
@@ -76,15 +74,22 @@ public class GameSetupTest {
 
     @Test
     public void testSolutionDelt() {
+        board.deal();
         Solution solution = board.getSolution();
         Assert.assertNotNull(solution);
         Assert.assertNotNull(solution.getPerson());
         Assert.assertNotNull(solution.getRoom());
         Assert.assertNotNull(solution.getWeapon());
+
+        assertEquals(solution.getPerson().getCardType(), CardType.PERSON);
+        assertEquals(solution.getRoom().getCardType(), CardType.ROOM);
+        assertEquals(solution.getWeapon().getCardType(), CardType.WEAPON);
+        
     }
 
     @Test 
     public void testCardsDeltPlayers() {
+        board.deal();
         ArrayList<Player> players = board.getPlayers();
         ArrayList<Card> boardCards = board.getCards();
         int totalPlayerCardCount = 0;

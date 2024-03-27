@@ -10,6 +10,7 @@ package clueGame;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Random;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.io.File;
@@ -105,13 +106,13 @@ public class Board {
                     break;
                 }
                 case "Player": {
-                    if (line[2].equals("Human")) {
+                    if (line[1].equals("Human")) {
                         players.add(new HumanPlayer(line[2], line[3], Integer.parseInt(line[4]), Integer.parseInt(line[5])));
                     }
-                    else if (line[2].equals("Computer")){
+                    else if (line[1].equals("Computer")){
                         players.add(new ComputerPlayer(line[2], line[3], Integer.parseInt(line[4]), Integer.parseInt(line[5])));
                     }
-                    cards.add(new Card(line[1], CardType.PERSON));
+                    cards.add(new Card(line[2], CardType.PERSON));
                     break;
                 }
                 case "Weapon": {
@@ -379,9 +380,33 @@ public class Board {
         }
     }
     
+    /**
+     * Deals the cards to the players
+     */
     public void deal() {
+
+        Random rand = new Random();
     	
-    	
+        // Deal to solution first
+        int randRoomIndex = rand.nextInt(7) + 0;
+        int randPlayerIndex = rand.nextInt(6) + 9;
+        int randWeaponIndex = rand.nextInt(6) + 15;
+
+        solution = new Solution(cards.get(randRoomIndex), cards.get(randPlayerIndex), cards.get(randWeaponIndex));
+
+    	cards.remove(randWeaponIndex);
+        cards.remove(randPlayerIndex);
+        cards.remove(randRoomIndex);
+
+        // dealin time
+        while (cards.size() != 0) {
+            for (Player player : players) {
+                int randIndex = rand.nextInt(cards.size());
+                player.updateHand(cards.get(randIndex));
+                cards.remove(randIndex);
+            }
+        }
+        
     }
     
     /**
