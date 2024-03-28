@@ -28,7 +28,7 @@ public class Board {
 
     private String layoutConfigFile;
     
-    public static Solution solution;
+    public Solution solution;
 
     private String setupConfigFile;
     
@@ -388,8 +388,11 @@ public class Board {
         Random rand = new Random();
     	
         // Deal to solution first
-        int randRoomIndex = rand.nextInt(7) + 0;
+       // random index between 0 and 8
+        int randRoomIndex = rand.nextInt(9);
+        // random index between 9 and 14
         int randPlayerIndex = rand.nextInt(6) + 9;
+        // random index between 15 and 20
         int randWeaponIndex = rand.nextInt(6) + 15;
 
         solution = new Solution(cards.get(randRoomIndex), cards.get(randPlayerIndex), cards.get(randWeaponIndex));
@@ -407,6 +410,23 @@ public class Board {
             }
         }
         
+    }
+
+    /**
+     * Return whether the accusation is correct
+     * @return 
+     */
+    public boolean checkAccusation(Solution accusation) {
+
+        if (solution.getPerson() ==  accusation.getPerson()) {
+            if (solution.getRoom() == accusation.getRoom()) {
+                if (solution.getWeapon() == accusation.getWeapon()) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
     
     /**
@@ -486,6 +506,9 @@ public class Board {
     	return solution;
     }
 
+    public void setSolution(Solution solution) {
+    	this.solution = solution;
+    }
 
     /**
      * set the configuration files from given files. 

@@ -1,11 +1,9 @@
 package tests;
 
 import static org.junit.Assert.assertEquals;
-import java.util.Set;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.Computer;
 
 import clueGame.Board;
 import clueGame.CardType;

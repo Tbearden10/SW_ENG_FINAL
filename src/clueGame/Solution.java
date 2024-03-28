@@ -25,4 +25,8 @@ public class Solution {
 		return weapon;
 	}
     
+	@Override
+	public String toString() {
+		return "Solution [room=" + room.getCardName() + ", person=" + person.getCardName() + ", weapon=" + weapon.getCardName() + "]";
+	}
 }
