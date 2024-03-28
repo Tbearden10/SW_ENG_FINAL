@@ -2,6 +2,9 @@ package tests;
 
 
 import static org.junit.Assert.assertEquals;
+
+import java.util.ArrayList;
+
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,6 +22,26 @@ public class GameSolutionTest {
     private static Board board;
     private static Card room, person, weapon;
     private static Player testPlayer;
+    private static Player player1;
+    private static Player player2;
+    private static Player player3;
+    private static ArrayList<Player> players = new ArrayList<Player>();
+
+    @BeforeAll
+    public void startup(){
+        player1 = new HumanPlayer("bob", "blue", 0,0);
+        player2 = new HumanPlayer("dob", "blue", 0,0);
+        player3 = new HumanPlayer("rob", "blue", 0,0);
+
+        
+
+        players.add(player1);
+        players.add(player2);
+        players.add(player3);
+
+
+
+    }
 
     @BeforeEach
     public void setup() {
@@ -114,7 +137,7 @@ public class GameSolutionTest {
     @Test
     public void testHandleSuggestion() {
 
-        board.deal();
+
 
         
         // Test query no players can disprove
