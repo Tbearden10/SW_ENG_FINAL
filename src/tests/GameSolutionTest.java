@@ -16,6 +16,7 @@ import clueGame.Card;
 import clueGame.CardType;
 import clueGame.Player;
 import clueGame.HumanPlayer;
+import clueGame.ComputerPlayer;
 
 public class GameSolutionTest {
 
@@ -28,10 +29,10 @@ public class GameSolutionTest {
     private static ArrayList<Player> players = new ArrayList<Player>();
 
     @BeforeAll
-    static public void startup(){
+    static public void startup() {
         player1 = new HumanPlayer("bob", "blue", 0,0);
-        player2 = new HumanPlayer("dob", "blue", 0,0);
-        player3 = new HumanPlayer("rob", "blue", 0,0);
+        player2 = new ComputerPlayer("dob", "blue", 0,0);
+        player3 = new ComputerPlayer("rob", "blue", 0,0);
 
         // add players to list
         players.add(player1);
@@ -150,11 +151,17 @@ public class GameSolutionTest {
         Solution query = new Solution(room, person, weapon);
 
         // Test query no players can disprove
-        assertEquals(board.handleSuggestion(query, players), null);
+        assertEquals(board.handleSuggestion(player1, query, players), null);
+        assertEquals(board.handleSuggestion(player2, query, players), null);
+        assertEquals(board.handleSuggestion(player3, query, players), null);
 
         // Test query that only suggesting player can disprove
         Solution query2 = new Solution(new Card("Basement", CardType.ROOM), new Card("Eliza", CardType.PERSON), new Card("Paper", CardType.WEAPON));
-        assertEquals(board.handleSuggestion(query2, players), null);
+        assertEquals(board.handleSuggestion(player1, query2, players), null);
+
+        // Test query that only human player can disprove
+        Solution query3 = new Solution(new Card("Master Bedroom", CardType.ROOM), new Card("Eliza", CardType.PERSON), new Card("Frying Pan", CardType.WEAPON));
+        assertEquals(board.handleSuggestion(player2, query3, players), new Card("Eliza", CardType.PERSON));
 
 
 

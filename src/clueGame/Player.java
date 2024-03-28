@@ -56,6 +56,10 @@ abstract public class Player {
         }
         return matchingCards.get((int) (Math.random() * matchingCards.size()));
     }
+
+    public boolean equals(Player player) {
+        return name.equals(player.getName()) && color.equals(player.getColor()) && row == player.getRow() && col == player.getCol();
+    }
     
     public ArrayList<Card> getCards() {
     	return cards;
@@ -72,6 +76,10 @@ abstract public class Player {
 	public int getCol() {
 		return col;
 	}
+
+    public String getColor() {
+        return color;
+    }
     
     
 }

@@ -434,17 +434,18 @@ public class Board {
      * @param suggestion
      * @return
      */
-    public Card handleSuggestion(Solution suggestion, ArrayList<Player> testPlayers) {
+    public Card handleSuggestion(Player accurser, Solution suggestion, ArrayList<Player> players) {
 
-
-        // loop through each players
-        for (Player player : testPlayers) {
-            Card card = player.disproveSuggestion(suggestion);
-            if (card != null) {
-                return card;
+        for (Player player : players) {
+            if (player == accurser) {
+                Card card = player.disproveSuggestion(suggestion);
+                if (card != null) {
+                    return card;
+                }
             }
         }
-        
+
+
         return null;
     }
     
