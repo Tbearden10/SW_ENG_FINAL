@@ -428,6 +428,25 @@ public class Board {
 
         return false;
     }
+
+    /**
+     * Return the first card that disputes the suggestion
+     * @param suggestion
+     * @return
+     */
+    public Card handleSuggestion(Solution suggestion) {
+
+
+        // loop through each players
+        for (Player player : players) {
+            Card card = player.disproveSuggestion(suggestion);
+            if (card != null) {
+                return card;
+            }
+        }
+        
+        return null;
+    }
     
     /**
      * Return the cell given column and row
