@@ -28,18 +28,28 @@ public class GameSolutionTest {
     private static ArrayList<Player> players = new ArrayList<Player>();
 
     @BeforeAll
-    public void startup(){
+    static public void startup(){
         player1 = new HumanPlayer("bob", "blue", 0,0);
         player2 = new HumanPlayer("dob", "blue", 0,0);
         player3 = new HumanPlayer("rob", "blue", 0,0);
 
-        
-
+        // add players to list
         players.add(player1);
         players.add(player2);
         players.add(player3);
 
+        // update each players hand with 3 cards
+        player1.updateHand(new Card("Basement", CardType.ROOM));
+        player1.updateHand(new Card("Eliza", CardType.PERSON));
+        player1.updateHand(new Card("Paper", CardType.WEAPON));
 
+        player2.updateHand(new Card("Office", CardType.ROOM));
+        player2.updateHand(new Card("Matt", CardType.PERSON));
+        player2.updateHand(new Card("Paper", CardType.WEAPON));
+
+        player3.updateHand(new Card("Living Room", CardType.ROOM));
+        player3.updateHand(new Card("Matt", CardType.PERSON));
+        player3.updateHand(new Card("Rock", CardType.WEAPON));
 
     }
 
@@ -137,13 +147,17 @@ public class GameSolutionTest {
     @Test
     public void testHandleSuggestion() {
 
+        Solution query = new Solution(room, person, weapon);
 
-
-        
         // Test query no players can disprove
-    
+        assertEquals(board.handleSuggestion(query, players), null);
 
         // Test query that only suggesting player can disprove
+        Solution query2 = new Solution(new Card("Basement", CardType.ROOM), new Card("Eliza", CardType.PERSON), new Card("Paper", CardType.WEAPON));
+        assertEquals(board.handleSuggestion(query2, players), null);
+
+
+
 
         
     }
