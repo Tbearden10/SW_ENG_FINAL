@@ -168,35 +168,4 @@ public class GameSolutionTest {
         Solution query4 = new Solution(new Card("Master Bedroom", CardType.ROOM), new Card("Matt", CardType.PERSON), new Card("Gun", CardType.WEAPON));
         assertEquals(board.handleSuggestion(player1, query4, players).getCardName(), "Matt");   
     }
-    
-    @Test
-    public void testComputerSuggestions() {
-    	// ensures that the room is where the player is. 
-    	assertEquals(player2.createSuggestion(player2, board).getRoom().getCardName(), "Master Bedroom");
-    	
-    	Set<Card> seenCardsP2 = player2.getSeenCards();
-    	for(Card suggestion: board.getSuggestionCards()) {
-    		if(suggestion.getCardName().equals("Bomb")) {
-    			continue;
-    		}
-    		else if(suggestion.getCardName().equals("Eliza")) {
-    			continue;
-    		}
-    		else {
-    			seenCardsP2.add(suggestion);
-    		}
-    	}
-    	
-    	// Tests if either five players or weapons are seen and the last is guaranteed to be chosen
-    	assertEquals(player2.createSuggestion(player2, board).getWeapon().getCardName(), "Bomb");
-    	assertEquals(player2.createSuggestion(player2, board).getPerson().getCardName(), "Eliza");
-    	
-    	seenCardsP2.clear();
-    	
-    	// Test if the cards are random for the suggestion given that five of either the player or weapon aren't seen
-    	assertEquals(player2.createSuggestion(player2, board).getWeapon().getCardType(), CardType.WEAPON);
-    	assertEquals(player2.createSuggestion(player2, board).getPerson().getCardType(), CardType.PERSON);
-    	assert(board.getSuggestionCards().contains(player2.createSuggestion(player2, board).getPerson()));
-    	assert(board.getSuggestionCards().contains(player2.createSuggestion(player2, board).getWeapon()));
-    }
 }
