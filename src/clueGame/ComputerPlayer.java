@@ -9,6 +9,7 @@ public class ComputerPlayer extends Player {
 	
 	ArrayList<Card> suggestions = new ArrayList<Card>();
 	Set<Card> seenCards = new HashSet<Card>();
+	Set<Character> previousRooms = new HashSet<Character>();
 	
     public ComputerPlayer() {
         super();
@@ -72,4 +73,61 @@ public class ComputerPlayer extends Player {
     	
     	return new Solution(new Card(room, CardType.ROOM), person, weapon);
     }
+
+	/**
+	 * Private helper function to determine if the room has been visited before
+	 * @param room
+	 * @return
+	 */
+	private boolean isPreviousRoom(char room) {
+		for (Character prevRoom : previousRooms) {
+			if (prevRoom == room) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Move to the desired target location
+	 * @param target
+	 */
+	private void moveToTarget(BoardCell target) {
+		// moves the player to the target location
+		this.row = target.getRow();
+		this.col = target.getCol();
+		if (target.isRoomCenter()) {
+			previousRooms.add(target.getInitial());
+		}
+	}
+
+	public BoardCell selectMoveTarget(Set<BoardCell> targets) {
+
+		Set<BoardCell> roomTargets = new HashSet<BoardCell>();
+		
+		// Try to enter new room if possible
+		for (BoardCell cell : targets) {
+			if ((cell.isRoomCenter() || cell.isDoorway()) && !isPreviousRoom(cell.getInitial())) {
+				if (!cell.isDoorway()) {
+					return cell;
+				}
+				else {
+					for (BoardCell adjCell : cell.getAdjList()) {
+						if (adjCell.isRoomCenter()) {
+							if (!isPreviousRoom(adjCell.getInitial())) {
+								return cell;
+							}
+						}
+					}
+				}
+			}
+			
+		}
+
+		// cant enter room, so enter random target
+
+
+		return new BoardCell(0, 0, ' ');
+			
+	}
 }

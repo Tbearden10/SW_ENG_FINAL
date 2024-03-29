@@ -237,4 +237,20 @@ public class BoardCell {
     public boolean getIsOccupied() {
         return isOccupied;
     }
+
+    /**
+     * Returns the row
+     * @return
+     */
+    public int getRow() {
+        return row;
+    }
+
+    /**
+     * Returns the column
+     * @return
+     */
+    public int getCol() {
+        return col;
+    }
 }

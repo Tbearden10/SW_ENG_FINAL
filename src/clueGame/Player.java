@@ -11,7 +11,9 @@ abstract public class Player {
     
     private ArrayList<Card> cards;
     
-    private int row, col;
+    protected int row;
+
+    protected int col;
     
     private Set<Card> seenCards;
 
@@ -94,6 +96,10 @@ abstract public class Player {
 		this.seenCards = seenCards;
 	}
     
+    public void doMove(int row, int col) {
+        this.row = row;
+        this.col = col;
+    }
     
     
 }
