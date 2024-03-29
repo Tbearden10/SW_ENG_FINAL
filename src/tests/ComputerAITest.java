@@ -1,6 +1,7 @@
 package tests;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -10,17 +11,15 @@ import java.util.ArrayList;
 import java.util.Set;
 
 import clueGame.Board;
+import clueGame.BoardCell;
 import clueGame.Card;
 import clueGame.CardType;
 import clueGame.ComputerPlayer;
-import clueGame.HumanPlayer;
 import clueGame.Player;
 
 public class ComputerAITest {
 
     private static Board board;
-    private static Card room, person, weapon;
-    private static Player testPlayer;
     private static ComputerPlayer player;
     private static ArrayList<Player> players = new ArrayList<Player>();
 
@@ -44,9 +43,6 @@ public class ComputerAITest {
         board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
         board.initialize();
 
-        room = new Card("Kitchen", CardType.ROOM);
-        person = new Card("Eduard", CardType.PERSON);
-        weapon = new Card("Bomb", CardType.WEAPON);
     }
 
     @Test
@@ -82,11 +78,25 @@ public class ComputerAITest {
 
     @Test
     public void testComputerTargetSelection() {        
-    	// test if no rooms in target list, select randomly
-        
-    
-        // if room in seen list that has not been seen, select that room
 
-        // if room in seen list that has been seen, select randomly
+        // test a list of targets in which contain unvisited rooms
+        BoardCell testCell = board.getCell(20, 17);
+        board.calcTargets(testCell, 5);
+        Set<BoardCell> targets = board.getTargets();
+        assertTrue(targets.contains(player.selectMoveTarget(targets)));
+
+        // test list of targets with a visited room
+        targets.clear();
+        player.addPreviousRoom('B');
+        board.calcTargets(testCell, 5);
+        targets = board.getTargets();
+        assertTrue(targets.contains(player.selectMoveTarget(targets)));
+        
+       
+        // random list of targets in which are NOT rooms
+        targets.clear();
+        targets.add(new BoardCell(0, 0, ' '));
+        targets.add(new BoardCell(0, 1, ' '));
+        assertTrue(targets.contains(player.selectMoveTarget(targets)));
     }
 }

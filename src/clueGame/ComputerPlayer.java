@@ -1,9 +1,11 @@
 package clueGame;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
+
 
 public class ComputerPlayer extends Player {
 	
@@ -80,12 +82,15 @@ public class ComputerPlayer extends Player {
 	 * @return
 	 */
 	private boolean isPreviousRoom(char room) {
-		for (Character prevRoom : previousRooms) {
-			if (prevRoom == room) {
-				return true;
-			}
-		}
-		return false;
+		return previousRooms.contains(room);
+	}
+
+	/**
+	 * Adds the room to the list of visited rooms
+	 * @param room
+	 */
+	public void addPreviousRoom(char room) {
+		previousRooms.add(room);
 	}
 
 	/**
@@ -101,33 +106,45 @@ public class ComputerPlayer extends Player {
 		}
 	}
 
+	/**
+	 * Selects a random target from the set of targets
+	 * @param targets
+	 */
+	private BoardCell getRandomTarget(Set<BoardCell> targets) {
+		// selects a random target from the set of targets
+		Random rand = new Random();
+		int index = rand.nextInt(targets.size());
+		int i = 0;
+		for (BoardCell target : targets) {
+			if (i == index) {
+				return target;
+			}
+			i++;
+		}
+		return null;
+	}
+
 	public BoardCell selectMoveTarget(Set<BoardCell> targets) {
 
 		Set<BoardCell> roomTargets = new HashSet<BoardCell>();
-		
-		// Try to enter new room if possible
+
 		for (BoardCell cell : targets) {
 			if ((cell.isRoomCenter() || cell.isDoorway()) && !isPreviousRoom(cell.getInitial())) {
 				if (!cell.isDoorway()) {
-					return cell;
-				}
-				else {
-					for (BoardCell adjCell : cell.getAdjList()) {
-						if (adjCell.isRoomCenter()) {
-							if (!isPreviousRoom(adjCell.getInitial())) {
-								return cell;
-							}
-						}
-					}
+					roomTargets.add(cell);
 				}
 			}
-			
 		}
 
-		// cant enter room, so enter random target
+		if (!roomTargets.isEmpty()) {
+			return getRandomTarget(roomTargets);
+		}
 
+		
+		if (!targets.isEmpty()) {
+			return getRandomTarget(targets);
+		}
 
 		return new BoardCell(0, 0, ' ');
-			
 	}
 }
