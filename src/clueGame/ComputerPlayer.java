@@ -1,7 +1,16 @@
+/*
+ * Authors Brayden Clark and Tanner Bearden
+ * Date: 3/29/2024
+ * 
+ * Collaborators: None
+ * 
+ * 
+ * This class is used to represent a computer player in the game of Clue.
+ * It extends the Player class and adds additional functionality
+ */
 package clueGame;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -128,6 +137,7 @@ public class ComputerPlayer extends Player {
 
 		Set<BoardCell> roomTargets = new HashSet<BoardCell>();
 
+		// checks if the target is a room center and if the room has been visited before
 		for (BoardCell cell : targets) {
 			if ((cell.isRoomCenter() || cell.isDoorway()) && !isPreviousRoom(cell.getInitial())) {
 				if (!cell.isDoorway()) {
@@ -136,11 +146,13 @@ public class ComputerPlayer extends Player {
 			}
 		}
 
+		// if there are room targets, then the player will move to the room target
 		if (!roomTargets.isEmpty()) {
 			return getRandomTarget(roomTargets);
 		}
 
-		
+
+		// if there are no room targets, then the player will move to a random target
 		if (!targets.isEmpty()) {
 			return getRandomTarget(targets);
 		}

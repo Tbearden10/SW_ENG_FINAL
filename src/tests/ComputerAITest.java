@@ -87,7 +87,7 @@ public class ComputerAITest {
 
         // test list of targets with a visited room
         targets.clear();
-        player.addPreviousRoom('B');
+        player.addPreviousRoom('M');
         board.calcTargets(testCell, 5);
         targets = board.getTargets();
         assertTrue(targets.contains(player.selectMoveTarget(targets)));
