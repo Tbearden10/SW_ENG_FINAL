@@ -1,6 +1,8 @@
 package clueGame;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 abstract public class Player {
     private String name;
@@ -10,6 +12,8 @@ abstract public class Player {
     private ArrayList<Card> cards;
     
     private int row, col;
+    
+    private Set<Card> seenCards;
 
     public Player() {
         super();
@@ -23,6 +27,7 @@ abstract public class Player {
      * @param col
      */
     public Player(String name, String color, int row, int col) {
+    	seenCards = new HashSet<Card>();
         cards = new ArrayList<Card>();
         this.name = name;
         this.color = color;
@@ -56,9 +61,9 @@ abstract public class Player {
         }
         return matchingCards.get((int) (Math.random() * matchingCards.size()));
     }
-
-    public boolean equals(Player player) {
-        return name.equals(player.getName()) && color.equals(player.getColor()) && row == player.getRow() && col == player.getCol();
+    
+    public boolean equals(Player target) {
+    	return target.name.equals(name);
     }
     
     public ArrayList<Card> getCards() {
@@ -80,6 +85,15 @@ abstract public class Player {
     public String getColor() {
         return color;
     }
+    
+    public Set<Card> getSeenCards(){
+    	return seenCards;
+    }
+
+	public void setSeenCards(Set<Card> seenCards) {
+		this.seenCards = seenCards;
+	}
+    
     
     
 }

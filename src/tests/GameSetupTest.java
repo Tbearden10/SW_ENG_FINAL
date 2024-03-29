@@ -41,13 +41,13 @@ public class GameSetupTest {
 	
 	@Test
 	public void testDeckCreated() {
-		assertEquals(board.getCards().size(), 21);
-		assertEquals(board.getCards().get(0).getCardName(), "Kitchen");
-        assertEquals(board.getCards().get(11).getCardName(), "Eduard");
-        assertEquals(board.getCards().get(20).getCardName(), "Bomb");
-        assertEquals(board.getCards().get(19).getCardType(), CardType.WEAPON);
-        assertEquals(board.getCards().get(3).getCardType(), CardType.ROOM);
-        assertEquals(board.getCards().get(10).getCardType(), CardType.PERSON);
+		assertEquals(board.getDealCards().size(), 21);
+		assertEquals(board.getDealCards().get(0).getCardName(), "Kitchen");
+        assertEquals(board.getDealCards().get(11).getCardName(), "Eduard");
+        assertEquals(board.getDealCards().get(20).getCardName(), "Bomb");
+        assertEquals(board.getDealCards().get(19).getCardType(), CardType.WEAPON);
+        assertEquals(board.getDealCards().get(3).getCardType(), CardType.ROOM);
+        assertEquals(board.getDealCards().get(10).getCardType(), CardType.PERSON);
 		
 	}
 
@@ -89,7 +89,7 @@ public class GameSetupTest {
     public void testCardsDeltPlayers() {
         board.deal();
         ArrayList<Player> players = board.getPlayers();
-        ArrayList<Card> boardCards = board.getCards();
+        ArrayList<Card> boardCards = board.getDealCards();
         int totalPlayerCardCount = 0;
 
         for (Player player : players) {

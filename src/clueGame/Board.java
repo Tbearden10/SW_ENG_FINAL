@@ -32,7 +32,9 @@ public class Board {
 
     private String setupConfigFile;
     
-    private ArrayList<Card> cards;
+    private ArrayList<Card> dealCards;
+    
+    private ArrayList<Card> suggestionCards;
     
     private ArrayList<Player> players;
 
@@ -89,7 +91,8 @@ public class Board {
      */
     public void loadSetupConfig() throws FileNotFoundException, BadConfigFormatException {
         roomMap = new HashMap<Character, Room>();
-        cards = new ArrayList<Card>();
+        dealCards = new ArrayList<Card>();
+        suggestionCards = new ArrayList<Card>();
         players = new ArrayList<Player>();
         File setupFile = new File(setupConfigFile);
         
@@ -102,7 +105,7 @@ public class Board {
             switch (line[0]) {
                 case "Room": {
                     roomMap.put(line[2].charAt(0), new Room(line[1]));
-                    cards.add(new Card(line[1], CardType.ROOM));
+                    dealCards.add(new Card(line[1], CardType.ROOM));
                     break;
                 }
                 case "Player": {
@@ -112,11 +115,13 @@ public class Board {
                     else if (line[1].equals("Computer")){
                         players.add(new ComputerPlayer(line[2], line[3], Integer.parseInt(line[4]), Integer.parseInt(line[5])));
                     }
-                    cards.add(new Card(line[2], CardType.PERSON));
+                    dealCards.add(new Card(line[2], CardType.PERSON));
+                    suggestionCards.add(new Card(line[2], CardType.PERSON));
                     break;
                 }
                 case "Weapon": {
-                    cards.add(new Card(line[1], CardType.WEAPON));
+                    dealCards.add(new Card(line[1], CardType.WEAPON));
+                    suggestionCards.add(new Card(line[1], CardType.WEAPON));
                     break;
                 }
                 case "Space": {
@@ -395,18 +400,18 @@ public class Board {
         // random index between 15 and 20
         int randWeaponIndex = rand.nextInt(6) + 15;
 
-        solution = new Solution(cards.get(randRoomIndex), cards.get(randPlayerIndex), cards.get(randWeaponIndex));
+        solution = new Solution(dealCards.get(randRoomIndex), dealCards.get(randPlayerIndex), dealCards.get(randWeaponIndex));
 
-    	cards.remove(randWeaponIndex);
-        cards.remove(randPlayerIndex);
-        cards.remove(randRoomIndex);
+    	dealCards.remove(randWeaponIndex);
+        dealCards.remove(randPlayerIndex);
+        dealCards.remove(randRoomIndex);
 
         // dealin time
-        while (cards.size() != 0) {
+        while (dealCards.size() != 0) {
             for (Player player : players) {
-                int randIndex = rand.nextInt(cards.size());
-                player.updateHand(cards.get(randIndex));
-                cards.remove(randIndex);
+                int randIndex = rand.nextInt(dealCards.size());
+                player.updateHand(dealCards.get(randIndex));
+                dealCards.remove(randIndex);
             }
         }
         
@@ -434,17 +439,25 @@ public class Board {
      * @param suggestion
      * @return
      */
-    public Card handleSuggestion(Player accurser, Solution suggestion, ArrayList<Player> players) {
-
+    public Card handleSuggestion(Player accuser, Solution suggestion, ArrayList<Player> players) {
+    	
+    	Set<Card> seenCards = new HashSet<Card>();
+    	seenCards = accuser.getSeenCards();
+    	
+    	// checks if the player is the accuser, disproves suggestion, and adds card to the seen cards
         for (Player player : players) {
-            if (player == accurser) {
-                Card card = player.disproveSuggestion(suggestion);
+            if (player.equals(accuser)) {
+                continue;
+                }
+            else {
+            	Card card = player.disproveSuggestion(suggestion);
                 if (card != null) {
+                	seenCards.add(card);
+                	accuser.setSeenCards(seenCards);
                     return card;
                 }
-            }
+            }	
         }
-
 
         return null;
     }
@@ -518,8 +531,12 @@ public class Board {
     	return players;
     }
     
-    public ArrayList<Card> getCards(){
-    	return cards;
+    public ArrayList<Card> getDealCards(){
+    	return dealCards;
+    }
+    
+    public ArrayList<Card> getSuggestionCards(){
+    	return suggestionCards;
     }
     
     public Solution getSolution() {
