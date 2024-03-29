@@ -1,3 +1,13 @@
+/*
+ * Authors Brayden Clark and Tanner Bearden
+ * Date: 3/29/2024
+ * 
+ * Collaborators: None
+ * 
+ * 
+ * Description: This class tests the functionality of the computer player AI
+ 
+ */
 package tests;
 
 import static org.junit.Assert.assertEquals;

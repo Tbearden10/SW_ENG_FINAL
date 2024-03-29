@@ -480,13 +480,6 @@ public class Board {
     public Set<BoardCell> getTargets() {
         return targets;
     }
-
-    public void printTargets() {
-        for (BoardCell cell : targets) {
-            System.out.println(cell.getRow() + ", " + cell.getCol() + ", " + cell.getInitial());
-        }
-    }
-    
     
 
     /**

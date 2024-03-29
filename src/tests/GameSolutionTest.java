@@ -1,12 +1,19 @@
+/*
+ * Authors Brayden Clark and Tanner Bearden
+ * Date: 3/29/2024
+ * 
+ * Collaborators: None
+ * 
+ * 
+ * Description: This class tests the functionality of the game solution
+ */
 package tests;
 
 
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
-import java.util.Set;
 
-import org.junit.Assert;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
