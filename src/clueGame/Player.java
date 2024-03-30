@@ -17,6 +17,8 @@ abstract public class Player {
     
     private Set<Card> seenCards;
 
+    protected Set<Character> previousRooms;
+
     public Player() {
         super();
     }
@@ -63,6 +65,14 @@ abstract public class Player {
         }
         return matchingCards.get((int) (Math.random() * matchingCards.size()));
     }
+
+    /**
+     * Method to add previous room
+     * @param room
+     */
+    public void addPreviousRoom(Character room) {
+        this.previousRooms.add(room);
+    }
     
     public boolean equals(Player target) {
     	return target.name.equals(name);
@@ -100,6 +110,12 @@ abstract public class Player {
         this.row = row;
         this.col = col;
     }
+
+    @Override
+    public String toString() {
+        return "Player [name=" + name + ", color=" + color + ", row=" + row + ", col=" + col + "]";
+    }
+
     
     
 }

@@ -1,3 +1,9 @@
+* commit ec2414a10b50b9aafb3963684a555599dee6d157
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Fri Mar 29 17:46:18 2024 -0600
+| 
+|     Added Comments and finsihed up some things
+| 
 * commit d792d85d484e9e525a6e91307cbdd3ae6722016e
 | Author: Tanner Bearden <tannerbeardens@gmail.com>
 | Date:   Fri Mar 29 17:38:54 2024 -0600

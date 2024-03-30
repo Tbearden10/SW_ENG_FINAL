@@ -448,8 +448,15 @@ public class Board {
         for (Player player : players) {
             if (player.equals(accuser)) {
                 continue;
-                }
+            }
             else {
+                // the person in suggestion is moved to that room
+                BoardCell roomCenter = roomMap.get(suggestion.getRoom().getCardName().charAt(0)).getCenterCell();
+                
+                if (roomCenter != null) {
+                    player.doMove(roomCenter.getRow(), roomCenter.getCol());
+                }
+                
             	Card card = player.disproveSuggestion(suggestion);
                 if (card != null) {
                 	seenCards.add(card);

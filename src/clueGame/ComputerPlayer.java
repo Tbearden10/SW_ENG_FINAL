@@ -28,6 +28,7 @@ public class ComputerPlayer extends Player {
 
     public ComputerPlayer(String name, String color, int row, int col) {
         super(name, color, row, col);
+		super.previousRooms = new HashSet<Character>();
     }
     
     public Solution createSuggestion(Player player, Board board){
@@ -94,24 +95,17 @@ public class ComputerPlayer extends Player {
 		return previousRooms.contains(room);
 	}
 
-	/**
-	 * Adds the room to the list of visited rooms
-	 * @param room
-	 */
-	public void addPreviousRoom(char room) {
-		previousRooms.add(room);
-	}
 
 	/**
 	 * Move to the desired target location
 	 * @param target
 	 */
-	private void moveToTarget(BoardCell target) {
+	public void doMove(BoardCell target) {
 		// moves the player to the target location
 		this.row = target.getRow();
 		this.col = target.getCol();
 		if (target.isRoomCenter()) {
-			previousRooms.add(target.getInitial());
+			super.previousRooms.add(target.getInitial());
 		}
 	}
 

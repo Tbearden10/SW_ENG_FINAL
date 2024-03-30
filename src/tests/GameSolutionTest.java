@@ -158,6 +158,9 @@ public class GameSolutionTest {
 
         Solution query = new Solution(room, person, weapon);
 
+        
+
+
         // Test query no players can disprove
         assertEquals(board.handleSuggestion(player1, query, players), null);
         assertEquals(board.handleSuggestion(player2, query, players), null);
@@ -174,5 +177,6 @@ public class GameSolutionTest {
         // Test query that two people can disprove
         Solution query4 = new Solution(new Card("Master Bedroom", CardType.ROOM), new Card("Matt", CardType.PERSON), new Card("Gun", CardType.WEAPON));
         assertEquals(board.handleSuggestion(player1, query4, players).getCardName(), "Matt");   
+        
     }
 }
