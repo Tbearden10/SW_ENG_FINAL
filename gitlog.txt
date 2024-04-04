@@ -1,3 +1,21 @@
+* commit 0817b02b90b09dd140258374282782c1a1c2454a
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Wed Apr 3 15:25:01 2024 -0600
+| 
+|     Finished up adding panels and other things
+| 
+* commit 19b9cb692760fb68e4c206332c20a5edac57ce15
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Tue Apr 2 16:52:52 2024 -0600
+| 
+|     Got base layout. will refactor tomorrow
+| 
+* commit bcbd9cea2106cca199447f2fd90a45412dae665b
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Fri Mar 29 18:38:26 2024 -0600
+| 
+|     Fixed a few things with handleSuggestion
+| 
 * commit ec2414a10b50b9aafb3963684a555599dee6d157
 | Author: Tanner Bearden <tannerbeardens@gmail.com>
 | Date:   Fri Mar 29 17:46:18 2024 -0600
