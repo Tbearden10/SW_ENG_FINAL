@@ -30,7 +30,7 @@ public class GameInformationPanel extends JPanel {
     public GameInformationPanel() {
         super();
         initializePanels();
-        updatePanels();
+        //updatePanels();
     }
 
     /**
@@ -40,13 +40,19 @@ public class GameInformationPanel extends JPanel {
         setLayout(new GridLayout(1,1));
 
 
+
+        add(peoplePanel);
+        add(roomPanel);
+        add(weaponPanel);
+
     }
 
-    private void updatePanel(JPanel panel, CardType type) {
-        panel.removeAll();
+    private void updatePanel(JPanel panel, CardType card) {
+        
         // rebuid contents and add it pack to parent
+        
 
-        add(panel);
+        
     }
 
     private void updatePanels() {
