@@ -105,6 +105,12 @@ abstract public class Player {
 	public void setSeenCards(Set<Card> seenCards) {
 		this.seenCards = seenCards;
 	}
+
+    public void setSeen(ArrayList<Card> seen) {
+        for (Card card : seen) {
+            seenCards.add(card);
+        }
+    }
     
     public void doMove(int row, int col) {
         this.row = row;

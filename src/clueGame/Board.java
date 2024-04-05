@@ -15,10 +15,11 @@ import java.util.HashMap;
 import java.util.Scanner;
 import java.io.File;
 import java.util.Set;
-
+import java.awt.Graphics;
+import javax.swing.JPanel;
 import java.util.HashSet;
 
-public class Board {
+public class Board extends JPanel {
     
     private BoardCell[][] grid;
 
@@ -80,6 +81,8 @@ public class Board {
         } catch (FileNotFoundException | BadConfigFormatException e) {
             e.printStackTrace();
         }
+
+        
      
     }
 
@@ -470,6 +473,13 @@ public class Board {
 
         return null;
     }
+
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        // do some painting
+    }
     
     /**
      * Return the cell given column and row
@@ -480,6 +490,7 @@ public class Board {
     public BoardCell getCell(int row, int col) {
     	return grid[row][col];
     }
+
 
 
     /**
@@ -541,6 +552,15 @@ public class Board {
     
     public ArrayList<Card> getDealCards(){
     	return dealCards;
+    }
+
+    public HumanPlayer getHumanPlayer() {
+        for (Player player : players) {
+            if (player instanceof HumanPlayer) {
+                return (HumanPlayer) player;
+            }
+        }
+        return null;
     }
     
     public ArrayList<Card> getSuggestionCards(){

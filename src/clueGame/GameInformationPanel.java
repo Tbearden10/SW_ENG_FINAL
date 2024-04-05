@@ -22,6 +22,9 @@ import java.util.ArrayList;
 
 public class GameInformationPanel extends JPanel {
 
+    private static final int WIDTH = 100;
+    private static final int HEIGHT = 600;
+
 
     // create room, people, and weapon panels
     JPanel peoplePanel = new JPanel(new GridLayout(0, 1));
@@ -42,6 +45,7 @@ public class GameInformationPanel extends JPanel {
         
         // set layout for the panel
         setLayout(new GridLayout(3, 1));
+        setSize(WIDTH, HEIGHT);
 
         // Set border titles
         setBorder(BorderFactory.createTitledBorder("Known Cards"));
@@ -53,6 +57,9 @@ public class GameInformationPanel extends JPanel {
         add(peoplePanel);
         add(roomPanel);
         add(weaponPanel);
+
+
+        repaint();
 
     }
 
@@ -144,7 +151,7 @@ public class GameInformationPanel extends JPanel {
         GameInformationPanel panel = new GameInformationPanel();
         JFrame frame = new JFrame();
         frame.setContentPane(panel);
-        frame.setSize(160, 600);
+        frame.setSize(WIDTH, HEIGHT);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
 
@@ -159,8 +166,10 @@ public class GameInformationPanel extends JPanel {
         Solution oneMatchingSolution = new Solution(new Card("Kitchen", CardType.ROOM), new Card("Eliza", CardType.PERSON), new Card("Rock", CardType.WEAPON));
         
         // handle suggestion to create seen cards
-        board.handleSuggestion(board.getPlayers().get(2), oneMatchingSolution, board.getPlayers());
-        panel.updatePanels(board.getPlayers().get(2));
+        board.handleSuggestion(board.getPlayers().get(0), oneMatchingSolution, board.getPlayers());
+        panel.updatePanels(board.getPlayers().get(0));
+
+        
     }
 
 }
