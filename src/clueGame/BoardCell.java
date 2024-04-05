@@ -8,15 +8,13 @@ Sources: n/a
 package clueGame;
 
 import java.util.Set;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.util.HashSet;
 
 public class BoardCell {
 
-    @SuppressWarnings("unused")
-    private int row;
-    
-    @SuppressWarnings("unused")
-    private int col;
+    private int row, col, width, height, x, y;
 
     private char initial;
 
@@ -90,6 +88,75 @@ public class BoardCell {
         }
     }
 
+  
+    /**
+     * 
+     * @param g
+     * @param sideLen
+     * @param x
+     * @param y
+     * @param isTarget
+     */
+    public void draw(Graphics g, int w, int h, int xpos, int ypos, boolean isTarget) {
+
+        this.x = xpos;
+        this.y = ypos;
+        this.width = w;
+        this.height = h;
+
+        if (isRoom()) {
+            g.setColor(Color.gray);
+            g.fillRect(x, y, width, height);
+            g.drawRect(x, y, width, height);    
+        }
+        else if (isUnused()){
+            g.setColor(Color.black);
+            g.drawRect(x, y, width, height);
+        }
+        else {
+            g.setColor(Color.yellow);
+            g.fillRect(x, y, width, height);
+            g.setColor(Color.black);
+            g.drawRect(x, y, width, height);
+        }
+
+        if (isTarget) {
+            g.setColor(Color.CYAN);
+            g.fillRect(x, y, width, height);
+            g.setColor(Color.black);
+            g.drawRect(x, y, width, height);
+        }
+
+        if (isDoorway) {
+            g.setColor(Color.blue);
+            switch (doorDirection) {
+                case UP:
+                    g.fillRect(x, y, width, height/5);
+                    break;
+                case DOWN:
+                    g.fillRect(x, y + height - height/5, width, height/5);
+                    break;
+                case LEFT:
+                    g.fillRect(x, y, width/5, height);
+                    break;
+                case RIGHT:
+                    g.fillRect(x + width - width/5, y, width/5, height);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    public void drawRoomCellName() {
+        String name = Board.getInstance().getRoom(initial).getName();
+        if (roomLabel) {
+            Graphics g = Board.getInstance().getGraphics();
+            g.setColor(Color.BLUE);
+            g.drawString(name, this.x, this.y);
+        }
+    }
+
     /**
      * Adds a cell to the adjacency list
      * @param cell
@@ -97,6 +164,22 @@ public class BoardCell {
     public void addAdj(BoardCell cell) {
         adjList.add(cell);
     }
+
+    /**
+     * Returns whether or not the cell is a room
+     * @return
+     */
+    public boolean isRoom() {
+        return initial != 'W' && initial != 'X';
+    }
+
+    /**
+     * Returns whether or not the cell is an unused space
+     * @return
+     */
+    public boolean isUnused() {
+        return initial == 'X';
+    }  
 
     
     /**

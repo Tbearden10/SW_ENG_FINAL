@@ -1,8 +1,11 @@
 package clueGame;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+
 
 abstract public class Player {
     private String name;
@@ -115,6 +118,18 @@ abstract public class Player {
     public void doMove(int row, int col) {
         this.row = row;
         this.col = col;
+    }
+
+    /**
+     * Method to draw the player
+     * @param g
+     * @param width
+     * @param height
+     */
+    public void draw(Graphics g, int width, int height) {
+        Color color = Color.decode(this.color);
+        g.setColor(color);
+        g.fillOval(col * width, row * height, width, height);
     }
 
     @Override
