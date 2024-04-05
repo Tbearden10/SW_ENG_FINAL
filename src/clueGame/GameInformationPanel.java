@@ -13,17 +13,17 @@ import java.awt.GridLayout;
 import java.util.Set;
 
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.border.Border;
 import java.util.ArrayList;
+
 
 public class GameInformationPanel extends JPanel {
 
 
+    // create room, people, and weapon panels
     JPanel peoplePanel = new JPanel(new GridLayout(0, 1));
     JPanel roomPanel = new JPanel(new GridLayout(0,1));
     JPanel weaponPanel = new JPanel(new GridLayout(0,1));
@@ -49,43 +49,84 @@ public class GameInformationPanel extends JPanel {
         roomPanel.setBorder(BorderFactory.createTitledBorder("Rooms"));
         weaponPanel.setBorder(BorderFactory.createTitledBorder("Weapons"));
 
+        // add panels to parent
         add(peoplePanel);
         add(roomPanel);
         add(weaponPanel);
 
     }
 
-    private void updatePanel(JPanel panel, Player player, CardType type) {
+    /**
+     * Updates the panel with the player's cards
+     * @param panel panel to be updated
+     * @param player player to get cards from
+     * @param type type of card to get
+     */
+    public void updatePanel(JPanel panel, Player player, CardType type) {
+
+        // clear the panel
         panel.removeAll();
+
+        boolean inHand = false;
+        boolean isSeen = false;
 
         ArrayList<Card> cards = player.getCards();
         Set<Card> seenCards = player.getSeenCards();
+        
+        // get player color using decode function
+        Color playerColor = Color.decode(player.getColor());
 
-        // rebuid contents and add it pack to parent
+        // add labels to panel
         panel.add(new JLabel("In Hand: "));
-
+    
         // loop through cards in hand
         for (Card card : cards) {
+
             if (card.getCardType() == type) {
                 JTextField textField = new JTextField(card.getCardName());
                 textField.setEditable(false);
+                textField.setBackground(playerColor);
                 panel.add(textField);
+                inHand = true;
             }
         }
 
+        // draw 'None' textField if there are no cards of 'type' in hand
+        if (!inHand) {
+            JTextField noneInHandField = new JTextField("None");
+            noneInHandField.setEditable(false);
+            panel.add(noneInHandField);
+        }
+
+        // add seen label
         panel.add(new JLabel("Seen: "));
 
+    
         // loop through seen cards
         for (Card card : seenCards) {
             if (card.getCardType() == type) {
                 JTextField textField = new JTextField(card.getCardName());
                 textField.setEditable(false);
+                textField.setBackground(Color.decode(card.getColor()));
                 panel.add(textField);
+                isSeen = true;
             }
         }
+
+        // draw 'None' textField if there are no cards of 'type' in hand
+        if (!isSeen) {
+            JTextField noneInHandField = new JTextField("None");
+            noneInHandField.setEditable(false);
+            panel.add(noneInHandField);
+        }
+
         
-        
+    
+        // add panel to parent
         add(panel);
+
+        revalidate();
+        repaint();
     }
 
     public void updatePanels(Player player) {
@@ -113,9 +154,13 @@ public class GameInformationPanel extends JPanel {
         board.initialize();
         board.deal();
 
-        Player testPlayer = board.getPlayers().get(0);
+
+        // create test solution
+        Solution oneMatchingSolution = new Solution(new Card("Kitchen", CardType.ROOM), new Card("Eliza", CardType.PERSON), new Card("Rock", CardType.WEAPON));
         
-        panel.updatePanels(testPlayer);
+        // handle suggestion to create seen cards
+        board.handleSuggestion(board.getPlayers().get(2), oneMatchingSolution, board.getPlayers());
+        panel.updatePanels(board.getPlayers().get(2));
     }
 
 }

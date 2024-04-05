@@ -410,7 +410,9 @@ public class Board {
         while (dealCards.size() != 0) {
             for (Player player : players) {
                 int randIndex = rand.nextInt(dealCards.size());
-                player.updateHand(dealCards.get(randIndex));
+                Card card = dealCards.get(randIndex);
+                card.setColor(player.getColor());
+                player.updateHand(card);
                 dealCards.remove(randIndex);
             }
         }

@@ -12,12 +12,12 @@ Room, Shed, S
 Space, Unused, X
 Space, Walkway, W
 // players
-Player, Human, Paul, Red, 8, 22
-Player, Computer, Lucia, Blue, 8, 0
-Player, Computer, Eduard, Orange, 0, 3
-Player, Computer, Eliza, Yellow, 13, 0
-Player, Computer, Phinees, Green, 20, 0
-Player, Computer, Matt, Purple, 20, 22
+Player, Human, Paul, #FA3D64, 8, 22
+Player, Computer, Lucia, #DDB0A7, 8, 0
+Player, Computer, Eduard, #EAAD5A, 0, 3
+Player, Computer, Eliza, #A8B293, 13, 0
+Player, Computer, Phinees, #DF8053, 20, 0
+Player, Computer, Matt, #478BA2, 20, 22
 // weapons 
 Weapon, Hamster
 Weapon, Frying Pan
