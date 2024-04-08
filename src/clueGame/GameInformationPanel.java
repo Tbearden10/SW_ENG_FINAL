@@ -73,7 +73,7 @@ public class GameInformationPanel extends JPanel {
 
         // clear the panel
         panel.removeAll();
-
+        
         boolean inHand = false;
         boolean isSeen = false;
 

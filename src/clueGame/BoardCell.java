@@ -88,6 +88,7 @@ public class BoardCell {
         }
     }
 
+
   
     /**
      * 
@@ -105,16 +106,17 @@ public class BoardCell {
         this.height = h;
 
         if (isRoom()) {
-            g.setColor(Color.gray);
+            g.setColor(Color.PINK);
             g.fillRect(x, y, width, height);
-            g.drawRect(x, y, width, height);    
+            //g.drawRect(x, y, width, height);    
         }
         else if (isUnused()){
-            g.setColor(Color.black);
+            g.setColor(Color.decode("#800080"));
+            g.fillRect(x, y, width, height);
             g.drawRect(x, y, width, height);
         }
         else {
-            g.setColor(Color.yellow);
+            g.setColor(Color.YELLOW);
             g.fillRect(x, y, width, height);
             g.setColor(Color.black);
             g.drawRect(x, y, width, height);
@@ -146,6 +148,7 @@ public class BoardCell {
                     break;
             }
         }
+        
     }
 
     public void drawRoomCellName() {

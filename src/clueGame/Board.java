@@ -15,9 +15,11 @@ import java.util.HashMap;
 import java.util.Scanner;
 import java.io.File;
 import java.util.Set;
+import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.JPanel;
 import java.util.HashSet;
+import java.awt.Font;
 
 public class Board extends JPanel {
     
@@ -474,11 +476,70 @@ public class Board extends JPanel {
         return null;
     }
 
+    /**
+     * Paints the board
+     */
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
         // do some painting
+        int cellWidth = this.getWidth();
+        int cellHeight = this.getHeight();
+
+        int cellXPos = 0;
+        int cellYPos = 0;
+
+
+
+        for (int i = 0; i < numRows; i++) {
+            cellXPos = 0;
+            for (int j = 0; j < numColumns; j++) {
+                // get isTarget
+
+                boolean isTarget = getTargets() != null && getTargets().contains(grid[i][j]);
+
+                grid[i][j].draw(g, cellWidth / numColumns, cellHeight / numRows, cellXPos, cellYPos, isTarget);
+                
+                cellXPos = (int) (cellXPos + (cellWidth / numColumns));
+
+                if (grid[i][j].isRoomCenter()) {
+                    String name = "";
+                    String[] split = new String[0];
+                    for (Map.Entry<Character, Room> entry : roomMap.entrySet()) {
+                        if (entry.getKey() == grid[i][j].getInitial()) {
+                            name = entry.getValue().getName();
+                            split = name.split(" ");
+                            // add \n char if there is a space
+                        }
+                    }
+                    g.setColor(Color.RED);
+                    Font font = new Font("Arial", Font.BOLD, 15);
+                    g.setFont(font);
+                    
+                    int tempX = cellXPos;
+                    if (grid[i][j].getInitial() != 'S') {
+                        tempX = (int) (cellXPos - (cellWidth / numColumns));
+                    }
+
+                    if (split.length > 1) {
+                        g.drawString(split[0], tempX - ((int) (cellWidth / numColumns)), cellYPos - ((int) (cellHeight / numRows)));
+                        g.drawString(split[1], tempX - ((int) (cellWidth / numColumns)), 20 + cellYPos - ((int) (cellHeight / numRows)));
+                    }
+                    else {
+                        g.drawString(name, tempX - ((int) (cellWidth / numColumns)), cellYPos - ((int) (cellHeight / numRows)));
+                    }
+                }
+            }
+            cellYPos = (int) (cellYPos + (cellHeight / numRows));
+
+
+        }
+
+        for (Player player : players) {
+            player.draw(g, (int) cellWidth / numColumns, (int) cellHeight / numRows);
+        }
+        
     }
     
     /**

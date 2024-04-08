@@ -13,7 +13,7 @@ Space, Unused, X
 Space, Walkway, W
 // players
 Player, Human, Paul, #FA3D64, 8, 22
-Player, Computer, Lucia, #DDB0A7, 8, 0
+Player, Computer, Lucia, #AAA0C7, 8, 0
 Player, Computer, Eduard, #EAAD5A, 0, 3
 Player, Computer, Eliza, #A8B293, 13, 0
 Player, Computer, Phinees, #DF8053, 20, 0
