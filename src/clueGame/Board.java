@@ -500,7 +500,7 @@ public class Board extends JPanel {
                 boolean isTarget = getTargets() != null && getTargets().contains(grid[i][j]);
 
                 grid[i][j].draw(g, cellWidth / numColumns, cellHeight / numRows, cellXPos, cellYPos, isTarget);
-                
+
                 cellXPos = (int) (cellXPos + (cellWidth / numColumns));
 
                 if (grid[i][j].isRoomCenter()) {
@@ -540,6 +540,8 @@ public class Board extends JPanel {
             player.draw(g, (int) cellWidth / numColumns, (int) cellHeight / numRows);
         }
         
+        repaint();
+        revalidate();
     }
     
     /**
