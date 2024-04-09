@@ -1,3 +1,15 @@
+* commit 3ba1163f491d733d32721e8372bcca08f4082554
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Mon Apr 8 19:54:14 2024 -0600
+| 
+|     GUI
+| 
+* commit 7badeb899b7ae3fb8601157c7b30d9bb2e0366cc
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Mon Apr 8 17:37:28 2024 -0600
+| 
+|     Finished board drawing
+| 
 * commit f34fd1e9aec2c0369e470be05f7e740494d404f8
 | Author: Tanner Bearden <tannerbeardens@gmail.com>
 | Date:   Mon Apr 8 17:16:10 2024 -0600
