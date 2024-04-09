@@ -15,13 +15,15 @@ import java.util.HashMap;
 import java.util.Scanner;
 import java.io.File;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 import java.awt.Color;
 import java.awt.Graphics;
+
 import javax.swing.JPanel;
 import java.util.HashSet;
 import java.awt.Font;
 
-public class Board extends JPanel {
+public class Board extends JPanel{
     
     private BoardCell[][] grid;
 
@@ -487,19 +489,24 @@ public class Board extends JPanel {
         int cellWidth = this.getWidth();
         int cellHeight = this.getHeight();
 
-        int cellXPos = 0;
-        int cellYPos = 0;
-
-
-
+        int cellSize = Math.min(cellWidth / numColumns, cellHeight / numRows);
+        
+        int totalWidth = cellSize * numColumns;
+        int totalHeight = cellSize * numRows;
+        
+        int startX = (cellWidth - totalWidth) / 2;
+        int startY = (cellHeight - totalHeight) / 2;
+        
+        int cellXPos = 0, cellYPos = 0;
+        
         for (int i = 0; i < numRows; i++) {
-            cellXPos = 0;
             for (int j = 0; j < numColumns; j++) {
+            	cellXPos = startX + j * cellSize;
+                cellYPos = startY + i * cellSize;
                 // get isTarget
-
                 boolean isTarget = getTargets() != null && getTargets().contains(grid[i][j]);
 
-                grid[i][j].draw(g, cellWidth / numColumns, cellHeight / numRows, cellXPos, cellYPos, isTarget);
+                grid[i][j].draw(g, cellSize, cellSize, cellXPos, cellYPos, isTarget);
                 
                 cellXPos = (int) (cellXPos + (cellWidth / numColumns));
 
@@ -514,7 +521,7 @@ public class Board extends JPanel {
                         }
                     }
                     g.setColor(Color.RED);
-                    Font font = new Font("Arial", Font.BOLD, 15);
+                    Font font = new Font("Arial", Font.BOLD, cellWidth/70);
                     g.setFont(font);
                     
                     int tempX = cellXPos;
@@ -535,9 +542,15 @@ public class Board extends JPanel {
 
 
         }
-
+        
         for (Player player : players) {
-            player.draw(g, (int) cellWidth / numColumns, (int) cellHeight / numRows);
+        	int playerRow = player.getRow();
+        	int playerCol = player.getCol();
+        	
+        	int playerXPos = startX + playerCol * cellSize;
+        	int playerYPos = startY + playerRow * cellSize;
+        	
+            player.draw(g, playerXPos, playerYPos, cellSize);
         }
         
     }

@@ -1,8 +1,10 @@
 package clueGame;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 
 public class ClueGame extends JFrame {
@@ -11,8 +13,8 @@ public class ClueGame extends JFrame {
     private static GameControlPanel controlPanel;
     private static GameInformationPanel infoPanel;
 
-    private static int WIDTH = 1000;
-    private static int HEIGHT = 1000;
+    private static int WIDTH = 1200;
+    private static int HEIGHT = 1150;
     
     public ClueGame() {
         setSize(WIDTH, HEIGHT);
@@ -36,17 +38,17 @@ public class ClueGame extends JFrame {
                 infoPanel.repaint();
             }
         }
-       
-        
-        infoPanel.setPreferredSize(new Dimension(120, 650));
-        controlPanel.setPreferredSize(new Dimension(800, 120));
+        board.setPreferredSize(new Dimension(960,1040));
+        board.setBackground(Color.red);;
+        infoPanel.setPreferredSize(new Dimension(240, 1040));
+        controlPanel.setPreferredSize(new Dimension(1200, 110));
 
         add(board, BorderLayout.CENTER);
         add(controlPanel, BorderLayout.SOUTH);
         add(infoPanel, BorderLayout.EAST);
 
         setVisible(true);
-
+        // Comment
         board.repaint();
     }
 

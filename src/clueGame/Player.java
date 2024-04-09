@@ -126,10 +126,10 @@ abstract public class Player {
      * @param width
      * @param height
      */
-    public void draw(Graphics g, int width, int height) {
+    public void draw(Graphics g, int x, int y, int size) {
         Color color = Color.decode(this.color);
         g.setColor(color);
-        g.fillOval(col * width, row * height, width, height);
+        g.fillOval(x, y, size, size);
     }
 
     @Override
