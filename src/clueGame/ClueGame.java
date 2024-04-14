@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 
+import java.util.ArrayList;
+
 public class ClueGame extends JFrame {
 
     private static Board board;
@@ -32,12 +34,8 @@ public class ClueGame extends JFrame {
         infoPanel = new GameInformationPanel();
 
         // add panels to frame
-        for (Player player : board.getPlayers()) {
-            if (player instanceof HumanPlayer) {
-                infoPanel.updatePanels(player);
-                infoPanel.repaint();
-            }
-        }
+        updateInfoPanel();
+
 
         // set layout sizes
         board.setPreferredSize(new Dimension(960,1040));
@@ -58,10 +56,10 @@ public class ClueGame extends JFrame {
      * Updates the information panel with the player's cards
      * @param player
      */
-    public static void updateInfoPanel(Player player) {
+    public static void updateInfoPanel() {
         for (Player p : board.getPlayers()) {
             if (p instanceof HumanPlayer) {
-                infoPanel.updatePanels(player);
+                infoPanel.updatePanels(p);
                 infoPanel.repaint();
             }
         }
@@ -76,7 +74,13 @@ public class ClueGame extends JFrame {
         controlPanel.repaint();
     }
 
+    public ArrayList<Player> getPlayers() {
+        return board.getPlayers();
+    }
+
     public static void main(String[] args) {
         ClueGame game = new ClueGame();
+    
+
     }
 }
