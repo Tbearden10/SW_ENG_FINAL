@@ -203,7 +203,8 @@ public class Board extends JPanel{
     }
 
     /**
-     * Private helper function to calculate the adjacencies of the board
+     * Calculates the adjacencies for each cell
+     * @param grid
      */
     private void calcAdjacencies(BoardCell[][] grid) {
 
@@ -625,14 +626,26 @@ public class Board extends JPanel{
         return numColumns;
     }
     
+    /**
+     * get the player lsit
+     * @return
+     */
     public ArrayList<Player> getPlayers(){
     	return players;
     }
     
+    /**
+     * get the deal cards
+     * @return
+     */
     public ArrayList<Card> getDealCards(){
     	return dealCards;
     }
 
+    /**
+     * get the human player
+     * @return
+     */
     public HumanPlayer getHumanPlayer() {
         for (Player player : players) {
             if (player instanceof HumanPlayer) {
@@ -642,14 +655,26 @@ public class Board extends JPanel{
         return null;
     }
     
+    /**
+     * get the suggestion cards
+     * @return
+     */
     public ArrayList<Card> getSuggestionCards(){
     	return suggestionCards;
     }
     
+    /**
+     * get the solution
+     * @return
+     */
     public Solution getSolution() {
     	return solution;
     }
 
+    /**
+     * set the solution
+     * @param solution
+     */
     public void setSolution(Solution solution) {
     	this.solution = solution;
     }

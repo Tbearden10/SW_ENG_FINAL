@@ -54,6 +54,10 @@ public class ClueGame extends JFrame {
         board.repaint();
     }
 
+    /**
+     * Updates the information panel with the player's cards
+     * @param player
+     */
     public static void updateInfoPanel(Player player) {
         for (Player p : board.getPlayers()) {
             if (p instanceof HumanPlayer) {
@@ -63,6 +67,10 @@ public class ClueGame extends JFrame {
         }
     }
 
+    /**
+     * Sets the suggestion to the given string
+     * @param guess
+     */
     public static void setSuggestion(String guess) {
         controlPanel.setGuess(guess);
         controlPanel.repaint();

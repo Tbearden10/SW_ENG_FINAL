@@ -136,6 +136,10 @@ public class GameInformationPanel extends JPanel {
         repaint();
     }
 
+    /**
+     * Updates the panels with the player's cards
+     * @param player
+     */
     public void updatePanels(Player player) {
 
         // update the known cards
