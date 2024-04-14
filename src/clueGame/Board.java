@@ -496,6 +496,7 @@ public class Board extends JPanel{
         
         int cellXPos = 0, cellYPos = 0;
         
+        // draw the board
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numColumns; j++) {
             	cellXPos = startX + j * cellSize;
@@ -518,7 +519,7 @@ public class Board extends JPanel{
                         }
                     }
                     g.setColor(Color.RED);
-                    Font font = new Font("Arial", Font.BOLD, cellWidth/70);
+                    Font font = new Font("Comic Sans MS", Font.BOLD, cellWidth/70);
                     g.setFont(font);
                     
                     int tempX = cellXPos;
