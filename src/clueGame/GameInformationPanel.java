@@ -101,6 +101,14 @@ public class GameInformationPanel extends JPanel {
         repaint();
     }
 
+    /**
+     * Loops through the cards and adds them to the panel
+     * @param cards
+     * @param panel
+     * @param type
+     * @param isSeen
+     * @param playerColor
+     */
     private void cardLoop(ArrayList<Card> cards, JPanel panel, CardType type, boolean isSeen, Color playerColor) {
         for (Card card : cards) {
             if (card.getCardType() == type) {

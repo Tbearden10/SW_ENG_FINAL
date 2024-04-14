@@ -23,10 +23,23 @@ public class GameControlPanel extends JPanel {
     private String guess;
     private String result;
     private String turn;
-    private JTextField guessTextField;
-    private JTextField guessResultTextField;
-    private JTextField turnTextField;
-    private JTextField rollTextField;
+
+    JTextField guessTextField;
+    JTextField guessResultTextField;
+    JTextField turnTextField;
+    JTextField rollTextField;
+    JPanel guessPanel;
+    JPanel guessResultPanel;
+    JPanel leftPanel;
+    JPanel rightPanel;
+    JPanel buttonPanel;
+    JPanel turnPanel;
+    JPanel rollPanel;
+    JLabel turnLabel;
+    JLabel rollLabel;
+    JButton nextPlayer;
+    JButton makeAccusation;
+  
 
     public GameControlPanel() {
         super();
@@ -39,58 +52,63 @@ public class GameControlPanel extends JPanel {
     private void initializePanels() {
         setLayout(new GridLayout(1, 2));
 
-        // left panels holds guess and guess result
-        JPanel leftPanel = new JPanel();
+        // Define text fields, panels, labels, abd buttons
+        guessTextField = new JTextField();
+        guessResultTextField = new JTextField();
+        turnTextField = new JTextField();
+        rollTextField = new JTextField();
+        guessPanel = new JPanel();
+        guessResultPanel = new JPanel();
+        leftPanel = new JPanel();
+        rightPanel = new JPanel();
+        buttonPanel = new JPanel();
+        turnPanel = new JPanel();
+        rollPanel = new JPanel();
+        turnLabel = new JLabel("Whose Turn: ");
+        rollLabel = new JLabel("Roll: ");
+        nextPlayer = new JButton("Next Player");
+        makeAccusation = new JButton("Make an Accusation");
+        
+
+
+        // left panel setup
         leftPanel.setLayout(new GridLayout(2, 1));
-        JPanel guessPanel = new JPanel();
         guessPanel.setLayout(new GridLayout(1, 1));
         guessPanel.setBorder(BorderFactory.createTitledBorder("Guess: "));
-        guessTextField = new JTextField();
         guessTextField.setEditable(false);
         guessPanel.add(guessTextField);
 
-        JPanel guessResultPanel = new JPanel();
         guessResultPanel.setLayout(new GridLayout(1, 1));
         guessResultPanel.setBorder(BorderFactory.createTitledBorder("Guess Result: "));
-        guessResultTextField = new JTextField();
         guessResultTextField.setEditable(false);
         guessResultPanel.add(guessResultTextField);
 
         leftPanel.add(guessPanel);
         leftPanel.add(guessResultPanel);
 
-        // right panel holds player curn and buttons
-        JPanel rightPanel = new JPanel();
-        rightPanel.setLayout(new GridLayout(3, 1));
 
-        JPanel turnPanel = new JPanel();
+        // right panel setup
+        rightPanel.setLayout(new GridLayout(3, 1));
         turnPanel.setLayout(new GridLayout(1, 2));
-        JLabel turnLabel = new JLabel("Whose Turn: ");
-        turnTextField = new JTextField();
         turnTextField.setEditable(false);
         turnPanel.add(turnLabel);
         turnPanel.add(turnTextField);
 
-        JPanel rollPanel = new JPanel();
         rollPanel.setLayout(new GridLayout(1, 2));
-        JLabel rollLabel = new JLabel("Roll: ");
-        rollTextField = new JTextField();
         rollTextField.setEditable(false);
         rollPanel.add(rollLabel);
         rollPanel.add(rollTextField);
 
-        rightPanel.add(turnPanel);
-        rightPanel.add(rollPanel);
-
-        JPanel buttonPanel = new JPanel();
+        // button panel setup
         buttonPanel.setLayout(new GridLayout(1, 2));
-        JButton nextPlayer = new JButton("Next Player");
-        JButton makeAccusation = new JButton("Make an Accusation");
         buttonPanel.add(nextPlayer);
         buttonPanel.add(makeAccusation);
 
+        rightPanel.add(turnPanel);
+        rightPanel.add(rollPanel);
         rightPanel.add(buttonPanel);
 
+        // add left and right to parent
         add(leftPanel);
         add(rightPanel);
     }
