@@ -519,7 +519,7 @@ public class Board extends JPanel{
                         }
                     }
                     g.setColor(Color.RED);
-                    Font font = new Font("Comic Sans MS", Font.BOLD, cellWidth/70);
+                    Font font = new Font("Harlow Solid Italic", Font.BOLD, cellWidth/45);
                     g.setFont(font);
                     
                     int tempX = cellXPos;
