@@ -80,60 +80,43 @@ public class GameInformationPanel extends JPanel {
 
         ArrayList<Card> cards = player.getCards();
         Set<Card> seenCards = player.getSeenCards();
+        ArrayList<Card> seenCardsArrayList = new ArrayList<Card>(seenCards); // put set of seen cards into an array list
+ 
         
         // get player color using decode function
         Color playerColor = Color.decode(player.getColor());
 
-        // add labels to panel
+        // add in hand label to panel and loop through in hand cards
         panel.add(new JLabel("In Hand: "));
-    
-        // loop through cards in hand
-        for (Card card : cards) {
-            if (card.getCardType() == type) {
-                JTextField textField = new JTextField(card.getCardName());
-                textField.setEditable(false);
-                textField.setBackground(playerColor);
-                panel.add(textField);
-                inHand = true;
-            }
-        }
+        cardLoop(cards, panel, type, inHand, playerColor);
 
-        // draw 'None' textField if there are no cards of 'type' in hand
-        if (!inHand) {
-            JTextField noneInHandField = new JTextField("None");
-            noneInHandField.setEditable(false);
-            panel.add(noneInHandField);
-        }
-
-        // add seen label
+        // add seen label to panel and loop through seen cards
         panel.add(new JLabel("Seen: "));
-
-    
-        // loop through seen cards
-        for (Card card : seenCards) {
-            if (card.getCardType() == type) {
-                JTextField textField = new JTextField(card.getCardName());
-                textField.setEditable(false);
-                textField.setBackground(Color.decode(card.getColor()));
-                panel.add(textField);
-                isSeen = true;
-            }
-        }
-
-        // draw 'None' textField if there are no cards of 'type' in hand
-        if (!isSeen) {
-            JTextField noneInHandField = new JTextField("None");
-            noneInHandField.setEditable(false);
-            panel.add(noneInHandField);
-        }
-
-        
+        cardLoop(seenCardsArrayList, panel, type, isSeen, playerColor);
     
         // add panel to parent
         add(panel);
 
         revalidate();
         repaint();
+    }
+
+    private void cardLoop(ArrayList<Card> cards, JPanel panel, CardType type, boolean isSeen, Color playerColor) {
+        for (Card card : cards) {
+            if (card.getCardType() == type) {
+                JTextField textField = new JTextField(card.getCardName());
+                textField.setEditable(false);
+                textField.setBackground(playerColor);
+                panel.add(textField);
+                isSeen = true;
+            }
+        }
+
+        if (!isSeen) {
+            JTextField noneInHandField = new JTextField("None");
+            noneInHandField.setEditable(false);
+            panel.add(noneInHandField);
+        }
     }
 
     /**
