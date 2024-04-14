@@ -28,27 +28,21 @@ public class Board extends JPanel{
     private BoardCell[][] grid;
 
     private int numRows;
-
     private int numColumns;
 
     private String layoutConfigFile;
+    private String setupConfigFile;
     
     public Solution solution;
 
-    private String setupConfigFile;
-    
     private ArrayList<Card> dealCards;
-    
     private ArrayList<Card> suggestionCards;
-    
     private ArrayList<Player> players;
+    private ArrayList<String[]> boardList; // assists when layout setup
 
     private Map<Character, Room> roomMap; // holds room cells
 
-    private ArrayList<String[]> boardList; // assists when layout setup
-
     private Set<BoardCell> targets; // holds target cells
-
     private Set<BoardCell> visited; // holds visited cells
 
     /**

@@ -1,11 +1,7 @@
 package clueGame;
 
 public class Solution {
-    private Card room;
-
-    private Card person;
-
-    private Card weapon;
+    private Card room, person, weapon;
 
     public Solution(Card room, Card person, Card weapon) {
         this.room = room;

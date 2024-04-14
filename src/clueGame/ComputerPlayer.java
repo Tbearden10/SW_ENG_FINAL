@@ -26,65 +26,76 @@ public class ComputerPlayer extends Player {
         super();
     }
 
+	/**
+	 * Constructor
+	 * @param name
+	 * @param color
+	 * @param row
+	 * @param col
+	 */
     public ComputerPlayer(String name, String color, int row, int col) {
         super(name, color, row, col);
 		super.previousRooms = new HashSet<Character>();
     }
     
+	/**
+	 * Selects a target location to move to
+	 * @param player
+	 * @param board
+	 * @return
+	 */
     public Solution createSuggestion(Player player, Board board){
     	suggestions = board.getSuggestionCards();
     	seenCards = player.getSeenCards();
+
     	Card weapon = null;
     	Card person = null;
+
+    	Random rand = new Random();
     	int seenWeapons = 0;
     	int seenPlayers = 0;
-    	Random rand = new Random();
     	int randPlayerIndex = rand.nextInt(6);
     	int randWeaponIndex = rand.nextInt(6) + 6;
+
     	String room = board.getRoom(board.getCell(player.getRow(), player.getCol())).getName();
     	
     	// loading suggestions to see how many cards player has identified
     	for(Card card : suggestions) {
-    		if(seenCards.contains(card) && card.getCardType().equals(CardType.PERSON)) {
-    			seenPlayers++;
-    		}
-    		if(seenCards.contains(card) && card.getCardType().equals(CardType.WEAPON)) {
-    			seenWeapons++;
-    		}
+			if (seenCards.contains(card)) {
+				switch (card.getCardType()) {
+					case CardType.PERSON:
+						seenPlayers++;
+						break;
+					case CardType.WEAPON:
+						seenWeapons++;
+						break;
+					default:
+						break;
+				}
+			}
     	}
-    	
-    	// ensuring that the play picks the single left out card if five of the weapons are found
-    	if(seenWeapons == 5) {
-    		for(Card suggestion : suggestions) {
-    			if(seenCards.contains(suggestion)) {
-    				continue;
-    			}
-    			else if(suggestion.getCardType() == CardType.WEAPON){
-    				weapon = suggestion;
-    			}
-    		}
-    	}
-    	else {
-    		weapon = suggestions.get(randWeaponIndex);
-    	}
-    	
-    	// ensuring that the play picks the single left out card if five of the players are found
-    	if(seenPlayers == 5) {
-    		for(Card suggestion : suggestions) {
-    			if(seenCards.contains(suggestion)) {
-    				continue;
-    			}
-    			else if(suggestion.getCardType() == CardType.PERSON){
-    				person = suggestion;
-    			}
-    		}
-    	}
-    	else {
-    		person = suggestions.get(randPlayerIndex);
-    	}
+
+		pickLeftOutCard(person, suggestions, seenPlayers, randPlayerIndex);
+		pickLeftOutCard(weapon, suggestions, seenWeapons, randWeaponIndex);
     	
     	return new Solution(new Card(room, CardType.ROOM), person, weapon);
     }
+
+	private void pickLeftOutCard(Card card, ArrayList<Card> suggestions, int seenCount, int randIndex) {
+		if (seenCount == 5) {
+			for (Card suggestionCard : suggestions) {
+				if (seenCards.contains(suggestionCard)) {
+					continue;
+				}
+				else if (suggestionCard.getCardType() == card.getCardType()) {
+					card = suggestionCard;
+				}
+			}
+		}
+		else {
+			card = suggestions.get(randIndex);
+		}
+	}
 
 	/**
 	 * Private helper function to determine if the room has been visited before
@@ -127,6 +138,11 @@ public class ComputerPlayer extends Player {
 		return null;
 	}
 
+	/**
+	 * Selects the target location to move to
+	 * @param targets
+	 * @return
+	 */
 	public BoardCell selectMoveTarget(Set<BoardCell> targets) {
 
 		Set<BoardCell> roomTargets = new HashSet<BoardCell>();
