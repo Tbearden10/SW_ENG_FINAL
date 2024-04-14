@@ -21,11 +21,8 @@ public class BoardCell {
     private DoorDirection doorDirection = DoorDirection.NONE;
 
     private boolean roomLabel;
-
     private boolean roomCenter;
-    
     private boolean isDoorway;
-
     private boolean isOccupied;
 
     private char secretPassage;
@@ -151,6 +148,9 @@ public class BoardCell {
         
     }
 
+    /**
+     * Draws the room cell name
+     */
     public void drawRoomCellName() {
         String name = Board.getInstance().getRoom(initial).getName();
         if (roomLabel) {

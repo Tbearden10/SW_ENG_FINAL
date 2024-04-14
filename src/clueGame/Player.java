@@ -9,17 +9,14 @@ import java.util.Set;
 
 abstract public class Player {
     private String name;
-
     private String color; 
     
     private ArrayList<Card> cards;
     
     protected int row;
-
     protected int col;
     
     private Set<Card> seenCards;
-
     protected Set<Character> previousRooms;
 
     public Player() {
@@ -77,44 +74,86 @@ abstract public class Player {
         this.previousRooms.add(room);
     }
     
+    /**
+     * Method to check if player has been in room
+     * @param target
+     * @return
+     */
     public boolean equals(Player target) {
     	return target.name.equals(name);
     }
     
+    /**
+     * Method to get the player's cards
+     * @return
+     */
     public ArrayList<Card> getCards() {
     	return cards;
     }
 
+    /**
+     * Method to get the player's name
+     * @return
+     */
 	public String getName() {
 		return name;
 	}
 
+    /**
+     * Method to get the player's row and column
+     * @return
+     */
 	public int getRow() {
 		return row;
 	}
 
+    /**
+     * Method to get the player's column
+     * @return
+     */
 	public int getCol() {
 		return col;
 	}
 
+    /**
+     * Method to get the player's color
+     * @return
+     */
     public String getColor() {
         return color;
     }
     
+    /**
+     * Method to get the player's seen cards
+     * @return
+     */
     public Set<Card> getSeenCards(){
     	return seenCards;
     }
 
+    /**
+     * Method to set the player's seen cards
+     * @param seenCards
+     */
 	public void setSeenCards(Set<Card> seenCards) {
 		this.seenCards = seenCards;
 	}
 
+    /**
+     * Method to get the player's previous rooms
+     * @param seen
+     */
     public void setSeen(ArrayList<Card> seen) {
         for (Card card : seen) {
             seenCards.add(card);
         }
     }
     
+    /**
+     * Method to get the player's previous rooms
+     * @param row
+     * @param col
+     */
     public void doMove(int row, int col) {
         this.row = row;
         this.col = col;

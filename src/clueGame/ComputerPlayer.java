@@ -81,6 +81,13 @@ public class ComputerPlayer extends Player {
     	return new Solution(new Card(room, CardType.ROOM), person, weapon);
     }
 
+	/**
+	 * Private helper function to pick the left out card
+	 * @param card
+	 * @param suggestions
+	 * @param seenCount
+	 * @param randIndex
+	 */
 	private void pickLeftOutCard(Card card, ArrayList<Card> suggestions, int seenCount, int randIndex) {
 		if (seenCount == 5) {
 			for (Card suggestionCard : suggestions) {
