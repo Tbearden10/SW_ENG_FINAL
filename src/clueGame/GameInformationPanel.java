@@ -5,7 +5,7 @@
  * Collaborators: None
  * 
  * 
- * This class is used to setup and display buttons and game information
+ * This class is used to setup and display game information (cards)
  */
 package clueGame;
 import java.awt.Color;
@@ -32,7 +32,9 @@ public class GameInformationPanel extends JPanel {
     JPanel weaponPanel = new JPanel(new GridLayout(0,1));
     
     
-    
+    /**
+     * Constructor for the GameInformationPanel
+     */
     public GameInformationPanel() {
         super();
         initializePanels();
@@ -60,7 +62,6 @@ public class GameInformationPanel extends JPanel {
 
 
         repaint();
-
     }
 
     /**
@@ -88,7 +89,6 @@ public class GameInformationPanel extends JPanel {
     
         // loop through cards in hand
         for (Card card : cards) {
-
             if (card.getCardType() == type) {
                 JTextField textField = new JTextField(card.getCardName());
                 textField.setEditable(false);

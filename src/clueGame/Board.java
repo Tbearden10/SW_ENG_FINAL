@@ -15,10 +15,10 @@ import java.util.HashMap;
 import java.util.Scanner;
 import java.io.File;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 import java.awt.Color;
 import java.awt.Graphics;
-
+import java.awt.Toolkit;
+import java.awt.Image;
 import javax.swing.JPanel;
 import java.util.HashSet;
 import java.awt.Font;
@@ -542,7 +542,8 @@ public class Board extends JPanel{
             }
             cellYPos = (int) (cellYPos + (cellHeight / numRows));
 
-
+            Image background = Toolkit.getDefaultToolkit().createImage("data/R.jpg");
+            g.drawImage(background, cellXPos, cellYPos, theInstance);
         }
         
         for (Player player : players) {
