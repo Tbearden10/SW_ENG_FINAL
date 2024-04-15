@@ -61,6 +61,7 @@ public class ComputerPlayer extends Player {
     	
     	// loading suggestions to see how many cards player has identified
     	for(Card card : suggestions) {
+
 			if (seenCards.contains(card)) {
 				switch (card.getCardType()) {
 					case CardType.PERSON:
@@ -74,35 +75,34 @@ public class ComputerPlayer extends Player {
 				}
 			}
     	}
+    	
 
-		pickLeftOutCard(person, suggestions, seenPlayers, randPlayerIndex);
-		pickLeftOutCard(weapon, suggestions, seenWeapons, randWeaponIndex);
+    	weapon = handleSingleLeftOuCard(seenWeapons, suggestions, seenCards, CardType.WEAPON, randWeaponIndex);
+    	person = handleSingleLeftOuCard(seenPlayers, suggestions, seenCards, CardType.PERSON, randPlayerIndex);
     	
     	return new Solution(new Card(room, CardType.ROOM), person, weapon);
     }
 
-	/**
-	 * Private helper function to pick the left out card
-	 * @param card
-	 * @param suggestions
-	 * @param seenCount
-	 * @param randIndex
-	 */
-	private void pickLeftOutCard(Card card, ArrayList<Card> suggestions, int seenCount, int randIndex) {
-		if (seenCount == 5) {
-			for (Card suggestionCard : suggestions) {
-				if (seenCards.contains(suggestionCard)) {
+	private Card handleSingleLeftOuCard(int seenCount, ArrayList<Card> suggestionCards, Set<Card> seenCards, CardType cardType, int randIndex) {
+		Card card = null;
+		if(seenCount == 5) {
+			for(Card suggestion : suggestionCards) {
+				if(seenCards.contains(suggestion)) {
 					continue;
 				}
-				else if (suggestionCard.getCardType() == card.getCardType()) {
-					card = suggestionCard;
+				else if(suggestion.getCardType() == cardType){
+					card = suggestion;
 				}
 			}
 		}
 		else {
-			card = suggestions.get(randIndex);
+			card = suggestionCards.get(randIndex);
 		}
+		return card;
+		
 	}
+
+	
 
 	/**
 	 * Private helper function to determine if the room has been visited before
