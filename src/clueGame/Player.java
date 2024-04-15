@@ -67,6 +67,14 @@ abstract public class Player {
     }
 
     /**
+     * Method to roll the die
+     * @return
+     */
+    public int rollDie() {
+        return (int) (Math.random() * 6) + 1;
+    }
+
+    /**
      * Method to add previous room
      * @param room
      */

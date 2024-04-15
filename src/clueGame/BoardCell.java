@@ -24,6 +24,7 @@ public class BoardCell {
     private boolean roomCenter;
     private boolean isDoorway;
     private boolean isOccupied;
+    private boolean isVisable;
 
     private char secretPassage;
 
@@ -55,6 +56,8 @@ public class BoardCell {
         this.initial = initial;
         secretPassage = secondInitial;
         adjList = new HashSet<BoardCell>();
+
+        isVisable = false;
 
         // handle second char for direction and room label/center
         handleSecondChar(secondInitial);
@@ -119,7 +122,7 @@ public class BoardCell {
             g.drawRect(x, y, width, height);
         }
 
-        if (isTarget) {
+        if (isTarget && isVisable) {
             g.setColor(Color.CYAN);
             g.fillRect(x, y, width, height);
             g.setColor(Color.black);
@@ -338,5 +341,21 @@ public class BoardCell {
      */
     public int getCol() {
         return col;
+    }
+
+    /**
+     * Set the targets visible
+     * @param visible
+     */
+    public void setIsVisible(boolean visible) {
+        isVisable = visible;
+    }
+
+    /**
+     * Returns whether or not the cell is visable
+     * @return
+     */
+    public boolean isVisable() {
+        return isVisable;
     }
 }

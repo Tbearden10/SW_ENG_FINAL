@@ -18,7 +18,10 @@ import java.util.Set;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Toolkit;
+import java.awt.event.MouseListener;
 import java.awt.Image;
+
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.util.HashSet;
 import java.awt.Font;
@@ -29,6 +32,7 @@ public class Board extends JPanel{
 
     private int numRows;
     private int numColumns;
+    private int currentPlayerIndex;
 
     private String layoutConfigFile;
     private String setupConfigFile;
@@ -44,6 +48,9 @@ public class Board extends JPanel{
 
     private Set<BoardCell> targets; // holds target cells
     private Set<BoardCell> visited; // holds visited cells
+
+    private boolean isTurnOver = false;
+    private boolean isMoved = false;
 
     /**
      * Variables and methods used for Singleton Pattern
@@ -79,10 +86,84 @@ public class Board extends JPanel{
         } catch (FileNotFoundException | BadConfigFormatException e) {
             e.printStackTrace();
         }
-
-        
-     
     }
+
+    protected MouseListener boardListener = new MouseListener() {
+        @Override
+        public void mouseClicked(java.awt.event.MouseEvent e) {
+            // is it human player turn
+            Player currentPlayer = getCurrentPlayer();
+            if (!(currentPlayer instanceof HumanPlayer)) {
+                return;
+            }
+            else {
+                // clicked on target (use the mouse event to get position of click)
+                int cellSize = Math.min(getWidth() / numColumns, getHeight() / numRows);
+
+                // Calculate the offset from the start of the grid
+                int offsetX = (getWidth() - cellSize * numColumns) / 2;
+                int offsetY = (getHeight() - cellSize * numRows) / 2;
+
+                // Calculate the row and column indices
+                int row = (e.getY() - offsetY) / cellSize;
+                int col = (e.getX() - offsetX) / cellSize;
+
+                // Ensure that the click is within the bounds of the grid
+                if (row < 0 || row >= numRows || col < 0 || col >= numColumns) {
+                    // Click is out of bounds
+                    return;
+                }
+
+                // clicked on target
+                BoardCell cell = grid[row][col];
+                if (targets.contains(cell)) {
+                    // move player
+                    if (isMoved == false) {
+                        currentPlayer.doMove(row, col);
+                        setTurnOver(true);
+                        isMoved = true;
+                        setTargetsVisible(false);
+                    }
+                    
+
+                    // in room ?
+                    if (cell.isRoomCenter()) {
+                        // handle suggestion (later assignment)
+
+                        // update result (later) assignment
+                        return;
+                    }
+                    else {
+                        return;
+                    }
+
+
+
+                }
+                else {
+                    // clicked on non-target
+                    JOptionPane message = new JOptionPane();
+                    JOptionPane.showMessageDialog(message, "You must select a correct location dumbass.", "Invalid Move", JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+            }
+
+        }
+
+
+        @Override
+        public void mousePressed(java.awt.event.MouseEvent e) {}
+
+        @Override
+        public void mouseReleased(java.awt.event.MouseEvent e) {}
+
+        @Override
+        public void mouseEntered(java.awt.event.MouseEvent e) {}
+
+        @Override
+        public void mouseExited(java.awt.event.MouseEvent e) {}
+    };
+
 
     /**
      * Reads in the setup file to handle the room types 
@@ -476,6 +557,14 @@ public class Board extends JPanel{
     }
 
     /**
+     * Set the targets visible
+     * @param visible
+     */
+    public void setTargetsVisible(boolean visible) {
+        targets.forEach(cell -> cell.setIsVisible(visible));
+    }
+
+    /**
      * Paints the board
      */
     @Override
@@ -519,7 +608,7 @@ public class Board extends JPanel{
                         }
                     }
                     g.setColor(Color.RED);
-                    Font font = new Font("Harlow Solid Italic", Font.BOLD, cellWidth/45);
+                    Font font = new Font("Harlow Solid Italic", Font.ITALIC, cellWidth/55);
                     g.setFont(font);
                     
                     int tempX = cellXPos;
@@ -576,6 +665,22 @@ public class Board extends JPanel{
         return targets;
     }
     
+    /**
+     * Select random cell from target list
+     * @return
+     */
+    public BoardCell selectTarget() {
+        Random rand = new Random();
+        int randIndex = rand.nextInt(targets.size());
+        int i = 0;
+        for (BoardCell cell : targets) {
+            if (i == randIndex) {
+                return cell;
+            }
+            i++;
+        }
+        return null;
+    }
 
     /**
      * Return the room give symbol
@@ -648,6 +753,53 @@ public class Board extends JPanel{
             }
         }
         return null;
+    }
+
+    /**
+     * set the next player index
+     */
+    public void nextPlayer() {
+		currentPlayerIndex = (currentPlayerIndex + 1) % (players.size());
+	}
+
+    /**
+     * get the current player
+     * @return
+     */
+	public Player getCurrentPlayer() {
+		return players.get(currentPlayerIndex);
+	}
+
+    /**
+     * get is turn over
+     * @return
+     */
+    public boolean isTurnOver() {
+        return isTurnOver;
+    }
+
+    /**
+     * set turn over
+     * @param isTurnOver
+     */
+    public void setTurnOver(boolean isTurnOver) {
+        this.isTurnOver = isTurnOver;
+    }
+
+    /**
+     * get is moved
+     * @return
+     */
+    public boolean getIsMoved() {
+        return isMoved;
+    }
+
+    /**
+     * set is moved
+     * @param isMoved
+     */
+    public void setIsMoved(boolean isMoved) {
+        this.isMoved = isMoved;
     }
     
     /**

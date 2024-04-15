@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class ClueGame extends JFrame {
 
@@ -18,6 +19,7 @@ public class ClueGame extends JFrame {
 
         // setup frame
         setSize(WIDTH, HEIGHT);
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Clue Game");
 
@@ -47,12 +49,22 @@ public class ClueGame extends JFrame {
         controlPanel.setPreferredSize(new Dimension(1200, 110));
 
         // add panels to frame
+        board.addMouseListener(board.boardListener);
         add(board, BorderLayout.CENTER);
         add(controlPanel, BorderLayout.SOUTH);
         add(infoPanel, BorderLayout.EAST);
 
         setVisible(true);
         board.repaint();
+
+
+        // display splash screen
+        Player startingPlayer = board.getPlayers().get(0);
+        String playerName = startingPlayer.getName();
+        String message = "<html><div style='text-align: center;'>You are " + playerName + ".<br>Press Next Player to begin play</div></html>";
+    
+        JOptionPane splash = new JOptionPane();
+        JOptionPane.showMessageDialog(splash, message, "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
     }
 
     /**
@@ -79,7 +91,15 @@ public class ClueGame extends JFrame {
 
     public static void main(String[] args) {
         ClueGame game = new ClueGame();
-    
 
+        Player startingPlayer = board.getPlayers().get(0);
+        int startingRoll = startingPlayer.rollDie();
+        String startingColor = startingPlayer.getColor();
+        
+        board.calcTargets(board.getCell(startingPlayer.getRow(), startingPlayer.getCol()), startingRoll);
+        board.setTargetsVisible(true);
+
+        controlPanel.setTurn(startingPlayer, startingRoll, Color.decode(startingColor));
+        
     }
 }

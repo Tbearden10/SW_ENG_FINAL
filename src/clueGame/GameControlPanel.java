@@ -16,8 +16,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.JOptionPane;
+import java.awt.event.ActionListener;
 
 public class GameControlPanel extends JPanel {
+
+    Board board = Board.getInstance();
 
     private int dieRoll;
     private String guess;
@@ -101,7 +105,10 @@ public class GameControlPanel extends JPanel {
 
         // button panel setup
         buttonPanel.setLayout(new GridLayout(1, 2));
+
+        nextPlayer.addActionListener(nextPlayerListener);
         buttonPanel.add(nextPlayer);
+
         buttonPanel.add(makeAccusation);
 
         rightPanel.add(turnPanel);
@@ -112,6 +119,60 @@ public class GameControlPanel extends JPanel {
         add(leftPanel);
         add(rightPanel);
     }
+
+    protected ActionListener nextPlayerListener = new ActionListener() {
+        @Override
+        public void actionPerformed(java.awt.event.ActionEvent e) {
+            Player currentPlayer = board.getCurrentPlayer();
+            
+            // if turn is not over
+            if (!board.isTurnOver()) {
+                JOptionPane.showMessageDialog(null, "You must finish your turn before moving to the next player.");
+                return;
+            }
+            // if turn is over
+            else { 
+                board.nextPlayer();
+                board.setIsMoved(false);
+                currentPlayer = board.getCurrentPlayer();
+
+                // roll dice
+                int roll = currentPlayer.rollDie();
+                
+                // calc targets
+                board.calcTargets(board.getCell(currentPlayer.getRow(), currentPlayer.getCol()), roll);
+
+                // update game control panel
+                Color playerColor = Color.decode(currentPlayer.getColor());
+                setTurn(currentPlayer, roll, playerColor);
+
+                // is new player hman
+                if (currentPlayer instanceof HumanPlayer) {
+                    // display targets
+                    board.setTargetsVisible(true);
+
+                    // flag unfinished turn
+                    board.setTurnOver(false);
+                }
+                else {
+                    // do accusation (later assignment)
+
+                    // do move (select random target)
+                    BoardCell cell = board.selectTarget();
+                    currentPlayer.doMove(cell.getRow(), cell.getCol());
+                    
+                    //board.setTurnOver(true);
+
+                    // make suggestion (later assingment)
+                }
+            }
+            
+            
+            board.repaint();
+        }
+
+    };
+
 
     /**
      * Sets the guess to the given string
