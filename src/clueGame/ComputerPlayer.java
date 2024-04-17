@@ -138,7 +138,9 @@ public class ComputerPlayer extends Player {
 		int i = 0;
 		for (BoardCell target : targets) {
 			if (i == index) {
-				return target;
+				if (!target.getIsOccupied()) {
+					return target;
+				}
 			}
 			i++;
 		}

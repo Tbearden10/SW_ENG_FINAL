@@ -1,3 +1,21 @@
+* commit 9aa9f9f2031542e842f07b2d99e0c6453241f3f4
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Tue Apr 16 15:59:30 2024 -0600
+| 
+|     Added funny background
+| 
+* commit e4c0016ef6c163710a18170b32b79e011ce0b372
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Sun Apr 14 19:28:48 2024 -0600
+| 
+|     Fixed an issue with some tests not passing
+| 
+* commit cb4207237b595607fb6293a2c73716e41f5df93c
+| Author: Tanner Bearden <tannerbeardens@gmail.com>
+| Date:   Sun Apr 14 19:10:58 2024 -0600
+| 
+|     Funny coding and stuff
+| 
 * commit ebde6ecdbdbb53cbf00fd252a714d3477d6c6e2a
 | Author: Tanner Bearden <tannerbeardens@gmail.com>
 | Date:   Sun Apr 14 17:04:50 2024 -0600

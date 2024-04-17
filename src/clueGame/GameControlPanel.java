@@ -16,6 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
 import javax.swing.JOptionPane;
 import java.awt.event.ActionListener;
 
@@ -124,6 +125,12 @@ public class GameControlPanel extends JPanel {
         @Override
         public void actionPerformed(java.awt.event.ActionEvent e) {
             Player currentPlayer = board.getCurrentPlayer();
+
+            guessResultTextField.setText("");
+            guessTextField.setText("");
+
+            guessResultTextField.setBackground(Color.WHITE);
+            guessTextField.setBackground(Color.WHITE);
             
             // if turn is not over
             if (!board.isTurnOver()) {
@@ -156,14 +163,52 @@ public class GameControlPanel extends JPanel {
                 }
                 else {
                     // do accusation (later assignment)
+                    // get current player cell
+                    BoardCell cell = board.getCell(currentPlayer.getRow(), currentPlayer.getCol());
+                    if (cell.isRoom()) {
+                        currentPlayer.makeAccusation();
+                    }
 
                     // do move (select random target)
-                    BoardCell cell = board.selectTarget();
-                    currentPlayer.doMove(cell.getRow(), cell.getCol());
-                    
-                    //board.setTurnOver(true);
+                    cell = board.selectTarget();
 
-                    // make suggestion (later assingment)
+                    // moving logic
+                    BoardCell temp = board.getCell(currentPlayer.getRow(), currentPlayer.getCol());
+                    temp.setOccupied(false);
+                    currentPlayer.doMove(cell.getRow(), cell.getCol());
+                    cell.setOccupied(true);
+
+                    if (cell.isRoom()) {
+                        // create a suggestion
+                        ComputerPlayer computer = (ComputerPlayer) currentPlayer;
+                        Solution suggestion = computer.createSuggestion(currentPlayer, board);
+
+                        // guess panel
+                        guessTextField.setText(suggestion.toString());
+                        guessTextField.setBackground(Color.decode(currentPlayer.getColor()));
+                        
+                        // call handle suggestion
+                        Card disputingCard = board.handleSuggestion(currentPlayer, suggestion, board.getPlayers());
+
+                        if (disputingCard != null) {
+                            for (Player player : board.getPlayers()) {
+                                if (player.getCards().contains(disputingCard)) {
+                                    guessResultTextField.setBackground(Color.decode((player.getColor())));
+                                }
+                            }
+
+                            if (currentPlayer instanceof ComputerPlayer) {
+                                // update result panel
+                                guessResultTextField.setText("Suggestion Disproven!");
+                                
+                            }
+                            else {
+                                // update result panel
+                                guessResultTextField.setText(disputingCard.getCardName());
+                            }
+                        }
+                        // set flag if no one can disprove
+                    }
                 }
             }
             

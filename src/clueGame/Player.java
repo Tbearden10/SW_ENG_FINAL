@@ -5,6 +5,11 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+import java.awt.Graphics2D;
+import java.awt.geom.Ellipse2D;
+
 
 
 abstract public class Player {
@@ -18,6 +23,10 @@ abstract public class Player {
     
     private Set<Card> seenCards;
     protected Set<Character> previousRooms;
+
+    private Image playerImage;
+
+    boolean accusationFlag;
 
     public Player() {
         super();
@@ -37,6 +46,8 @@ abstract public class Player {
         this.color = color;
         this.row = row;
         this.col = col;
+
+        this.playerImage = new ImageIcon("data/R.jpg").getImage();
     }
 
     /**
@@ -64,6 +75,14 @@ abstract public class Player {
             return null;
         }
         return matchingCards.get((int) (Math.random() * matchingCards.size()));
+    }
+
+    /**
+     * Method to make a suggestion
+     */
+    public void makeAccusation() {
+        // check if in room
+        
     }
 
     /**
@@ -168,6 +187,22 @@ abstract public class Player {
     }
 
     /**
+     * Method to set the accusation flag
+     * @param flag
+     */
+    public void setAccusationFlag(boolean flag) {
+        this.accusationFlag = flag;
+    }
+
+    /**
+     * Method to get the accusation flag
+     * @return
+     */
+    public boolean getAccusationFlag() {
+        return accusationFlag;
+    }
+
+    /**
      * Method to draw the player
      * @param g
      * @param width
@@ -177,6 +212,17 @@ abstract public class Player {
         Color color = Color.decode(this.color);
         g.setColor(color);
         g.fillOval(x, y, size, size);
+        //Graphics2D g2d = (Graphics2D) g.create();
+
+        // Create oval clipping area
+        //Ellipse2D.Double oval = new Ellipse2D.Double(x, y, size, size);
+        //g2d.setClip(oval);
+
+        // Draw player image
+        //g2d.drawImage(playerImage, x, y, size, size, null);
+
+        // Dispose of graphics context
+        //g2d.dispose();
     }
 
     @Override

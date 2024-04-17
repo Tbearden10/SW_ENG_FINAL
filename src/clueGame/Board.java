@@ -530,6 +530,13 @@ public class Board extends JPanel{
     	
     	Set<Card> seenCards = new HashSet<Card>();
     	seenCards = accuser.getSeenCards();
+
+        // move the suggested player to the accuser room
+        for (Player player : players) {
+            if (player.getName().equals(suggestion.getPerson().getCardName())) {
+                player.doMove(accuser.getRow(), accuser.getCol());
+            }
+        }
     	
     	// checks if the player is the accuser, disproves suggestion, and adds card to the seen cards
         for (Player player : players) {
@@ -537,12 +544,6 @@ public class Board extends JPanel{
                 continue;
             }
             else {
-                // the person in suggestion is moved to that room
-                BoardCell roomCenter = roomMap.get(suggestion.getRoom().getCardName().charAt(0)).getCenterCell();
-                
-                if (roomCenter != null) {
-                    player.doMove(roomCenter.getRow(), roomCenter.getCol());
-                }
                 
             	Card card = player.disproveSuggestion(suggestion);
                 if (card != null) {
@@ -553,6 +554,7 @@ public class Board extends JPanel{
             }	
         }
 
+        accuser.setAccusationFlag(true);
         return null;
     }
 
@@ -636,7 +638,10 @@ public class Board extends JPanel{
         	int playerCol = player.getCol();
         	
         	int playerXPos = startX + playerCol * cellSize;
-        	int playerYPos = startY + playerRow * cellSize;
+        	int playerYPos = startY + playerRow * cellSize;     
+            
+            // if room occupied add offset
+            
         	
             player.draw(g, playerXPos, playerYPos, cellSize);
         }
