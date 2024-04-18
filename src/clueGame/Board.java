@@ -153,6 +153,9 @@ public class Board extends JPanel{
 
                         // get list of weapon names
                         ArrayList<String> weaponNames = new ArrayList<String>();
+                        for (Card card : getWeapons()) {
+                            weaponNames.add(card.getCardName());
+                        }
                         
                         getWeapons();
 
@@ -878,14 +881,11 @@ public class Board extends JPanel{
 
     public ArrayList<Card> getWeapons() {
         ArrayList<Card> weapons = new ArrayList<Card>();
-        for (Card card : dealCards) {
+        for (Card card : suggestionCards) {
             if (card.getCardType() == CardType.WEAPON) {
                 weapons.add(card);
             }
         }
-
-        System.out.println(weapons.size());
-
         return weapons;
     }
 
