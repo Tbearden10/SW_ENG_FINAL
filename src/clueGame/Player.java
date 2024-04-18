@@ -20,6 +20,7 @@ abstract public class Player {
     
     protected int row;
     protected int col;
+    protected int offset;
     
     private Set<Card> seenCards;
     protected Set<Character> previousRooms;
@@ -46,6 +47,7 @@ abstract public class Player {
         this.color = color;
         this.row = row;
         this.col = col;
+        this.offset = 0;
 
         this.playerImage = new ImageIcon("data/R.jpg").getImage();
     }
@@ -181,9 +183,10 @@ abstract public class Player {
      * @param row
      * @param col
      */
-    public void doMove(int row, int col) {
+    public void doMove(int row, int col, int offset) {
         this.row = row;
         this.col = col;
+        this.offset = offset;
     }
 
     /**
@@ -211,7 +214,7 @@ abstract public class Player {
     public void draw(Graphics g, int x, int y, int size) {
         Color color = Color.decode(this.color);
         g.setColor(color);
-        g.fillOval(x, y, size, size);
+        g.fillOval(x + offset, y, size, size);
         //Graphics2D g2d = (Graphics2D) g.create();
 
         // Create oval clipping area

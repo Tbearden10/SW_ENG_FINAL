@@ -115,7 +115,7 @@ public class BoardCell {
             g.drawRect(x, y, width, height);
         }
         else {
-            g.setColor(new Color(0.8f, 0.8f, 0.8f, 0.9f));
+            g.setColor(new Color(0.8f, 0.8f, 0.8f, 0.95f));
             g.fillRect(x, y, width, height);
             g.setColor(Color.black);
             g.drawRect(x, y, width, height);

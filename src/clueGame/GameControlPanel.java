@@ -12,6 +12,8 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -19,6 +21,8 @@ import javax.swing.JTextField;
 
 import javax.swing.JOptionPane;
 import java.awt.event.ActionListener;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class GameControlPanel extends JPanel {
 
@@ -160,6 +164,7 @@ public class GameControlPanel extends JPanel {
 
                     // flag unfinished turn
                     board.setTurnOver(false);
+        
                 }
                 else {
                     // do accusation (later assignment)
@@ -175,8 +180,10 @@ public class GameControlPanel extends JPanel {
                     // moving logic
                     BoardCell temp = board.getCell(currentPlayer.getRow(), currentPlayer.getCol());
                     temp.setOccupied(false);
-                    currentPlayer.doMove(cell.getRow(), cell.getCol());
+                    currentPlayer.doMove(cell.getRow(), cell.getCol(), 0);
                     cell.setOccupied(true);
+
+
 
                     if (cell.isRoom()) {
                         // create a suggestion

@@ -20,11 +20,18 @@ import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.event.MouseListener;
 import java.awt.Image;
-
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.util.HashSet;
 import java.awt.Font;
+import java.awt.GridLayout;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JComboBox;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+
 
 public class Board extends JPanel{
     
@@ -119,18 +126,113 @@ public class Board extends JPanel{
                 if (targets.contains(cell)) {
                     // move player
                     if (isMoved == false) {
-                        currentPlayer.doMove(row, col);
+                        if (cell.isRoomCenter() && cell.getIsOccupied()) {
+                            currentPlayer.doMove(row, col, 20);
+                        }
+                        else {
+                            currentPlayer.doMove(row, col, 0);
+                        }
+                        
                         setTurnOver(true);
                         isMoved = true;
                         setTargetsVisible(false);
                     }
                     
+                    
 
                     // in room ?
                     if (cell.isRoomCenter()) {
-                        // handle suggestion (later assignment)
+                        
+                        Room room = getRoom(cell.getInitial());
 
+                        // get list of player names
+                        ArrayList<String> playerNames = new ArrayList<String>();
+                        for (Player player : getPlayers()) {
+                            playerNames.add(player.getName());
+                        }
+
+                        // get list of weapon names
+                        ArrayList<String> weaponNames = new ArrayList<String>();
+                        
+                        getWeapons();
+
+                        // create dialog box java
+                        JDialog suggestionDialog = new JDialog();
+                        suggestionDialog.setLayout(new GridLayout(1, 2));
+                        suggestionDialog.setSize(300, 200);
+                        suggestionDialog.setVisible(true);
+
+
+                        // add labels
+                        JLabel roomLabel = new JLabel("Current room");
+                        JLabel playerLabel = new JLabel("Person");
+                        JLabel weaponLabel = new JLabel("Weapon");
+
+                        // add jtext field for room
+                        JTextField roomTextField = new JTextField(room.getName());
+                        roomTextField.setEditable(false);
+
+                        // add drop down to select player
+                        JComboBox<String> playerComboBox = new JComboBox<String>(playerNames.toArray(new String[playerNames.size()]));
+
+                        // add drop down to select weapon
+                        JComboBox<String> weaponComboBox = new JComboBox<String>(weaponNames.toArray(new String[weaponNames.size()]));
+
+                        String playerName = String.valueOf(playerComboBox.getSelectedItem());
+                        String weaponName = String.valueOf(weaponComboBox.getSelectedItem());
+                        String roomName = room.getName();
+
+                        Card roomCard = new Card(roomName, CardType.ROOM);
+                        Card playerCard = new Card(playerName, CardType.PERSON);
+                        Card weaponCard = new Card(weaponName, CardType.WEAPON);
+
+                        Solution suggSolution = new Solution(roomCard, playerCard, weaponCard);
+
+                        // add labels and submit button on left column
+                        JPanel leftPanel = new JPanel();
+                        leftPanel.setLayout(new GridLayout(4, 1));
+                        leftPanel.add(roomLabel);
+                        leftPanel.add(playerLabel);
+                        leftPanel.add(weaponLabel);
+                        // submit button
+                        JButton submitButton = new JButton("Submit");
+                        leftPanel.add(submitButton);
+
+                        // add textfield, dropdowns, and cancel button to right
+                        JPanel rightPanel = new JPanel();
+                        rightPanel.setLayout(new GridLayout(4, 1));
+                        rightPanel.add(roomTextField);
+                        rightPanel.add(playerComboBox);
+                        rightPanel.add(weaponComboBox);
+                        // cancel button
+                        JButton cancelButton = new JButton("Cancel");
+                        rightPanel.add(cancelButton);
+
+                        // add panels to dialog
+                        suggestionDialog.add(leftPanel);
+                        suggestionDialog.add(rightPanel);
+
+                        // use cancel button to close dialog
+                        cancelButton.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(java.awt.event.ActionEvent e) {
+                                suggestionDialog.dispose();
+                            }
+                        });
+
+                        // use submit button to submit suggestion
+                        submitButton.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(java.awt.event.ActionEvent e) {
+                                suggestionDialog.dispose();
+                                
+                                // HANDLE SUGGESTION
+                                handleSuggestion(getCurrentPlayer(), suggSolution, getPlayers());
+                            }
+                        });
                         // update result (later) assignment
+                        // update control panel
+                        // update info panel
                         return;
                     }
                     else {
@@ -143,7 +245,7 @@ public class Board extends JPanel{
                 else {
                     // clicked on non-target
                     JOptionPane message = new JOptionPane();
-                    JOptionPane.showMessageDialog(message, "You must select a correct location dumbass.", "Invalid Move", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(message, "You must select a correct location.", "Invalid Move", JOptionPane.INFORMATION_MESSAGE);
                     return;
                 }
             }
@@ -401,8 +503,12 @@ public class Board extends JPanel{
      */
     private void findTargets(BoardCell startCell, int pathLength) {
 
-        // base case
-        if(pathLength == 0) {
+        // base case 1
+        if (startCell.isRoomCenter()) {
+            targets.add(startCell);
+        }
+        // base case 2
+        if (pathLength == 0) {
         	targets.add(startCell);
         }
         else {
@@ -534,7 +640,12 @@ public class Board extends JPanel{
         // move the suggested player to the accuser room
         for (Player player : players) {
             if (player.getName().equals(suggestion.getPerson().getCardName())) {
-                player.doMove(accuser.getRow(), accuser.getCol());
+                if (grid[accuser.getRow()][accuser.getCol()].isRoomCenter() && grid[accuser.getRow()][accuser.getCol()].getIsOccupied()) {
+                    player.doMove(accuser.getRow(), accuser.getCol(), 20);
+                }   
+                else {
+                    player.doMove(accuser.getRow(), accuser.getCol(), 0);
+                }
             }
         }
     	
@@ -563,6 +674,17 @@ public class Board extends JPanel{
      * @param visible
      */
     public void setTargetsVisible(boolean visible) {
+         
+        if (visible == false) {
+            // set all cells to not visible
+            for (int i = 0; i < numRows; i++) {
+                for (int j = 0; j < numColumns; j++) {
+                    grid[i][j].setIsVisible(false);
+                }
+            }
+        }
+        
+
         targets.forEach(cell -> cell.setIsVisible(visible));
     }
 
@@ -594,9 +716,19 @@ public class Board extends JPanel{
                 cellYPos = startY + i * cellSize;
                 // get isTarget
                 boolean isTarget = getTargets() != null && getTargets().contains(grid[i][j]);
-
-                grid[i][j].draw(g, cellSize, cellSize, cellXPos, cellYPos, isTarget);
                 
+                if (getTargets() != null && getTargets().contains(roomMap.get(grid[i][j].getInitial()).getCenterCell())) {
+                    grid[i][j].draw(g, cellSize, cellSize, cellXPos, cellYPos, true);
+
+                    if (getCurrentPlayer() instanceof HumanPlayer && isMoved == false) {
+                        grid[i][j].setIsVisible(true);
+                    }
+                }
+                else {
+                    grid[i][j].draw(g, cellSize, cellSize, cellXPos, cellYPos, isTarget);
+                }
+
+
                 cellXPos = (int) (cellXPos + (cellWidth / numColumns));
 
                 if (grid[i][j].isRoomCenter()) {
@@ -640,9 +772,6 @@ public class Board extends JPanel{
         	int playerXPos = startX + playerCol * cellSize;
         	int playerYPos = startY + playerRow * cellSize;     
             
-            // if room occupied add offset
-            
-        	
             player.draw(g, playerXPos, playerYPos, cellSize);
         }
         
@@ -745,6 +874,19 @@ public class Board extends JPanel{
      */
     public ArrayList<Card> getDealCards(){
     	return dealCards;
+    }
+
+    public ArrayList<Card> getWeapons() {
+        ArrayList<Card> weapons = new ArrayList<Card>();
+        for (Card card : dealCards) {
+            if (card.getCardType() == CardType.WEAPON) {
+                weapons.add(card);
+            }
+        }
+
+        System.out.println(weapons.size());
+
+        return weapons;
     }
 
     /**
