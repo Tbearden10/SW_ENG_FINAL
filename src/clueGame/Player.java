@@ -5,8 +5,6 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-import java.awt.Image;
-import javax.swing.ImageIcon;
 
 abstract public class Player {
     private String name;

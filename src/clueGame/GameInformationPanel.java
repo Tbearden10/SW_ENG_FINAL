@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 public class GameInformationPanel extends JPanel {
 
+
     private static final int WIDTH = 100;
     private static final int HEIGHT = 600;
 
@@ -32,12 +33,18 @@ public class GameInformationPanel extends JPanel {
     JPanel weaponPanel = new JPanel(new GridLayout(0,1));
     
     
+    private static GameInformationPanel theInstance = new GameInformationPanel();
+    
     /**
      * Constructor for the GameInformationPanel
      */
-    public GameInformationPanel() {
+    private GameInformationPanel() {
         super();
         initializePanels();
+    }
+
+    public static GameInformationPanel getInstance() {
+        return theInstance;
     }
 
     /**
@@ -81,18 +88,17 @@ public class GameInformationPanel extends JPanel {
         ArrayList<Card> cards = player.getCards();
         Set<Card> seenCards = player.getSeenCards();
         ArrayList<Card> seenCardsArrayList = new ArrayList<Card>(seenCards); // put set of seen cards into an array list
- 
         
         // get player color using decode function
         Color playerColor = Color.decode(player.getColor());
 
         // add in hand label to panel and loop through in hand cards
         panel.add(new JLabel("In Hand: "));
-        cardLoop(cards, panel, type, inHand, playerColor);
+        cardLoop(cards, panel, type, inHand, player);
 
         // add seen label to panel and loop through seen cards
         panel.add(new JLabel("Seen: "));
-        cardLoop(seenCardsArrayList, panel, type, isSeen, playerColor);
+        cardLoop(seenCardsArrayList, panel, type, isSeen, player);
     
         // add panel to parent
         add(panel);
@@ -109,12 +115,23 @@ public class GameInformationPanel extends JPanel {
      * @param isSeen
      * @param playerColor
      */
-    private void cardLoop(ArrayList<Card> cards, JPanel panel, CardType type, boolean isSeen, Color playerColor) {
+    private void cardLoop(ArrayList<Card> cards, JPanel panel, CardType type, boolean isSeen, Player player) {
+
+        Board board = Board.getInstance();
+
         for (Card card : cards) {
             if (card.getCardType() == type) {
                 JTextField textField = new JTextField(card.getCardName());
                 textField.setEditable(false);
-                textField.setBackground(playerColor);
+
+                // set the background color of the text field to the player's color
+                for (Player p : board.getPlayers()) {
+                    if (p.getCards().contains(card)) {
+                        textField.setBackground(Color.decode(p.getColor()));
+                    }
+                }
+
+
                 panel.add(textField);
                 isSeen = true;
             }

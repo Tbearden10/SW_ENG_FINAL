@@ -119,6 +119,8 @@ public class Board extends JPanel{
 
                 int moveRow, moveCol;
 
+                System.out.println(row + " " + col);
+
                 // Ensure that the click is within the bounds of the grid
                 if (row < 0 || row >= numRows || col < 0 || col >= numColumns) {
                     // Click is out of bounds
@@ -161,6 +163,7 @@ public class Board extends JPanel{
                         Room room = getRoom(cell.getInitial());
 
                         GameControlPanel controlPanel = GameControlPanel.getInstance();
+                        GameInformationPanel infoPanel = GameInformationPanel.getInstance();
 
                         // get list of player names
                         ArrayList<String> playerNames = new ArrayList<String>();
@@ -268,6 +271,9 @@ public class Board extends JPanel{
 
                                 controlPanel.guessTextField.setText(suggSolution.toString());
                                 controlPanel.guessTextField.setBackground(Color.decode(currentPlayer.getColor()));
+
+                                infoPanel.updatePanels(getPlayers().get(0));
+
 
                             }
                         });
@@ -682,12 +688,16 @@ public class Board extends JPanel{
                 // print accuser
                 System.out.println("Accuser: " + accuser.getName());
 
+                getCell(player.getRow(), player.getCol()).setOccupied(false);
+
                 if (grid[accuser.getRow()][accuser.getCol()].isRoomCenter() && grid[accuser.getRow()][accuser.getCol()].getIsOccupied()) {
                     player.doMove(accuser.getRow(), accuser.getCol(), 20);
                 }   
                 else {
                     player.doMove(accuser.getRow(), accuser.getCol(), 0);
                 }
+
+                
             }
         }
     	
