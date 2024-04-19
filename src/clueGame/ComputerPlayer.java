@@ -64,10 +64,10 @@ public class ComputerPlayer extends Player {
 
 			if (seenCards.contains(card)) {
 				switch (card.getCardType()) {
-					case CardType.PERSON:
+					case PERSON:
 						seenPlayers++;
 						break;
-					case CardType.WEAPON:
+					case WEAPON:
 						seenWeapons++;
 						break;
 					default:

@@ -41,10 +41,12 @@ public class Board extends JPanel{
     private int numColumns;
     private int currentPlayerIndex;
 
+    private String currentGuessResult;
     private String layoutConfigFile;
     private String setupConfigFile;
     
     public Solution solution;
+    private Solution currentSuggestion;
 
     private ArrayList<Card> dealCards;
     private ArrayList<Card> suggestionCards;
@@ -115,6 +117,8 @@ public class Board extends JPanel{
                 int row = (e.getY() - offsetY) / cellSize;
                 int col = (e.getX() - offsetX) / cellSize;
 
+                int moveRow, moveCol;
+
                 // Ensure that the click is within the bounds of the grid
                 if (row < 0 || row >= numRows || col < 0 || col >= numColumns) {
                     // Click is out of bounds
@@ -123,14 +127,25 @@ public class Board extends JPanel{
 
                 // clicked on target
                 BoardCell cell = grid[row][col];
+
+                if (targets.contains(roomMap.get(grid[row][col].getInitial()).getCenterCell())) {
+                    moveRow = roomMap.get(grid[row][col].getInitial()).getCenterCell().getRow();
+                    moveCol = roomMap.get(grid[row][col].getInitial()).getCenterCell().getCol();
+                    cell = roomMap.get(grid[row][col].getInitial()).getCenterCell();
+                }
+                else {
+                    moveRow = row;
+                    moveCol = col;
+                }
+
                 if (targets.contains(cell)) {
                     // move player
                     if (isMoved == false) {
                         if (cell.isRoomCenter() && cell.getIsOccupied()) {
-                            currentPlayer.doMove(row, col, 20);
+                            currentPlayer.doMove(moveRow, moveCol, 20);
                         }
                         else {
-                            currentPlayer.doMove(row, col, 0);
+                            currentPlayer.doMove(moveRow, moveCol, 0);
                         }
                         
                         setTurnOver(true);
@@ -144,6 +159,8 @@ public class Board extends JPanel{
                     if (cell.isRoomCenter()) {
                         
                         Room room = getRoom(cell.getInitial());
+
+                        GameControlPanel controlPanel = GameControlPanel.getInstance();
 
                         // get list of player names
                         ArrayList<String> playerNames = new ArrayList<String>();
@@ -181,15 +198,7 @@ public class Board extends JPanel{
                         // add drop down to select weapon
                         JComboBox<String> weaponComboBox = new JComboBox<String>(weaponNames.toArray(new String[weaponNames.size()]));
 
-                        String playerName = String.valueOf(playerComboBox.getSelectedItem());
-                        String weaponName = String.valueOf(weaponComboBox.getSelectedItem());
-                        String roomName = room.getName();
-
-                        Card roomCard = new Card(roomName, CardType.ROOM);
-                        Card playerCard = new Card(playerName, CardType.PERSON);
-                        Card weaponCard = new Card(weaponName, CardType.WEAPON);
-
-                        Solution suggSolution = new Solution(roomCard, playerCard, weaponCard);
+                        
 
                         // add labels and submit button on left column
                         JPanel leftPanel = new JPanel();
@@ -228,19 +237,44 @@ public class Board extends JPanel{
                             @Override
                             public void actionPerformed(java.awt.event.ActionEvent e) {
                                 suggestionDialog.dispose();
+
+                                String playerName = String.valueOf(playerComboBox.getSelectedItem());
+                                String weaponName = String.valueOf(weaponComboBox.getSelectedItem());
+                                String roomName = room.getName();
+
+                                Card roomCard = new Card(roomName, CardType.ROOM);
+                                Card playerCard = new Card(playerName, CardType.PERSON);
+                                Card weaponCard = new Card(weaponName, CardType.WEAPON);
+
+                                System.out.println(playerName);
+
+                                Solution suggSolution = new Solution(roomCard, playerCard, weaponCard);
                                 
                                 // HANDLE SUGGESTION
-                                handleSuggestion(getCurrentPlayer(), suggSolution, getPlayers());
+                                Card card = handleSuggestion(getCurrentPlayer(), suggSolution, getPlayers());
+
+                                if (card != null) {
+                                    controlPanel.guessResultTextField.setText(card.getCardName());
+                                    for (Player player : getPlayers()) {
+                                        if (player.getCards().contains(card)) {
+                                            controlPanel.guessResultTextField.setBackground(Color.decode((player.getColor())));
+                                        }
+                                    }
+                                }
+                                else {
+                                    controlPanel.guessResultTextField.setText("No new clue");
+
+                                }
+
+                                controlPanel.guessTextField.setText(suggSolution.toString());
+                                controlPanel.guessTextField.setBackground(Color.decode(currentPlayer.getColor()));
+
                             }
                         });
-                        // update result (later) assignment
-                        // update control panel
-                        // update info panel
-                        return;
+
+                        
                     }
-                    else {
-                        return;
-                    }
+                    
 
 
 
@@ -643,6 +677,11 @@ public class Board extends JPanel{
         // move the suggested player to the accuser room
         for (Player player : players) {
             if (player.getName().equals(suggestion.getPerson().getCardName())) {
+
+                System.out.println("Player: " + player.getName() + " is being moved to the accuser room");
+                // print accuser
+                System.out.println("Accuser: " + accuser.getName());
+
                 if (grid[accuser.getRow()][accuser.getCol()].isRoomCenter() && grid[accuser.getRow()][accuser.getCol()].getIsOccupied()) {
                     player.doMove(accuser.getRow(), accuser.getCol(), 20);
                 }   
@@ -983,4 +1022,37 @@ public class Board extends JPanel{
         this.setupConfigFile = "data/" + setup;
 	}
 
+    /**
+     * Set the current player guess
+     * @param guess
+     */
+    public void setCurrentPlayerGuess(Solution guess) {
+        this.currentSuggestion = guess;
+    }
+
+    /**
+     * Get the current player guess
+     * @param result
+     * @return
+     */
+    public Solution getCurrrentSolution() {
+        return this.currentSuggestion;
+    }
+
+
+    /**
+     * Set the current player guess result
+     * @param disproveCard
+     */
+    public void setCurrentPlayerGuessResult(Card disproveCard) {
+        this.currentGuessResult = disproveCard.getCardName();
+    }
+
+    /**
+     * Get the current player guess result
+     * @return
+     */
+    public String getCurrentPlayerGuessResult() {
+        return this.currentGuessResult;
+    }
 }

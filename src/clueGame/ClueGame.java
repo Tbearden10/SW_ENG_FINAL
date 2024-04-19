@@ -32,7 +32,7 @@ public class ClueGame extends JFrame {
         board.deal();
 
         // setup panels
-        controlPanel = new GameControlPanel();
+        controlPanel = GameControlPanel.getInstance();
         infoPanel = new GameInformationPanel();
 
         // add panels to frame

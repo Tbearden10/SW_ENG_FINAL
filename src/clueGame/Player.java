@@ -7,10 +7,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.awt.Image;
 import javax.swing.ImageIcon;
-import java.awt.Graphics2D;
-import java.awt.geom.Ellipse2D;
-
-
 
 abstract public class Player {
     private String name;
@@ -24,8 +20,6 @@ abstract public class Player {
     
     private Set<Card> seenCards;
     protected Set<Character> previousRooms;
-
-    private Image playerImage;
 
     boolean accusationFlag;
 
@@ -48,8 +42,6 @@ abstract public class Player {
         this.row = row;
         this.col = col;
         this.offset = 0;
-
-        this.playerImage = new ImageIcon("data/R.jpg").getImage();
     }
 
     /**

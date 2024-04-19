@@ -12,17 +12,13 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
 import javax.swing.JOptionPane;
 import java.awt.event.ActionListener;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+
 
 public class GameControlPanel extends JPanel {
 
@@ -49,10 +45,15 @@ public class GameControlPanel extends JPanel {
     JButton nextPlayer;
     JButton makeAccusation;
   
+    private static GameControlPanel theInstance = new GameControlPanel();
 
-    public GameControlPanel() {
+    private GameControlPanel() {
         super();
         initializePanels();
+    }
+
+    public static GameControlPanel getInstance() {
+        return theInstance;
     }
 
     /**
@@ -128,6 +129,8 @@ public class GameControlPanel extends JPanel {
     protected ActionListener nextPlayerListener = new ActionListener() {
         @Override
         public void actionPerformed(java.awt.event.ActionEvent e) {
+            boolean disproveFlag = false;
+
             Player currentPlayer = board.getCurrentPlayer();
 
             guessResultTextField.setText("");
@@ -164,15 +167,12 @@ public class GameControlPanel extends JPanel {
 
                     // flag unfinished turn
                     board.setTurnOver(false);
-        
+
                 }
                 else {
                     // do accusation (later assignment)
                     // get current player cell
                     BoardCell cell = board.getCell(currentPlayer.getRow(), currentPlayer.getCol());
-                    if (cell.isRoom()) {
-                        currentPlayer.makeAccusation();
-                    }
 
                     // do move (select random target)
                     cell = board.selectTarget();
@@ -213,8 +213,23 @@ public class GameControlPanel extends JPanel {
                                 // update result panel
                                 guessResultTextField.setText(disputingCard.getCardName());
                             }
+                            disproveFlag = true;
                         }
+                        else {
+                            disproveFlag = false;
+                        }
+                        
                         // set flag if no one can disprove
+                        if (disproveFlag == false) {
+                            if (board.checkAccusation(suggestion)) {
+                                JOptionPane.showMessageDialog(null, "Accusation was correct! " + currentPlayer.getName() + " wins!");
+                            }
+                            // close all windows
+                            System.exit(0);
+                        }
+
+                        // make random accusation
+
                     }
                 }
             }
