@@ -97,16 +97,20 @@ public class ClueGame extends JFrame {
     }
 
     public static void main(String[] args) {
+        @SuppressWarnings("unused")
         ClueGame game = new ClueGame();
 
         Player startingPlayer = board.getPlayers().get(0);
         int startingRoll = startingPlayer.rollDie();
         String startingColor = startingPlayer.getColor();
         
+        System.out.println(board.getSolution());
+        
         board.calcTargets(board.getCell(startingPlayer.getRow(), startingPlayer.getCol()), startingRoll);
         board.setTargetsVisible(true);
 
         controlPanel.setTurn(startingPlayer, startingRoll, Color.decode(startingColor));
-        
+
+       
     }
 }

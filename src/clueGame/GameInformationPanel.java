@@ -90,7 +90,7 @@ public class GameInformationPanel extends JPanel {
         ArrayList<Card> seenCardsArrayList = new ArrayList<Card>(seenCards); // put set of seen cards into an array list
         
         // get player color using decode function
-        Color playerColor = Color.decode(player.getColor());
+        //Color playerColor = Color.decode(player.getColor());
 
         // add in hand label to panel and loop through in hand cards
         panel.add(new JLabel("In Hand: "));

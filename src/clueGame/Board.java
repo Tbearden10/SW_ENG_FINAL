@@ -119,7 +119,7 @@ public class Board extends JPanel{
 
                 int moveRow, moveCol;
 
-                System.out.println(row + " " + col);
+                //System.out.println(row + " " + col);
 
                 // Ensure that the click is within the bounds of the grid
                 if (row < 0 || row >= numRows || col < 0 || col >= numColumns) {
@@ -181,9 +181,11 @@ public class Board extends JPanel{
 
                         // create dialog box java
                         JDialog suggestionDialog = new JDialog();
+                        suggestionDialog.setLocationRelativeTo(null);
                         suggestionDialog.setLayout(new GridLayout(1, 2));
                         suggestionDialog.setSize(300, 200);
                         suggestionDialog.setVisible(true);
+                        suggestionDialog.setTitle("Make a suggestion");
 
 
                         // add labels
@@ -659,14 +661,20 @@ public class Board extends JPanel{
      */
     public boolean checkAccusation(Solution accusation) {
 
-        if (solution.getPerson() ==  accusation.getPerson()) {
-            if (solution.getRoom() == accusation.getRoom()) {
-                if (solution.getWeapon() == accusation.getWeapon()) {
+        System.out.println("Checking Accusation");
+        System.out.println(solution);
+        System.out.println(accusation);
+
+        if (solution.getPerson().getCardName() ==  accusation.getPerson().getCardName()) {
+            if (solution.getRoom().getCardName() == accusation.getRoom().getCardName()) {
+                if (solution.getWeapon().getCardName() == accusation.getWeapon().getCardName()) {
+                    System.out.println("Correct Accusation");
                     return true;
                 }
             }
         }
 
+        System.out.println("Incorrect Accusation");
         return false;
     }
 
@@ -928,6 +936,10 @@ public class Board extends JPanel{
     	return dealCards;
     }
 
+    /**
+     * get the weapons
+     * @return
+     */
     public ArrayList<Card> getWeapons() {
         ArrayList<Card> weapons = new ArrayList<Card>();
         for (Card card : suggestionCards) {
@@ -936,6 +948,19 @@ public class Board extends JPanel{
             }
         }
         return weapons;
+    }
+
+    /**
+     * get the rooms
+     * @return
+     */
+    public ArrayList<Card> getRooms() {
+        ArrayList<Card> rooms = new ArrayList<Card>();
+        // use the room map
+        for (Map.Entry<Character, Room> entry : roomMap.entrySet()) {
+            rooms.add(new Card(entry.getValue().getName(), CardType.ROOM));
+        }
+        return rooms;
     }
 
     /**

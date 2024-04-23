@@ -18,6 +18,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JOptionPane;
 import java.awt.event.ActionListener;
+import javax.swing.JDialog;
+import javax.swing.JComboBox;
+import java.util.ArrayList;
+
 
 
 public class GameControlPanel extends JPanel {
@@ -113,7 +117,9 @@ public class GameControlPanel extends JPanel {
         buttonPanel.setLayout(new GridLayout(1, 2));
 
         nextPlayer.addActionListener(nextPlayerListener);
+        makeAccusation.addActionListener(makeAccusationListener);
         buttonPanel.add(nextPlayer);
+        buttonPanel.add(makeAccusation);
 
         buttonPanel.add(makeAccusation);
 
@@ -240,6 +246,126 @@ public class GameControlPanel extends JPanel {
 
     };
 
+    /**
+     * Make accusation listener
+     */
+    protected ActionListener makeAccusationListener = new ActionListener() {
+        @Override
+        public void actionPerformed(java.awt.event.ActionEvent e) {
+            // get current player
+            Player currentPlayer = board.getCurrentPlayer();
+
+            // if player is human
+            if (currentPlayer instanceof HumanPlayer) {
+
+                // get list of room names
+                ArrayList<String> roomNames = new ArrayList<String>();
+                for (Card card : board.getRooms()) {
+                    if (card.getCardName().equals("Walkway") || card.getCardName().equals("Unused")) {
+                        continue;
+                    }
+                    roomNames.add(card.getCardName());
+                }
+                
+                // get list of player names
+                ArrayList<String> playerNames = new ArrayList<String>();
+                for (Player player : board.getPlayers()) {
+                    playerNames.add(player.getName());
+                }
+
+                // get list of weapon names
+                ArrayList<String> weaponNames = new ArrayList<String>();
+                for (Card card : board.getWeapons()) {
+                    weaponNames.add(card.getCardName());
+                }
+                
+
+                // create dialog box java
+                JDialog suggestionDialog = new JDialog();
+                suggestionDialog.setLocationRelativeTo(null);
+                suggestionDialog.setLayout(new GridLayout(1, 2));
+                suggestionDialog.setSize(300, 200);
+                suggestionDialog.setVisible(true);
+                suggestionDialog.setTitle("Make a suggestion");
+
+
+                // add labels
+                JLabel roomLabel = new JLabel("Room");
+                JLabel playerLabel = new JLabel("Person");
+                JLabel weaponLabel = new JLabel("Weapon");
+
+                // add drop down to select room
+                JComboBox<String> roomComboBox = new JComboBox<String>(roomNames.toArray(new String[roomNames.size()]));
+
+                // add drop down to select player
+                JComboBox<String> playerComboBox = new JComboBox<String>(playerNames.toArray(new String[playerNames.size()]));
+
+                // add drop down to select weapon
+                JComboBox<String> weaponComboBox = new JComboBox<String>(weaponNames.toArray(new String[weaponNames.size()]));
+
+                
+
+                // add labels and submit button on left column
+                JPanel leftPanel = new JPanel();
+                leftPanel.setLayout(new GridLayout(4, 1));
+                leftPanel.add(roomLabel);
+                leftPanel.add(playerLabel);
+                leftPanel.add(weaponLabel);
+                // submit button
+                JButton submitButton = new JButton("Submit");
+                leftPanel.add(submitButton);
+
+                // add textfield, dropdowns, and cancel button to right
+                JPanel rightPanel = new JPanel();
+                rightPanel.setLayout(new GridLayout(4, 1));
+                rightPanel.add(roomComboBox);
+                rightPanel.add(playerComboBox);
+                rightPanel.add(weaponComboBox);
+                // cancel button
+                JButton cancelButton = new JButton("Cancel");
+                rightPanel.add(cancelButton);
+
+                // add panels to dialog
+                suggestionDialog.add(leftPanel);
+                suggestionDialog.add(rightPanel);
+
+                // use cancel button to close dialog
+                cancelButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        suggestionDialog.dispose();
+                    }
+                });
+
+                // use submit button to submit suggestion
+                submitButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        
+                        // check if accusation is correct
+                        Card player = new Card((String) playerComboBox.getSelectedItem(), CardType.PERSON);
+                        Card weapon = new Card((String) weaponComboBox.getSelectedItem(), CardType.WEAPON);
+                        Card room = new Card((String) roomComboBox.getSelectedItem(), CardType.ROOM);
+                        Solution accusation = new Solution(room, player, weapon);
+
+
+                        if (board.checkAccusation(accusation)) {
+                            JOptionPane.showMessageDialog(null, "Accusation was correct! " + currentPlayer.getName() + " wins!");
+                            System.exit(0);
+                        }
+                        else {
+                            JOptionPane.showMessageDialog(null, "Accusation was incorrect! " + currentPlayer.getName() + " loses!");
+                            System.exit(0);
+                        }
+                    }
+                });
+            }
+            else {
+                // show it is not our turn
+                JOptionPane.showMessageDialog(null, "It is not your turn.");
+            }
+        }
+    };
 
     /**
      * Sets the guess to the given string
