@@ -29,8 +29,15 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import javax.sound.sampled.AudioInputStream;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.Point;
+import java.util.List;
+import javax.sound.sampled.*;
+import java.io.IOException;
+
+
 
 
 public class Board extends JPanel{
@@ -119,7 +126,6 @@ public class Board extends JPanel{
 
                 int moveRow, moveCol;
 
-                //System.out.println(row + " " + col);
 
                 // Ensure that the click is within the bounds of the grid
                 if (row < 0 || row >= numRows || col < 0 || col >= numColumns) {
@@ -251,7 +257,6 @@ public class Board extends JPanel{
                                 Card playerCard = new Card(playerName, CardType.PERSON);
                                 Card weaponCard = new Card(weaponName, CardType.WEAPON);
 
-                                System.out.println(playerName);
 
                                 Solution suggSolution = new Solution(roomCard, playerCard, weaponCard);
                                 
@@ -289,8 +294,19 @@ public class Board extends JPanel{
                 }
                 else {
                     // clicked on non-target
+                    try {
+                        File audioFile = new File("data/buzzer-or-wrong-answer-20582.wav");
+                        AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
+                        Clip clip = AudioSystem.getClip();
+                        clip.open(audioStream);
+                        clip.start();
+                    } catch (UnsupportedAudioFileException | LineUnavailableException | IOException ex) {
+                        ex.printStackTrace();
+                    }
+
                     JOptionPane message = new JOptionPane();
                     JOptionPane.showMessageDialog(message, "You must select a correct location.", "Invalid Move", JOptionPane.INFORMATION_MESSAGE);
+
                     return;
                 }
             }
@@ -661,20 +677,15 @@ public class Board extends JPanel{
      */
     public boolean checkAccusation(Solution accusation) {
 
-        System.out.println("Checking Accusation");
-        System.out.println(solution);
-        System.out.println(accusation);
 
         if (solution.getPerson().getCardName() ==  accusation.getPerson().getCardName()) {
             if (solution.getRoom().getCardName() == accusation.getRoom().getCardName()) {
                 if (solution.getWeapon().getCardName() == accusation.getWeapon().getCardName()) {
-                    System.out.println("Correct Accusation");
                     return true;
                 }
             }
         }
 
-        System.out.println("Incorrect Accusation");
         return false;
     }
 
@@ -692,9 +703,6 @@ public class Board extends JPanel{
         for (Player player : players) {
             if (player.getName().equals(suggestion.getPerson().getCardName())) {
 
-                System.out.println("Player: " + player.getName() + " is being moved to the accuser room");
-                // print accuser
-                System.out.println("Accuser: " + accuser.getName());
 
                 getCell(player.getRow(), player.getCol()).setOccupied(false);
 
@@ -823,16 +831,41 @@ public class Board extends JPanel{
 
             Image background = Toolkit.getDefaultToolkit().createImage("data/R.jpg");
             g.drawImage(background, cellXPos, cellYPos, theInstance);
+            
         }
         
+        HashMap<Point, ArrayList<Player>> cellMap = new HashMap<>();
+
+        int offsetSize = cellSize / 4;
+
         for (Player player : players) {
-        	int playerRow = player.getRow();
-        	int playerCol = player.getCol();
-        	
-        	int playerXPos = startX + playerCol * cellSize;
-        	int playerYPos = startY + playerRow * cellSize;     
+            Point location = new Point(player.getRow(), player.getCol());
+            List<Player> playersAtLocation = cellMap.computeIfAbsent(location, k -> new ArrayList<Player>());
+            playersAtLocation.add(player);
+        }
+
+        for (Map.Entry<Point, ArrayList<Player>> entry : cellMap.entrySet()) {
+            Point cell = entry.getKey();
+            List<Player> playersAtLocation = entry.getValue();
+
+            int baseX = startX + cell.y * cellSize;
+            int baseY = startY + cell.x * cellSize;
+
+            if (playersAtLocation.size() == 1) {
+                Player player = playersAtLocation.get(0);
+                player.draw(g, baseX, baseY, cellSize);
+            }
+            else {
+                for (int i = 0; i < playersAtLocation.size(); i++) {
+                    Player player = playersAtLocation.get(i);
+                    
+                    int offsetX = (i % 2) * offsetSize - offsetSize / 2;
+                    int offsetY = (i / 2) * offsetSize - offsetSize / 2;
+
+                    player.draw(g, baseX + offsetX, baseY + offsetY, cellSize);
+                }
+            }
             
-            player.draw(g, playerXPos, playerYPos, cellSize);
         }
         
         repaint();
@@ -865,13 +898,20 @@ public class Board extends JPanel{
      */
     public BoardCell selectTarget() {
         Random rand = new Random();
-        int randIndex = rand.nextInt(targets.size());
+        
+        // get random cell from targetlist
+
+        int randIndex;
+
         int i = 0;
-        for (BoardCell cell : targets) {
-            if (i == randIndex) {
-                return cell;
+        if (targets.size() > 0) {
+            randIndex = rand.nextInt(targets.size());
+            for (BoardCell cell : targets) {
+                if (i == randIndex) {
+                    return cell;
+                }
+                i++;
             }
-            i++;
         }
         return null;
     }

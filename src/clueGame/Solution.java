@@ -23,6 +23,6 @@ public class Solution {
     
 	@Override
 	public String toString() {
-		return "Solution [room=" + room.getCardName() + ", person=" + person.getCardName() + ", weapon=" + weapon.getCardName() + "]";
+		return room.getCardName() + ", " + person.getCardName() + ", " + weapon.getCardName();
 	}
 }

@@ -28,6 +28,7 @@ public class GameControlPanel extends JPanel {
 
     Board board = Board.getInstance();
 
+    private boolean noMatchingCards;
     private int dieRoll;
     private String guess;
     private String result;
@@ -176,12 +177,13 @@ public class GameControlPanel extends JPanel {
 
                 }
                 else {
-                    // do accusation (later assignment)
-                    // get current player cell
-                    BoardCell cell = board.getCell(currentPlayer.getRow(), currentPlayer.getCol());
-
+                    
                     // do move (select random target)
-                    cell = board.selectTarget();
+                    BoardCell cell = board.selectTarget();
+
+                    if (cell == null) {
+                        cell = board.getCell(currentPlayer.getRow(), currentPlayer.getCol());
+                    }
 
                     // moving logic
                     BoardCell temp = board.getCell(currentPlayer.getRow(), currentPlayer.getCol());
@@ -226,15 +228,25 @@ public class GameControlPanel extends JPanel {
                         }
                         
                         // set flag if no one can disprove
-                        if (disproveFlag == false) {
+                        for (Card card : currentPlayer.getCards()) {
+                            if (suggestion.getPerson().equals(card) || suggestion.getRoom().equals(card) || suggestion.getWeapon().equals(card)) {
+                                noMatchingCards = false;
+                                break;
+                            }
+                            else {
+                                noMatchingCards = true;
+                            }
+                        }
+
+                        if (disproveFlag == false && noMatchingCards == true) {
                             if (board.checkAccusation(suggestion)) {
-                                JOptionPane.showMessageDialog(null, "Accusation was correct! " + currentPlayer.getName() + " wins!");
+                                JOptionPane.showMessageDialog(null, "<html><div style='text-align: center;'>Accusation was correct! " + currentPlayer.getName() + " loses!" + "\nThe solution was: " + suggestion.toString());
                             }
                             // close all windows
                             System.exit(0);
                         }
 
-                        // make random accusation
+                        
 
                     }
                 }
@@ -350,11 +362,13 @@ public class GameControlPanel extends JPanel {
 
 
                         if (board.checkAccusation(accusation)) {
-                            JOptionPane.showMessageDialog(null, "Accusation was correct! " + currentPlayer.getName() + " wins!");
+                            JOptionPane.showMessageDialog(null, "<html><div style='text-align: center;'>Accusation was correct! " + currentPlayer.getName() + " wins!" + "\nThe solution was: " + accusation.toString());
+                            // add a another message below showing the accuasion
+
                             System.exit(0);
                         }
                         else {
-                            JOptionPane.showMessageDialog(null, "Accusation was incorrect! " + currentPlayer.getName() + " loses!");
+                            JOptionPane.showMessageDialog(null, "<html><div style='text-align: center;'>Accusation was incorrect! " + currentPlayer.getName() + " loses!" + "\nThe solution was: " + accusation.toString());
                             System.exit(0);
                         }
                     }

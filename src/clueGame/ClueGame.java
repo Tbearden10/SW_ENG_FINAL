@@ -3,6 +3,9 @@ package clueGame;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.io.File;
+import java.io.IOException;
+import javax.sound.sampled.*;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -16,6 +19,8 @@ public class ClueGame extends JFrame {
     private static int HEIGHT = 1150;
     
     public ClueGame() {
+        // Load background music
+        playBackgroundMusic("data/bossa-dreamin-201748.wav");
 
         ImagePanel imagePanel = new ImagePanel(); 
 
@@ -103,14 +108,29 @@ public class ClueGame extends JFrame {
         Player startingPlayer = board.getPlayers().get(0);
         int startingRoll = startingPlayer.rollDie();
         String startingColor = startingPlayer.getColor();
-        
+            
         System.out.println(board.getSolution());
-        
+            
         board.calcTargets(board.getCell(startingPlayer.getRow(), startingPlayer.getCol()), startingRoll);
         board.setTargetsVisible(true);
 
         controlPanel.setTurn(startingPlayer, startingRoll, Color.decode(startingColor));
-
-       
+        controlPanel.repaint();
     }
+
+    // Method to play background music
+    private static void playBackgroundMusic(String filePath) {
+        try {
+            File audioFile = new File(filePath);
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioStream);
+            clip.loop(Clip.LOOP_CONTINUOUSLY); // Loop the music continuously
+            clip.start();
+        } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    
 }
