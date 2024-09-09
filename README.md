@@ -1,4 +1,1 @@
-# ClueGameSW
-
-- Tanner Bearden
-- Brayden Clark
+# Semester long project
